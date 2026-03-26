@@ -28,7 +28,7 @@
 
 	<ItemGroup>
 		<Content Include="app.db">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 	</ItemGroup>
 
