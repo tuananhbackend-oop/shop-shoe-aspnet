@@ -1,0 +1,344 @@
+﻿@model LVTNWEBGIAYDEP.Models.TaiKhoan
+@{
+    ViewData["Title"] = "DangKi";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+	<title></title>
+	<style>
+		.custom-btn {
+			background-color: white; /* Màu nền ban đầu là trắng */
+			color: black; /* Màu chữ đen */
+			padding: 10px 20px; /* Đệm xung quanh chữ */
+			border-radius: 0; /* Góc vuông */
+			font-size: 16px; /* Cỡ chữ */
+			font-weight: bold; /* Chữ đậm */
+			cursor: pointer; /* Con trỏ khi di chuột lên nút */
+			border: 2px solid black; /* Viền đen */
+			transition: all 0.3s ease; /* Hiệu ứng chuyển đổi */
+		}
+
+			.custom-btn:hover {
+				background-color: white; /* Nền vẫn trắng khi hover */
+				color: black; /* Chữ đen khi hover */
+				border: 2px solid #007bff; /* Viền chuyển sang màu xanh khi hover */
+			}
+
+			.custom-btn:active {
+				background-color: #f8f9fa; /* Nền sáng hơn khi nhấn */
+				color: black; /* Chữ đen khi nhấn */
+			}
+
+
+
+		* {
+			font-family: Roboto Condensed;
+		}
+		*, ::after, ::before {
+			box-sizing: border-box;
+		}
+		#ega-register-page {
+			padding-top: 48px;
+			padding-bottom: 48px;
+		}
+		body {
+			line-height: 1.5;
+			font-size: 1rem;
+			color: #333;
+			width: 100%;
+			min-height: 100%;
+			margin: 0;
+			scroll-behavior: smooth;
+		}
+		html, body {
+			font-size: 14px;
+		}
+		body {
+			background: #ffffff;
+			color: #000000;
+			overflow-x: hidden;
+		}
+		body.template_blog, body.template_article, body.template_cart, body.template_customers, body.template_page {
+			background: #f3f3f3;
+		}
+		.ega-container {
+			margin: 0 auto;
+		}
+		.ega-container, .ega-container--fluid {
+			padding-left: 15px;
+			padding-right: 15px;
+			width: 100%;
+		}
+
+		.ega-container {
+			max-width: 540px;
+		}
+	
+		.ega-container {
+			max-width: 720px;
+		}
+
+		.ega-container {
+			max-width: 960px;
+		}
+	
+		.ega-container {
+			max-width: 1140px;
+		}
+
+		.ega-container {
+			max-width: 1140px;
+		}
+		.ega-text--center {
+			text-align: center !important;
+		}
+		#ega-register-page #ega-register {
+			display: inline-block;
+			width: 100%;
+			text-align: left;
+			background: #fff;
+			padding: 24px 16px;
+		}
+	
+		#ega-register-page #ega-register {
+			width: 792px;
+			padding: 40px 48px 48px 48px;
+		}
+		.ega-h1, .ega-h2, .ega-h3, .ega-h4, .ega-h5, .ega-h6, h1, h2, h3, h4, h5, h6 {
+			font-family: inherit;
+			font-weight: 600;
+			line-height: 1.2;
+			color: inherit;
+			margin: 1rem 0;
+		}
+		.ega-h1, h1 {
+			font-size: 2.5rem;
+		}
+		#ega-register-page #ega-register .register-title {
+			font-size: 28px;
+			font-weight: bold;
+			margin: 0;
+			padding-bottom: 16px;
+			border-bottom: 2px solid rgba(238, 238, 238, 0.5);
+			margin-bottom: 50px;
+		}
+		.ega-card {
+			position: relative;
+			display: flex;
+			flex-direction: column;
+			min-width: 0px;
+			word-wrap: break-word;
+			background-clip: border-box;
+			border: 1px solid rgba(0, 0, 0, .125);
+		}
+		.ega-border--0 {
+			border: 0 !important;
+		}
+		input, select, textarea {
+			margin: 0;
+			font-family: inherit;
+			font-size: inherit;
+			line-height: inherit;
+		}
+		#ega-register-page #ega-register .ega-form__wrap {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: space-between;
+		}
+		.ega-btn, .ega-item-ic {
+			display: inline-block;
+		}
+		.ega-btn {
+			-webkit-appearance: none;
+			border: 1px solid transparent;
+			position: relative;
+			line-height: 1.25;
+			padding: .62rem 1.5rem;
+			font-size: 0.9rem;
+			overflow: hidden;
+			will-change: box-shadow;
+			outline: 0;
+			text-decoration: none;
+			text-align: center;
+			white-space: nowrap;
+			vertical-align: middle;
+			margin: .5rem;
+			background: #aab541;
+			color: #fff;
+			border-radius: .25rem;
+			transition: all .2s ease-in-out;
+		}
+		.ega-btn.ega-btn--outline {
+			background-color: transparent;
+			color: #aab541;
+			border-color: #aab541;
+		}
+		#ega-register-page #ega-register .register-action .ega-btn {
+			display: inline-block;
+			border: 1px solid #0E1C22;
+			color: #0e1c22;
+			padding: 8px 44px;
+			border-radius: 0;
+			font-size: 16px;
+			font-weight: bold;
+			margin: 0;
+			margin-bottom: 24px;
+			-webkit-transition: all 0.5s ease;
+			-o-transition: all 0.5s ease;
+			transition: all 0.5s ease;
+		}
+	
+		#ega-register-page #ega-register .register-action .ega-btn {
+			padding: 12px 46px;
+		}
+		a {
+			color: #288ad6;
+		}
+		a {
+			text-decoration: none;
+		}
+		.ega-text--no-underline {
+			text-decoration: none !important;
+		}
+		.ega-color--info {
+			color: #36a3f7;
+		}
+		#ega-register-page #ega-register .register-action a {
+			display: block;
+			font-size: 16px;
+			color: initial;
+		}
+		.ega-form__group {
+			margin-bottom: 0.75rem;
+			position: relative;
+		}
+		#ega-register-page #ega-register .ega-form__group {
+			margin-bottom: 48px;
+		}
+		#ega-register-page #ega-register .ega-form__wrap .ega-form__group {
+			width: 100%;
+		}
+		#ega-register-page #ega-register .ega-form__wrap .ega-form__group.col--half {
+			width: calc(50% - 12px);
+		}
+		.ega-form__group label {
+			display: block;
+			font-size: 1rem;
+			font-weight: 700;
+			margin-bottom: 0.25rem;
+		}
+		#ega-register-page #ega-register .ega-form__group label {
+			font-size: 14px;
+			letter-spacing: 0.1em;
+			color: #0e1c22;
+			opacity: 0.6;
+			margin-bottom: 14px;
+			text-transform: uppercase;
+		}
+		.ega-form__control {
+			width: 100%;
+			border: 1px solid #eee;
+			vertical-align: top;
+			font-size: 1rem;
+			padding: .375rem .75rem;
+			border-radius: .25rem;
+			height: calc(1.5em + .75rem + 2px);
+		}
+		#ega-register-page #ega-register .ega-form__group input {
+			font-size: 20px;
+			border: none;
+			border-bottom: 1px solid rgba(14, 28, 34, 0.4);
+			padding: 0 0 8px 0;
+			border-radius: 0;
+		}
+		.ega-form__mess {
+			display: none;
+		}
+	</style>
+</head>
+<body class="template_customers" id="ega-fashion">
+	<div id="ega-register-page">
+		<div class="ega-container">
+			<div class="ega-text--center">
+				<div id="ega-register">
+					<h1 class="register-title">Đăng ký</h1>
+					<div class="userbox ega-card ega-border--0">
+						<form asp-action="themTaiKhoan" method="post">
+							<input name="form_type" type="hidden" value="create_customer">
+							<input name="utf8" type="hidden" value="✓">
+							<div class="ega-form__wrap">
+								<div class="ega-form__group">
+									<label for="first_name">Họ tên: </label>
+									<input asp-for="HoTen" class="ega-form__control ega-required" type="text" value="">
+									<span asp-validation-for="HoTen" class="text-danger"></span>								
+								</div>
+								<div class="ega-form__group">
+									<label for="email">Tài khoản: </label>
+									<input asp-for="TaiKhoan1" class="ega-form__control ega-required" type="email" value="">
+									<span asp-validation-for="TaiKhoan1" class="text-danger"></span>
+								
+								</div>
+								<div class="ega-form__group">
+									<label for="MatKhau">Mật khẩu:</label>
+									<input asp-for="MatKhau"
+										   id="MatKhau"
+										   class="ega-form__control ega-required"
+										   type="password"
+										   placeholder="Nhập mật khẩu">
+									<span asp-validation-for="MatKhau" class="text-danger"></span>
+								</div>
+
+								<div class="ega-form__group">
+									<label for="NhapLaiMatKhau">Nhập lại mật khẩu:</label>
+									<input id="NhapLaiMatKhau"
+										   class="ega-form__control ega-required"
+										   type="password"
+										   placeholder="Nhập lại mật khẩu"
+										   onblur="validatePasswordMatch()">
+									<span id="error-message" class="text-danger" style="display: none;">Mật khẩu không khớp.</span>
+								</div>
+							</div>
+							<div class="register-action">
+								<input type="submit" value="Đăng kí" class="btn btn-primary custom-btn" />
+								<a asp-controller="DangNhap" asp-action="DangNhap" class="ega-text--no-underline ega-color--info ega-link">Bạn đã có tài khoản? <b>Đăng nhập</b></a>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Thêm script ở cuối body để hiển thị thông báo thành công -->
+		
+	</div>
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+			const successMessageThieu = '@Html.Raw(ViewData["SuccessMessageThieu"])';
+			if (successMessageThieu) {
+				alert(successMessageThieu);
+			}
+		});
+	</script>
+	<script>
+	
+			function validatePasswordMatch() {
+				const password = document.getElementById("MatKhau").value;
+			const confirmPassword = document.getElementById("NhapLaiMatKhau").value;
+			const errorMessage = document.getElementById("error-message");
+
+			if (password !== confirmPassword) {
+				errorMessage.style.display = "block"; // Hiển thị thông báo lỗi
+				} else {
+				errorMessage.style.display = "none"; // Ẩn thông báo lỗi
+				}
+			}
+	
+	</script>
+</body>
+
+</html>
+
+

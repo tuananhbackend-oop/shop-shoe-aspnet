@@ -1,0 +1,100 @@
+﻿
+@{
+    ViewData["Title"] = "bieuDoThang1";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+@{
+    var db = new DBGiayDepContext();
+    var ngayHienTai = DateTime.Now;
+
+    // Lấy ngày đầu tiên của tháng hiện tại
+    var ngayDauThang = new DateTime(ngayHienTai.Year, ngayHienTai.Month, 1);
+
+    // Lấy dữ liệu từ đầu tháng đến ngày hiện tại, chỉ chọn đơn hàng "Hoàn Tất"
+    var donHangTrongThang = db.DonHangs
+        .Where(dh => dh.ngayLapDon.HasValue && dh.ngayLapDon.Value >= ngayDauThang && dh.ngayLapDon.Value <= ngayHienTai)
+        .Where(dh => dh.trangThai == "Hoàn Tất")
+        .GroupBy(dh => dh.ngayLapDon.Value.Date)
+        .Select(g => new
+        {
+            Ngay = g.Key,
+            TongTien = g.SelectMany(dh => dh.ChiTietDonHangs)
+                        .Where(ctdh => ctdh.MaSpNavigation.GiaBan.HasValue)
+                        .Sum(ctdh => ctdh.MaSpNavigation.GiaBan.Value * ctdh.SoLuong),
+            SoLuongDonHang = g.SelectMany(dh => dh.ChiTietDonHangs)
+                              .Sum(ctdh => ctdh.SoLuong) // Tổng số lượng đơn hàng trong ngày
+        })
+        .OrderBy(g => g.Ngay)
+        .ToList();
+
+    // Tạo danh sách các ngày từ đầu tháng đến hiện tại
+    var danhSachNgay = Enumerable.Range(0, (ngayHienTai - ngayDauThang).Days + 1)
+        .Select(offset => ngayDauThang.AddDays(offset))
+        .ToList();
+
+    // Tính tổng tiền và số lượng đơn hàng cho từng ngày
+    var soTienDonHangTheoNgay = danhSachNgay.Select(ngay =>
+    {
+        var donHangTrongNgay = donHangTrongThang.FirstOrDefault(dh => dh.Ngay == ngay);
+        return donHangTrongNgay?.TongTien ?? 0;
+    }).ToList();
+
+    var soLuongDonHangTheoNgay = danhSachNgay.Select(ngay =>
+    {
+        var donHangTrongNgay = donHangTrongThang.FirstOrDefault(dh => dh.Ngay == ngay);
+        return donHangTrongNgay?.SoLuongDonHang ?? 0;
+    }).ToList();
+}
+<canvas id="chartCurrentMonth"></canvas>
+
+<script>
+    // Chuẩn bị dữ liệu cho tháng hiện tại
+    var labelsCurrentMonth = @Html.Raw(Json.Serialize(danhSachNgay.Select(x => x.ToString("dd/MM"))));
+    var dataCurrentMonth = @Html.Raw(Json.Serialize(soTienDonHangTheoNgay)); // Tổng tiền theo ngày
+    var soLuongDonHangTheoNgay = @Html.Raw(Json.Serialize(soLuongDonHangTheoNgay)); // Số lượng đơn hàng theo ngày
+
+    new Chart(document.getElementById('chartCurrentMonth'), {
+        type: 'bar', // Dùng bar chart cho dữ liệu trong tháng
+        data: {
+            labels: labelsCurrentMonth,
+            datasets: [{
+                label: 'Tổng tiền đơn hàng',
+                data: dataCurrentMonth,
+                backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                borderColor: 'rgba(153, 102, 255, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Tổng tiền (VND)'
+                    }
+                },
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Ngày'
+                    }
+                }
+            },
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        afterLabel: function (tooltipItem) {
+                            var index = tooltipItem.dataIndex;
+                            var soLuong = soLuongDonHangTheoNgay[index];
+                            return 'Số lượng đơn hàng: ' + soLuong;
+                        }
+                    }
+                }
+            }
+        }
+    });
+</script>
+
+

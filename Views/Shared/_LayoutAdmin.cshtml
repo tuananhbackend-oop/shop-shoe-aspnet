@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Admin Dashboard</title>
+    @RenderSection("Scripts", required: false)
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" integrity="sha384-aVG6e4y5RlwRlQFdSxRzhsHyQz1yQ2J9I4lUhCvSJ9hA9Vh6LjQD+Lj6LEZCFLJl" crossorigin="anonymous">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/GiaoDien/admin.css">
+    <script src="/js/javaAdmin.js"></script>
+</head>
+<body>
+    <div class="admin-dashboard">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2><i class="fas fa-user-shield"></i> Admin</h2>
+            </div>
+            <nav class="sidebar-menu">
+                <ul>
+                    <li><a asp-action="SanPham" asp-controller="Admin"><i class="fas fa-home"></i> Sản phẩm</a></li>
+                    <li><a asp-action="loaiSanPham" asp-controller="ThuongHieu"><i class="fas fa-cogs"></i> Loại sản phẩm</a></li>
+                    <li><a asp-action="Index" asp-controller="ThuongHieu"><i class="fas fa-users"></i> Thương hiệu</a></li>
+
+                    <li><a asp-action="Index" asp-controller="TaiKhoan"><i class="fas fa-chart-line"></i> Tài khoản hoạt động</a></li>
+                    <li><a asp-action="DanhSachTaiKhoanDongBang" asp-controller="TaiKhoan"><i class="fas fa-chart-line"></i> Tài khoản đóng băng</a></li>
+                    <li><a asp-action="xemDanhSachHoaDon" asp-controller="QLDonHang"><i class="fas fa-chart-line"></i> Đơn hàng</a></li>
+                   
+                  <li><a asp-action="xemDanhSachHoaDonHuy" asp-controller="QLDonHang"><i class="fas fa-chart-line"></i> Đơn hàng đã huỷ</a></li>
+                    <li><a asp-action="xemDanhSachHoaDonKhongNhan" asp-controller="QLDonHang"><i class="fas fa-chart-line"></i> Đơn hàng không nhận</a></li>
+                    <li><a asp-action="xemDanhSachHoaDonHoanTat" asp-controller="QLDonHang"><i class="fas fa-chart-line"></i> Đơn hàng hoàn tất</a></li>
+                
+                    <li><a asp-action="LienHe" asp-controller="LienHe"><i class="fas fa-chart-line"></i>  Liên hệ </a></li>
+                    <li><a asp-action="baoCao" asp-controller="BaoCao"><i class="fas fa-chart-line"></i>  Báo cáo</a></li>
+
+
+                    <li><a asp-controller="DangNhap" asp-action="Logout"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a></li>
+
+                </ul>
+            </nav>
+        </aside>
+        <!-- Main Content -->
+        <div class="main-content">
+           
+            <div>
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Custom JavaScript -->
+
+</body>
+</html>

@@ -1,0 +1,193 @@
+﻿@model LVTNWEBGIAYDEP.Models.SanPham
+
+@{
+    ViewData["Title"] = "Chi Tiết Sản Phẩm";
+    Layout = "~/Views/Shared/_LayoutNVBH.cshtml";
+}
+<style>
+    /* Đặt các kiểu cơ bản cho card */
+    .card {
+        border-radius: 15px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease-in-out;
+    }
+
+        /* Hiệu ứng khi hover vào card */
+        .card:hover {
+            transform: translateY(-10px);
+        }
+
+    /* Tạo hiệu ứng border-radius cho hình ảnh */
+    .card-body img {
+        border-radius: 10px;
+    }
+
+    /* Cải thiện màu sắc của các badge trạng thái */
+    .badge {
+        font-size: 1rem;
+        font-weight: 600;
+        padding: 8px 15px;
+        border-radius: 20px;
+    }
+
+    /* Đặt kiểu cho tiêu đề (Tên Sản Phẩm, Mã Sản Phẩm,...) */
+    dt {
+        font-weight: bold;
+        font-size: 1rem;
+        color: #333;
+    }
+
+    /* Đặt kiểu cho các thông tin sản phẩm */
+    dd {
+        font-size: 1rem;
+        color: #555;
+        line-height: 1.5;
+    }
+
+    /* Cải tiến giao diện của nút Trở Về */
+    .btn-outline-primary {
+        font-size: 1.1rem;
+        padding: 10px 20px;
+        border-radius: 30px;
+        font-weight: 500;
+        transition: background-color 0.3s, color 0.3s;
+    }
+
+        /* Hiệu ứng khi hover vào nút Trở Về */
+        .btn-outline-primary:hover {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+    /* Cải thiện giao diện của section thông tin sản phẩm */
+    .card-body {
+        padding: 2rem;
+        background-color: #f9f9f9;
+        border-radius: 10px;
+    }
+
+        /* Đặt kiểu cho hình ảnh nếu không có hình */
+        .card-body .text-muted {
+            font-size: 1.1rem;
+            font-style: italic;
+        }
+
+    /* Mặc định của alert warning */
+    .alert-warning {
+        font-size: 1.2rem;
+        font-weight: bold;
+    }
+</style>
+
+@if (Model != null)
+{
+    <div class="container mt-4">
+        <div class="card shadow-lg border-0 rounded-lg">
+            <!-- Header -->
+            <div class="card-header bg-primary text-white text-center">
+                <h4 class="mb-0" style="font-size: 1.5rem;">Chi Tiết Sản Phẩm</h4>
+            </div>
+
+            <!-- Body -->
+            <div class="card-body">
+                <div class="row justify-content-center">
+                    <!-- Hình ảnh sản phẩm -->
+                    <div class="col-md-4 text-center mb-4">
+                        @if (!string.IsNullOrEmpty(Model.HinhAnh))
+                        {
+                            <img class="img-fluid rounded shadow-sm" style="max-width: 300px;" src="@Url.Content("~/HinhAnh/" + Model.HinhAnh)" alt="Hình ảnh sản phẩm" />
+                        }
+                        else
+                        {
+                            <span class="text-muted">Không có hình ảnh</span>
+                        }
+                    </div>
+
+                    <!-- Thông tin sản phẩm -->
+                    <div class="col-md-8">
+                        <dl class="row">
+                            <!-- Mã Sản Phẩm -->
+                            <dt class="col-sm-4">Mã Sản Phẩm:</dt>
+                            <dd class="col-sm-8">@Model.MaSp</dd>
+
+                            <!-- Tên Sản Phẩm -->
+                            <dt class="col-sm-4">Tên Sản Phẩm:</dt>
+                            <dd class="col-sm-8">@Model.TenSp</dd>
+
+                            <!-- Giá Bán -->
+                            <dt class="col-sm-4">Giá Bán:</dt>
+                            <dd class="col-sm-8">@string.Format("{0:C}", Model.GiaBan)</dd>
+
+                            <!-- Trạng Thái -->
+                            <dt class="col-sm-4">Trạng Thái:</dt>
+                            <dd class="col-sm-8">
+                                @if (Model.TrangThai == "Còn")
+                                {
+                                    <span class="badge badge-success">Đang Kinh Doanh</span>
+                                }
+                                else
+                                {
+                                    <span class="badge badge-danger">Ngừng Kinh Doanh</span>
+                                }
+                            </dd>
+
+                            <!-- Mô Tả -->
+                            <dt class="col-sm-4">Mô Tả:</dt>
+                            <dd class="col-sm-8 text-justify">@Model.MoTa</dd>
+
+                            <!-- Hàng Tồn Kho -->
+                            <dt class="col-sm-4">Hàng Tồn Kho:</dt>
+                            <dd class="col-sm-8">@Model.HangTonKho</dd>
+
+                            <!-- Kích Cỡ -->
+                            <dt class="col-sm-4">Kích Cỡ:</dt>
+                            <dd class="col-sm-8">@Model.KichCo</dd>
+
+                            <!-- Tên Loại -->
+                            <dt class="col-sm-4">Tên Loại:</dt>
+                            <dd class="col-sm-8">
+                                @Model.MaLoaiNavigation.TenLoai - @Model.MaLoaiNavigation.MaThNavigation.TenTh
+                            </dd>
+
+                            <!-- Quản Trị Viên -->
+                            <dt class="col-sm-4">Quản Trị Viên:</dt>
+                          
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Nút Trở Về -->
+        <div class="text-center mt-4">
+            <a asp-action="SanPham" class="btn btn-outline-primary btn-lg">
+                <i class="fas fa-arrow-left"></i> Trở Về
+            </a>
+        </div>
+        <script>
+            // Chức năng zoom ảnh khi hover vào hình sản phẩm
+            document.addEventListener('DOMContentLoaded', function () {
+                const img = document.querySelector('.card-body img');
+                if (img) {
+                    img.addEventListener('mouseenter', function () {
+                        img.style.transform = 'scale(1.1)';
+                        img.style.transition = 'transform 0.5s ease';
+                    });
+                    img.addEventListener('mouseleave', function () {
+                        img.style.transform = 'scale(1)';
+                    });
+                }
+            });
+        </script>
+    </div>
+}
+else
+{
+    <div class="alert alert-warning text-center">
+        <strong>Không có dữ liệu sản phẩm để hiển thị.</strong>
+    </div>
+}
+
+<!-- Include Font Awesome for Icons -->
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+

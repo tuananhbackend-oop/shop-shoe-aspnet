@@ -1,0 +1,63 @@
+﻿@model IEnumerable<LVTNWEBGIAYDEP.Models.LienHe>
+
+@{
+    ViewData["Title"] = "LienHe";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<link href="~/LienHe/lienHe.css" rel="stylesheet">
+
+<div class="container-custom">
+    @if (ViewBag.SuccessMessage != null)
+    {
+        <div class="message-box success">
+            @ViewBag.SuccessMessage
+        </div>
+    }
+
+    @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+    {
+        <div class="message-box error">
+            @ViewBag.ErrorMessage
+        </div>
+    }
+
+    <h1>Danh sách liên hệ</h1>
+
+    <table class="custom-table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Họ tên</th>
+                <th>Tài khoản</th>
+                <th>Trạng thái</th>
+                <th class="action-column">Hành động</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.GroupBy(m => m.TaiKhoan).Select(g => g.First()))
+            {
+                <tr>
+                    <td>@item.TaiKhoanNavigation.HoTen</td>
+                    <td>@item.TaiKhoan</td>
+                    <td>@item.trangThai</td>
+                    <td class="action-column">
+                        <form asp-action="xoaLienHe" method="post" class="form-action">
+                            <input type="hidden" value="@item.TaiKhoan" name="taiKhoan" />
+                            <button type="submit" class="btn btn-delete">
+                                <i class="fas fa-trash"></i> <!-- Biểu tượng thùng rác -->
+                            </button>
+                        </form>
+
+                        <form asp-action="formPhanhoi" method="post" class="form-action">
+                            <input type="hidden" value="@item.NoiDung" name="noiDung" />
+                            <input type="hidden" value="@item.TaiKhoan" name="taiKhoan" />
+                            <button type="submit" class="btn btn-reply">
+                                <i class="fas fa-reply"></i> <!-- Biểu tượng phản hồi -->
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,589 @@
+﻿@model LVTNWEBGIAYDEP.Models.LienHe
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+	<title></title>
+	<style>
+		* {
+			font-family: Roboto Condensed;
+		}
+		*, ::after, ::before {
+			box-sizing: border-box;
+		}
+		#ega-contact {
+			padding-top: 48px;
+			padding-bottom: 80px;
+		}
+		body {
+			line-height: 1.5;
+			font-size: 1rem;
+			color: #333;
+			width: 100%;
+			min-height: 100%;
+			margin: 0;
+			scroll-behavior: smooth;
+		}
+		html, body {
+			font-size: 14px;
+		}
+		body {
+			background: #ffffff;
+			color: #000000;
+			overflow-x: hidden;
+		}
+		.ega-container {
+			margin: 0 auto;
+		}
+		.ega-container, .ega-container--fluid {
+			padding-left: 15px;
+			padding-right: 15px;
+			width: 100%;
+		}
+	
+		.ega-container {
+			max-width: 540px;
+		}
+	
+		.ega-container {
+			max-width: 720px;
+		}
+	
+		.ega-container {
+			max-width: 960px;
+		}
+		
+		.ega-container {
+			max-width: 1140px;
+		}
+		.ega-container {
+			max-width: 1140px;
+		}
+		#ega-contact .contact__title {
+			font-weight: bold;
+			font-size: 28px;
+			color: #000;
+			padding-bottom: 8px;
+			border-bottom: 2px solid rgba(238, 238, 238, 0.5);
+			margin-bottom: 54px;
+		}
+		.ega-row {
+			display: flex;
+			flex-wrap: wrap;
+			margin-left: -15px;
+			margin-right: -15px;
+		}
+		#ega-contact .ega-row {
+			margin-left: -12px;
+			margin-right: -12px;
+		}
+		.ega-col, [class*=ega-col-] {
+			padding-left: 15px;
+			padding-right: 15px;
+		}
+		.ega-col-12 {
+			flex: 0 0 100%;
+			max-width: 100%;
+		}
+
+		.ega-col-lg-6 {
+			flex: 0 0 50%;
+			max-width: 50%;
+		}
+		#ega-contact .ega-row [class*=ega-col-] {
+			padding-left: 12px;
+			padding-right: 12px;
+		}
+		iframe, img {
+			max-width: 100%;
+			vertical-align: middle;
+		}
+		img {
+			max-width: 100%;
+			vertical-align: middle;
+			height: initial !important;
+		}
+		#ega-contact .contact-info {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: space-between;
+			padding: 16px;
+			border: 1px solid #E1E3E8;
+		}
+
+		#ega-contact .contact-info {
+			padding: 44px 48px;
+		}
+		#ega-contact .contact-submit {
+			padding: 16px;
+			border: 1px solid #E1E3E8;
+			margin-top: 16px;
+		}
+	
+		#ega-contact .contact-submit {
+			padding: 32px 48px 42px 48px;
+			margin-top: 24px;
+		}
+		#ega-contact .contact-submit form {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: space-between;
+		}
+		input, select, textarea {
+			margin: 0;
+			font-family: inherit;
+			font-size: inherit;
+			line-height: inherit;
+		}
+		.ega-form__group {
+			margin-bottom: 0.75rem;
+			position: relative;
+		}
+		#ega-contact .contact-submit form .ega-form__group {
+			width: 100%;
+		}
+		
+		#ega-contact .contact-submit form .ega-form__group.col--half {
+			width: calc(50% - 12px);
+			margin: 0;
+		}
+		#ega-contact .contact-submit form .ega-form__group.col--full {
+			margin-top: 49px;
+			margin-bottom: 32px;
+		}
+		button {
+			cursor: pointer;
+		}
+		.ega-btn, .ega-item-ic {
+			display: inline-block;
+		}
+		.ega-btn {
+			-webkit-appearance: none;
+			border: 1px solid transparent;
+			position: relative;
+			line-height: 1.25;
+			padding: .62rem 1.5rem;
+			font-size: 0.9rem;
+			overflow: hidden;
+			will-change: box-shadow;
+			outline: 0;
+			text-decoration: none;
+			text-align: center;
+			white-space: nowrap;
+			vertical-align: middle;
+			margin: .5rem;
+			background: #aab541;
+			color: #fff;
+			border-radius: .25rem;
+			transition: all .2s ease-in-out;
+		}
+		.ega-m--0 {
+			margin: 0 !important;
+		}
+		.ega-btn.ega-btn--outline {
+			background-color: transparent;
+			color: #aab541;
+			border-color: #aab541;
+		}
+		#ega-contact .contact-submit form .ega-btn {
+			display: inline-block;
+			border: 1px solid #0E1C22;
+			color: #0e1c22;
+			padding: 8px 44px;
+			border-radius: 0;
+			font-size: 16px;
+			font-weight: bold;
+			margin: 0;
+			margin-bottom: 24px;
+			-webkit-transition: all 0.5s ease;
+			-o-transition: all 0.5s ease;
+			transition: all 0.5s ease;
+		}
+	
+		#ega-contact .contact-submit form .ega-btn {
+			padding: 12px 80px;
+		}
+		.ega-form__group label {
+			display: block;
+			font-size: 1rem;
+			font-weight: 700;
+			margin-bottom: 0.25rem;
+		}
+		#ega-contact .contact-submit form .ega-form__group label {
+			text-transform: uppercase;
+			font-size: 14px;
+			letter-spacing: 0.1em;
+			color: #0e1c22;
+			opacity: 0.6;
+			margin-bottom: 14px;
+		}
+		.ega-form__control {
+			width: 100%;
+			border: 1px solid #eee;
+			vertical-align: top;
+			font-size: 1rem;
+			padding: .375rem .75rem;
+			border-radius: .25rem;
+			height: calc(1.5em + .75rem + 2px);
+		}
+		textarea.ega-form__control {
+			height: auto;
+		}
+		#ega-contact .contact-submit form .ega-form__control {
+			font-size: 20px;
+			border: none;
+			border-bottom: 1px solid rgba(14, 28, 34, 0.4);
+			padding: 0 0 8px 0;
+			border-radius: 0;
+		}
+		.ega-form__mess {
+			display: none;
+		}
+		#ega-contact .contact-info .contact-item {
+			display: inline-block;
+		}
+
+		#ega-contact .contact-info .contact-item {
+			flex: 1;
+		}
+		#ega-contact .contact-info .contact-item .box-title {
+			font-size: 20px;
+			color: #0e1c22;
+			line-height: 32px;
+		}
+		.ega-ul {
+			padding-left: 0px;
+			list-style: none;
+		}
+		#ega-contact .contact-info .contact-item ul {
+			font-size: 16px;
+			margin-top: 8px;
+			padding-left: 40px;
+			margin-bottom: 0px;
+		}
+		#ega-contact .contact-info .contact-item ul li + li {
+			margin-top: 8px;
+		}
+		a {
+			color: #288ad6;
+		}
+		a {
+			text-decoration: none;
+		}
+		#ega-contact .contact-info .contact-item ul li a {
+			color: initial;
+		}
+		[class*=' ega-ic-'], [class^=ega-ic-] {
+			display: inline-block;
+			width: 1em;
+			height: 1em;
+			stroke-width: 0;
+			stroke: currentColor;
+			fill: currentColor;
+			color: inherit;
+		}
+		#ega-contact .contact-info .contact-item ul li a svg {
+			font-size: 20px;
+			position: relative;
+			top: 5px;
+			margin-right: 8px;
+		}
+		#ega-contact .contact-info .contact-item .box-title svg {
+			font-size: 24px;
+			margin-right: 16px;
+			position: relative;
+			top: 5px;
+		}
+	</style>
+	<style>
+		.contact__header {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			padding: 10px;
+			background-color: #333;
+			border-radius: 8px;
+			box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+		}
+
+		.contact-title {
+			font-size: 24px;
+			font-weight: bold;
+			color: #fff;
+			margin: 0;
+		}
+
+		.avatar-container {
+			display: flex;
+			align-items: center;
+			position: absolute;
+			right: 15px; /* Điều chỉnh khoảng cách từ cạnh phải */
+			top: 93%; /* Đẩy phần tử xuống dưới 1 chút (hoặc tùy chỉnh giá trị) */
+			transform: translateY(-50%); /* Vẫn giữ căn chỉnh giữa dọc */
+			width: 80px; /* Đặt chiều rộng của avatar-container */
+			height: 80px; /* Đặt chiều cao của avatar-container */
+			justify-content: center; /* Đảm bảo các phần tử trong container được căn giữa */
+		}
+
+			.avatar-container button img {
+				width: 100%; /* Đảm bảo ảnh sẽ tự động co giãn theo kích thước của button */
+				height: 100%;
+			}
+
+		.icon-container {
+			position: absolute;
+			top: 0;
+			left: 50%;
+			transform: translateX(-50%); /* Đảm bảo icon nằm ở giữa ảnh */
+			display: none; /* Ẩn icon mặc định */
+		}
+
+	
+
+		.avatar-container:hover .icon-container {
+			display: block; /* Hiển thị icon khi hover vào avatar-container */
+		}
+
+		.btn-reply img {
+			width: 40px;
+			height: 40px;
+			border-radius: 50%;
+			border: 2px solid #fff;
+			object-fit: cover;
+			transition: transform 0.3s ease;
+		}
+
+		.btn-reply:hover img {
+			transform: scale(1.1);
+		}
+
+		form.form-action {
+			margin: 0;
+		}
+
+		.contact__header {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			padding: 10px;
+			background-color: #333;
+			border-radius: 8px;
+			box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+			position: relative; /* Thêm position relative để căn chỉnh con */
+		}
+
+	
+
+		.btn-reply img {
+			width: 40px;
+			height: 40px;
+			border-radius: 50%;
+			border: 2px solid #fff;
+			object-fit: cover;
+			transition: transform 0.3s ease;
+		}
+
+		.btn-reply:hover img {
+			transform: scale(1.1);
+		}
+
+
+	</style>
+</head>
+<body class="template_page.contact" id="ega-fashion">
+	<div id="ega-contact">
+
+		<div class="ega-container">
+			<div class="ega-contact__wrap">
+
+				<div class="contact__header">
+					<div class="contact-title">LIÊN HỆ</div>
+				
+				</div>
+				<div class="ega-row">
+					<div class="page-col-left ega-col-lg-6 ega-col-12">
+						<div class="contact-left">
+							<div class="contact-info">
+								<div class="contact-item">
+									<div class="box-title">
+										<svg xmlns="http://www.w3.org/2000/svg" class="ega-ic-phone-call"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#ega-ic-phone-call" /></svg>
+										Hotline
+									</div>
+									<ul class="ega-ul">
+										<li><a href="tel:0901 710 780">0901 710 780</a></li>
+										<li>
+											Mở cửa từ 09:00 đến 21:00 | Tất cả các ngày trong tuần
+										</li>
+										<li></li>
+									</ul>
+								</div>
+								<div class="contact-item">
+									<div class="box-title">
+										<svg xmlns="http://www.w3.org/2000/svg" class="ega-ic-at-sign"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#ega-ic-at-sign" /></svg>
+										Mạng xã hội
+									</div>
+									<ul class="ega-ul">
+										<li>
+											<a href="https://www.facebook.com/thanhhungfutsal">
+												<svg xmlns="http://www.w3.org/2000/svg" class="ega-ic-facebook"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#ega-ic-facebook" /></svg>
+												<span>Thanh Hùng Futsal</span>
+											</a>
+										</li>
+										<li>
+											<a href="https://www.instagram.com/thanhhungfutsal/">
+												<svg xmlns="http://www.w3.org/2000/svg" class="ega-ic-instagram"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#ega-ic-instagram" /></svg>
+												<span>thanhhungfutsal</span>
+											</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<div class="contact-submit">
+								<form asp-action="themLienHe" method="post">
+									<input name="form_type" type="hidden" value="contact">
+									<input name="utf8" type="hidden" value="✓">
+
+									<div class="ega-form__group col--half">
+										<label for="TaiKhoan">Tài khoản (*)</label>
+										<input id="TaiKhoan" name="TaiKhoan" class="ega-form__control ega-required" type="email" placeholder="Email của bạn" />
+										<span asp-validation-for="TaiKhoan" class="text-danger"></span>
+										<div class="ega-form__mess">Email không đúng định dạng!</div>
+										<span id="taiKhoanError" class="text-danger" style="display:none;">Bạn chưa nhập thông tin này!</span>
+									</div>
+
+									<div class="ega-form__group col--half">
+										<label>Tên của bạn (*)</label>
+										<label>@Model.TaiKhoanNavigation.HoTen</label>
+									</div>
+
+									<div class="ega-form__group col--full">
+										<label for="NoiDung">Nội dung (*)</label>
+										<textarea id="NoiDung" name="NoiDung" class="ega-form__control ega-required" placeholder="Nhập nội dung" rows="3"></textarea>
+										<span id="NoiDungError" class="text-danger" style="display:none;">Bạn chưa nhập thông tin này!</span>
+									</div>
+
+									<input class="ega-btn ega-btn--outline ega-m--0" type="submit" value="Gửi" onclick="validateForm(event)" />
+
+									<!-- Thêm biểu tượng hình tròn -->
+									
+								</form>
+							</div>
+
+						
+							<style>
+								.avatar-icon {
+									width: 80px; /* Kích thước vòng tròn */
+									height: 80px;
+									background-color: #ffffff; /* Màu nền trắng */
+									border: 2px solid #ccc; /* Viền bao quanh */
+									border-radius: 50%; /* Tạo hình tròn */
+									margin: 10px 0; /* Cách phần tử trên và dưới */
+									box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ */
+									overflow: hidden; /* Đảm bảo hình ảnh không ra ngoài vòng tròn */
+									position: relative; /* Cần thiết để sử dụng với margin-left */
+									margin-left: 90%; /* Lệch phải tầm 80% */
+									cursor: pointer; /* Thêm con trỏ chuột khi hover */
+								}
+
+									.avatar-icon img {
+										width: 100%;
+										height: 100%;
+										object-fit: cover; /* Đảm bảo hình ảnh phù hợp và được cắt theo vòng tròn */
+									}
+
+								.close-icon {
+									position: absolute;
+									top: 5px; /* Điều chỉnh lại vị trí để biểu tượng không bị lệch ra ngoài */
+									right: 5px; /* Điều chỉnh để biểu tượng nằm trong vòng tròn */
+									font-size: 20px;
+									color: #000000; /* Màu đen */
+									display: none; /* Ẩn icon khi không hover */
+									cursor: pointer;
+								}
+
+								.avatar-icon:hover .close-icon {
+									display: block; /* Hiển thị icon khi hover */
+								}
+
+							</style>
+						
+
+						
+						</div>
+					</div>
+					<div class="page-col-right ega-col-lg-6 ega-col-12">
+						<div class="contact-img">
+							<img src="//theme.hstatic.net/200000278317/1000929405/14/contact-img.jpg?v=1941">
+						</div>
+				
+						<div class="avatar-container">
+							<form asp-action="formNhanTin" method="post" class="form-action">
+								<input type="hidden" value="@Model.TaiKhoanNavigation.TaiKhoan1" name="taiKhoan" />
+								<button type="submit" class="btn btn-reply">
+									<img src="~/HinhAnh/hinhavata.jpg" alt="Hình người" />
+								</button>
+							</form>
+						</div>
+					</div>
+					
+				
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+			const successMessage = '@Html.Raw(ViewData["SuccessMessage"])';
+			if (successMessage) {
+				alert(successMessage);
+			}
+		});
+	
+	</script>
+	<script>
+    function validateForm(event) {
+        // Lấy giá trị của input Tài khoản
+        var taiKhoan = document.getElementById("TaiKhoan").value.trim();
+			var noiDung = document.getElementById("NoiDung").value.trim();
+        // Kiểm tra nếu trường Tài khoản rỗng
+        if (taiKhoan === "") {
+            event.preventDefault();  // Ngừng gửi form
+            document.getElementById("taiKhoanError").style.display = "block"; // Hiển thị thông báo lỗi
+        } else {
+            document.getElementById("taiKhoanError").style.display = "none"; // Ẩn thông báo lỗi
+        }
+			if (noiDung === "") {
+				event.preventDefault(); // Ngừng gửi form
+				document.getElementById("NoiDungError").style.display = "block"; // Hiển thị thông báo lỗi
+				document.getElementById("NoiDungError").innerText = "Bạn chưa nhập thông tin này!";
+			} else {
+				document.getElementById("NoiDungError").style.display = "none"; // Ẩn thông báo lỗi
+			}
+
+        // Kiểm tra tính hợp lệ của email (theo định dạng)
+    
+    }
+</script>
+
+		<script>
+			document.addEventListener("DOMContentLoaded", function () {
+			const ErrorMessagelh = '@Html.Raw(ViewData["ErrorMessagelh"])';
+			if (ErrorMessagelh) {
+				alert(ErrorMessagelh);
+					}
+				});
+	</script>
+
+</body>
+</html>
+
+
+
+

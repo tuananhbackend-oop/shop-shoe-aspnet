@@ -1,0 +1,627 @@
+﻿@using Microsoft.EntityFrameworkCore
+@using LVTNWEBGIAYDEP.Models
+@inject DBGiayDepContext db
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+	<title></title>
+	<link href="/GiaoDien/User/userHeader.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap" rel="stylesheet">
+
+    <style>
+     
+		.brand-title {
+			margin-left: 10px; /* Thêm khoảng cách bên trái */
+
+
+
+			font-family: 'Roboto', sans-serif; /* Chọn font chữ */
+			font-weight: 700; /* Font chữ đậm */
+		}
+* {
+    font-family: 'Roboto Condensed', sans-serif;
+    box-sizing: border-box;
+}
+
+body, html {
+    font-size: 14px;
+    color: #333;
+    line-height: 1.5;
+    margin: 0;
+    width: 100%;
+    min-height: 100%;
+    background: #ffffff;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
+footer {
+    background: #fff;
+    padding: 40px 0;
+}
+
+.custom-container {
+    margin: 0 auto;
+    padding: 0 15px;
+    max-width: 1140px;
+}
+
+.custom-row {
+    display: flex;
+    flex-wrap: wrap;
+    margin: -12px;
+}
+
+.custom-col-lg-2, .custom-col-lg-4, .custom-col-sm-6, .custom-col-12 {
+    padding: 12px;
+    width: 100%;
+}
+
+.custom-col-lg-2 {
+    flex: 0 0 16.666%;
+}
+
+.custom-col-lg-4 {
+    flex: 0 0 33.333%;
+}
+
+.custom-footer-title {
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    position: relative;
+}
+
+.custom-ul {
+    padding-left: 0;
+    list-style: none;
+}
+
+.custom-ul li {
+    margin-bottom: 12px;
+}
+
+.custom-ul li a {
+    color: #288ad6;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.custom-ul li a:hover {
+    color: #0056b3;
+}
+
+.custom-social-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.custom-list-instagram {
+    display: flex;
+    gap: 10px;
+    margin-top: 12px;
+    padding: 0;
+    list-style: none;
+}
+
+.custom-instagram-item a img {
+    display: block;
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+#scroll-top {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    opacity: 0;
+    visibility: hidden;
+    z-index: -1;
+    background: rgba(183, 211, 232, 0.2);
+    border-radius: 50%;
+    position: fixed;
+    right: 23px;
+    bottom: 17px;
+    cursor: pointer;
+    transition: all 0.5s ease;
+}
+
+#scroll-top svg {
+    color: #333;
+    font-size: 18px;
+}
+
+.custom-copyright {
+    text-align: center;
+    font-size: 12px;
+    margin-top: 24px;
+    color: #555;
+}
+
+		.image-grid {
+			display: grid;
+			grid-template-columns: repeat(2, 1fr); /* Chia 2 cột */
+			gap: 10px; /* Khoảng cách giữa các hình */
+			width: 100%; /* Đảm bảo khung vừa khung chứa */
+			max-width: 600px; /* Điều chỉnh kích thước tối đa nếu cần */
+			margin: 0 auto; /* Căn giữa lưới */
+		}
+
+			.image-grid img {
+				width: 100%; /* Hình ảnh vừa khung cột */
+				height: auto; /* Giữ nguyên tỉ lệ */
+				border-radius: 5px; /* Thêm bo góc (tùy chọn) */
+			}
+
+    </style>
+	@* Style Giayco nhan tao *@<style>
+		/* Định dạng cơ bản cho menu */
+		.menu-item {
+			position: relative;
+		}
+
+		.submenu {
+			display: none;
+			position: absolute;
+			top: 100%;
+			left: 0;
+			background-color: #fff;
+			box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+			padding: 10px;
+			border: 1px solid #ddd;
+			border-radius: 5px;
+			z-index: 1000;
+			width: 250px; /* Đảm bảo đủ rộng */
+		}
+
+		/* Hiển thị submenu khi hover vào menu cha */
+		.menu-item:hover .submenu {
+			display: block;
+		}
+
+		/* Định dạng từng sản phẩm trong menu */
+		.menu-product {
+			position: relative;
+			padding: 5px 0;
+			border-bottom: 1px solid #eee;
+		}
+
+		/* Tên loại sản phẩm */
+		.product-name {
+			font-weight: bold;
+			color: #000; /* Đen đậm */
+			text-decoration: none; /* Bỏ gạch chân */
+			display: inline-block;
+			margin-right: 10px; /* Khoảng cách giữa loại sản phẩm và thương hiệu */
+			font-size: 16px;
+			transition: color 0.3s ease-in-out; /* Hiệu ứng chuyển màu */
+		}
+
+			/* Loại bỏ hiệu ứng hover cho tên loại sản phẩm */
+			.product-name:hover {
+				color: #000; /* Giữ màu đen khi hover */
+			}
+
+			/* Đảm bảo form không ảnh hưởng đến giao diện */
+			.product-name form {
+				display: inline-block; /* Đảm bảo form không chiếm toàn bộ chiều rộng */
+				margin: 0; /* Loại bỏ khoảng cách mặc định */
+			}
+
+		/* Vùng chứa danh sách thương hiệu */
+		.brand-names {
+			display: none;
+			position: absolute;
+			top: 0;
+			left: 100%; /* Hiển thị bên cạnh */
+			padding: 5px;
+			background-color: #fff;
+			border: 1px solid #ddd;
+			border-radius: 5px;
+			box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+			white-space: nowrap;
+			z-index: 1000;
+		}
+
+		/* Hiển thị danh sách thương hiệu khi hover vào sản phẩm */
+		.menu-product:hover .brand-names {
+			display: block;
+		}
+
+		/* Định dạng từng thương hiệu */
+		.brand-name {
+			display: block; /* Mỗi thương hiệu hiển thị thành dòng riêng */
+			font-size: 14px;
+			color: #000; /* Đen đậm */
+			margin: 5px 0;
+			padding: 2px 5px;
+			background-color: #f9f9f9;
+			border-radius: 3px;
+			border: 1px solid #eee;
+			transition: background-color 0.3s ease-in-out; /* Thêm hiệu ứng cho brand-name */
+		}
+
+			/* Loại bỏ hiệu ứng hover cho thương hiệu */
+			.brand-name:hover {
+				background-color: #f9f9f9; /* Giữ màu nền khi hover */
+				color: #000; /* Giữ màu chữ đen đậm khi hover */
+			}
+
+		/* Định dạng cho button trong form */
+		button {
+			background: none;
+			border: none;
+			font-size: 14px;
+			color: #000; /* Đảm bảo màu chữ của button là đen */
+			cursor: pointer;
+			text-decoration: none; /* Bỏ gạch chân của button */
+		}
+
+			/* Loại bỏ hiệu ứng hover cho button */
+			button:hover {
+				color: #000; /* Giữ màu chữ đen khi hover */
+				text-decoration: none; /* Bỏ gạch chân khi hover */
+			}
+
+
+	</style>
+	<style>
+		/* Định dạng form */
+	
+
+		/* Biểu tượng kính lúp */
+		.ega-ic-search {
+			width: 20px;
+			height: 20px;
+			fill: none;
+			stroke: #000;
+			stroke-width: 2;
+		}
+
+	</style>
+	
+
+
+	
+</head>
+
+
+
+
+@{
+    var th = db.ThuongHieus.ToList();
+
+    // 👇 LẤY DATA TRƯỚC (tránh lỗi EF)
+    var loaiSanPhams = db.LoaiSanPhams
+        .Include(x => x.MaThNavigation)
+        .ToList();
+
+    // 👇 GROUP TRONG RAM (KHÔNG phải SQL)
+    var groupedData = loaiSanPhams
+        .GroupBy(lsp => lsp.TenLoai)
+        .Select(g => new
+        {
+            TenLoai = g.Key,
+            ThuongHieus = g
+                .Where(x => x.MaThNavigation != null)
+                .Select(x => x.MaThNavigation.TenTh)
+                .Distinct()
+                .ToList()
+        })
+        .ToList();
+
+}
+
+
+
+
+
+
+   
+<body class="template_collection" id="ega-fashion">
+		<header class="ega-header ega-pos--relative">
+
+		<div class="header-wrap header-wrap-menu-mob">
+			<div id="menu-toggle">
+				<div class="menu-wrap">
+					<i></i>
+					<i></i>
+					<i></i>
+				</div>
+			</div>
+			<span class="icon-action__search icon-action__search--mb">
+				<img width="30" height="30" alt="icon-search.png" src="//theme.hstatic.net/200000278317/1000929405/14/icon-search.png?v=1911">
+			</span>
+			<div id="logo" itemtype="http://schema.org/Organization" itemscope="">
+
+
+				<a href="#" itemprop="url">
+					<img width="240" height="82" class="img-responsive logoimg" alt="Giày đá banh chính hãng" src="//theme.hstatic.net/200000278317/1000929405/14/logo_medium.png?v=1911" itemprop="logo">
+				</a>
+
+
+			</div>
+			<form class="ega-form--mb ega-form--search show-pc" asp-controller="User" asp-action="timKiem">
+				<div class="ega-form">
+					<div class="ega-form--group ega-form__group-btn-in--right">
+						<svg xmlns="http://www.w3.org/2000/svg" class="icon-action__search icon-action__search--close ega-ic-close ega-pos--absolute"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#ega-ic-close" /></svg>
+						<input name="type" type="hidden" value="product">
+						<input name="timk" class="ega-form__control" type="text" placeholder="Bạn đang tìm kiếm ..." autocomplete="off">
+						<button class="ega-btn ega-m--0 ega-border--0 ega-radius-t-l--0 ega-radius-b-l--0 ega-bg--transparent" type="submit">
+							<!-- Biểu tượng kính lúp -->
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="ega-ic-search">
+								<circle cx="10" cy="10" r="8" stroke="black" stroke-width="2" fill="none"></circle>
+								<line x1="15" y1="15" x2="20" y2="20" stroke="black" stroke-width="2"></line>
+							</svg>
+						</button>
+					</div>
+				</div>
+			</form>
+			<div class="header-right ega-d--flex">
+				<div class="icon-action header-right__icons">
+					<div class="logo">
+						<a asp-controller="DangNhap" asp-action="Index" class="icon user-icon">👤</a>
+					</div>
+
+					<a class="logo">
+						<a asp-controller="User" asp-action="FormGioHang"><img alt="icon-bag.png" src="//theme.hstatic.net/200000278317/1000929405/14/icon-bag.png?v=1911"></a>
+
+					</a>
+				</div>
+
+				<!-- Cờ -->
+				<!-- Cờ - end -->
+
+			</div>
+		</div>
+		<div class="header-wrap header-wrap-menu">
+
+
+			<nav id="primary-menu">
+				<ul class="ega-menu ega-ul ega-m--0">
+					<li class="ega-menu__item menupos-1 ">
+						<a class="ega-menu__link ega-text--center" asp-controller="User" asp-action="Index">
+							<div class="menu_icon">
+							</div>
+							<span>TRANG CHỦ</span>
+						</a>
+					</li>
+					
+					<li class="ega-menu__item menupos-1 ">
+						<a class="ega-menu__link ega-text--center" asp-controller="User" asp-action="SanPham">
+							<div class="menu_icon">
+							</div>
+							<span>DANH MỤC SẢN PHẨM</span>
+						</a>
+					</li>
+
+
+
+					<!-- 111normal sub menu -->
+					<li class="ega-menu__item has-child menupos-4">
+						<div class="menu-item">
+							<span>LOẠI SẢN PHẨM</span>
+							<div class="submenu">
+								@foreach (var item in groupedData)
+								{
+									<div class="menu-product">
+										<!-- Hiển thị tên loại sản phẩm -->
+										<form asp-controller="QLLoaiSanPham" asp-action="hienThiSanPhamTheoLoai" method="post" class="product-name">
+											<input type="hidden" id="tenLoai" name="tenLoai" value="@item.TenLoai" />
+											<button type="submit" >
+												@item.TenLoai 	
+											</button>
+										</form>
+										<!-- Hiển thị danh sách thương hiệu bên cạnh -->
+										<div class="brand-names">
+											@foreach (var tenth in item.ThuongHieus)
+											{
+												<form asp-controller="User" asp-action="hienThiSanPhamTheoLoaiVaThuongHieu" method="post" class="brand-name">
+													<input type="hidden" id="tenLoai" name="tenLoai" value="@item.TenLoai" />
+													<input type="hidden" id="tenTH" name="tenTH" value="@tenth" />
+													<button type="submit">
+														@tenth
+													</button>
+												</form>
+											}
+										</div>
+									</div>
+								}
+							</div>
+						</div>
+					</li>
+
+
+					<!-- end normal sub menu -->
+					<!-- 111normal sub menu -->
+					
+					<!-- end normal sub menu -->
+					<!-- 111normal sub menu -->
+					<li class="ega-menu__item has-child menupos-6 ">
+						<div class="menu-item">
+							<div class="brand-title">THƯƠNG HIỆU</div>
+							<div class="submenu">
+							@foreach(var ith in th)
+							{
+									<div class="menu-product">
+										<form asp-controller="QLThuongHieu" asp-action="TenSP" method="get">
+										
+											<input type="hidden" id="tenTH" name="tenTH" value="@ith.TenTh" />
+											<button type="submit">
+												@ith.TenTh
+											</button>
+										</form>
+									</div>
+							}
+
+						
+						</div>
+					</div>
+					</li>
+					<!-- end normal sub menu -->
+					<!-- 111normal sub menu -->
+					
+					<!-- end normal sub menu -->
+					<!-- end normal sub menu -->
+					<li class="ega-menu__item menupos-9 ">
+						<a class="ega-menu__link ega-text--center" asp-controller="User" asp-action="TinTuc">
+							<div class="menu_icon" >
+							</div>
+							<span>TIN TỨC GIÀY</span>
+						</a>
+					</li>
+					<li class="ega-menu__item menupos-10 ">
+						<a class="ega-menu__link ega-text--center" asp-controller="User" asp-action="KhachHang">
+							<div class="menu_icon">
+							</div>
+							<span>KHÁCH HÀNG</span>
+						</a>
+					</li>
+					<li class="ega-menu__item menupos-11 ">
+						<a class="ega-menu__link ega-text--center" asp-controller="User" asp-action="CuaHang">
+							<div class="menu_icon">
+							</div>
+							<span>CỬA HÀNG</span>
+						</a>
+					</li>
+
+					<li class="ega-menu__item has-child menupos-4 ">
+
+						<div class="menu-item">
+							<span>TUYỂN DỤNG</span>
+							<div class="submenu">
+								<a asp-controller="User" asp-action="cuaHangTruong">CỬA HÀNG TRƯỞNG</a>
+								<a asp-controller="User" asp-action="nhanVienBanHang">NHÂN VIÊN BÁN HÀNG</a>
+							</div>
+						</div>
+
+
+					</li>
+					
+					
+			
+					
+						
+					
+								
+						
+					
+
+
+					<!-- 111normal sub menu -->
+					<!-- end normal sub menu -->
+					<li class="ega-menu__item menupos-11 ">
+						<a class="ega-menu__link ega-text--center" asp-controller="LienHe" asp-action="Index">
+							<div class="menu_icon">
+							</div>
+							<span>LIÊN HỆ</span>
+						</a>
+					</li>
+				</ul>
+			</nav>
+
+		
+		</div>
+
+	</header>
+	<!-- =Dữ liêu -->
+	<div class="container">
+		<main role="main" class="pb-3">
+			@RenderBody()
+		</main>
+	</div>
+
+
+	<br />
+	<br />
+
+
+
+
+
+
+
+
+
+	<footer class="custom-footer">
+		<div class="custom-container">
+			<div class="custom-row">
+				<!-- Chính Sách -->
+				<div class="custom-menu-1 custom-col-lg-2 custom-col-sm-6 custom-col-12">
+					<h2 class="custom-footer-title">CHÍNH SÁCH</h2>
+					<ul class="custom-ul">
+						<li><a href="/pages/chinh-sach-bao-hanh-san-pham">Chính sách bảo hành</a></li>
+						<li><a href="/pages/chinh-sach-doi-tra">Chính sách đổi trả</a></li>
+						<li><a href="/pages/chinh-sach-giao-nhan-hang">Chính sách giao nhận hàng</a></li>
+						<li><a href="/pages/dieu-khoan-dich-vu">Chính sách bảo mật</a></li>
+					</ul>
+					<a href="http://online.gov.vn/Home/WebDetails/78316">
+						<img width="160" height="40" src="//theme.hstatic.net/200000278317/1000929405/14/logo-bct.png?v=1941" alt="Bộ công thương">
+					</a>
+				</div>
+				<!-- Về THF -->
+				<div class="custom-menu-2 custom-col-lg-2 custom-col-sm-6 custom-col-12">
+					<h2 class="custom-footer-title">VỀ THF</h2>
+					<ul class="custom-ul">
+						<li><a href="/pages/trang-chu">Về chúng tôi</a></li>
+						<li><a href="/pages/gioi-thieu">Lĩnh vực kinh doanh</a></li>
+						<li><a href="https://g.page/thanhhungfutsal?share">THF I: 27 Đường D52, P. 12, Q. Tân Bình, TP. HCM</a></li>
+					</ul>
+				</div>
+				<!-- Social Media -->
+				<div class="custom-social custom-col-lg-4 custom-col-sm-6 custom-col-12">
+					<h2 class="custom-footer-title">MẠNG XÃ HỘI</h2>
+					<div class="custom-social-content">
+						<!-- Facebook -->
+						<div class="custom-fb">
+							<div class="fb-page" data-href="https://www.facebook.com/thanhhungfutsal/" data-height="70">
+								<blockquote class="fb-xfbml-parse-ignore" cite="https://www.facebook.com/thanhhungfutsal/">
+									<a href="https://www.facebook.com/thanhhungfutsal/">Giày đá banh chính hãng</a>
+								</blockquote>
+							</div>
+						</div>
+						
+						
+					</div>
+				</div>
+				<div class="custom-social custom-col-lg-4 custom-col-sm-6 custom-col-12">
+					<h2 class="custom-footer-title">Hình Ảnh</h2>
+					<div class="custom-social-content">
+						<div class="custom-fb">
+							<div class="image-grid">
+								<img src="https://theme.hstatic.net/200000278317/1000929405/14/slideshow_5.jpg?v=667" alt="Image 1">
+								<img src="https://theme.hstatic.net/200000278317/1000929405/14/slideshow_4.jpg?v=667" alt="Image 2">
+								<img src="https://theme.hstatic.net/200000278317/1000929405/14/slideshow_5.jpg?v=667" alt="Image 3">
+								<img src="https://theme.hstatic.net/200000278317/1000929405/14/slideshow_6.jpg?v=667" alt="Image 4">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="custom-copyright">
+				<p>© 2024 Bản quyền thuộc về CUSTOM FOOTER. Mở cửa 9h-21h</p>
+			</div>
+		</div>
+	</footer>
+
+
+
+
+
+
+
+	
+</body>
+</html>
+
+
+
+
+

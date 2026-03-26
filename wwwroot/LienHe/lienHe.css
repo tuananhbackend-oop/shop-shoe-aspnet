@@ -1,0 +1,314 @@
+﻿
+
+h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #343a40;
+    text-align: center;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+}
+
+/* Container for full-width design */
+.container-custom {
+    width: 80%;
+    max-width: 1000px; /* Đặt chiều rộng tối đa cho container */
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Box Shadow and Border Radius for main container */
+.message-box {
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    max-width: 100%;
+}
+
+    .message-box.success {
+        background-color: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+    }
+
+    .message-box.error {
+        background-color: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+    }
+
+/* Improved table design */
+.custom-table {
+    width: 100%;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+    margin-bottom: 50px;
+    table-layout: fixed;
+}
+
+    /* Table header design */
+    .custom-table th {
+        padding: 15px 20px;
+        text-align: center;
+        background-color: #007bff;
+        color: #fff;
+        font-weight: 600;
+        font-size: 1.1rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        border-bottom: 2px solid #ddd;
+    }
+
+    /* Table data cells */
+    .custom-table td {
+        padding: 12px 15px;
+        text-align: center;
+        font-size: 1rem;
+        color: #333;
+        border-bottom: 1px solid #ddd;
+    }
+
+    /* Hover effect for table rows */
+    .custom-table tbody tr:hover {
+        background-color: #f1f1f1;
+        cursor: pointer;
+    }
+
+/* Action buttons */
+.delete-btn,
+.back-btn {
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1rem;
+    color: white;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.2s ease-in-out;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.delete-btn {
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
+    .delete-btn:hover {
+        background-color: #c82333;
+        border-color: #bd2130;
+        transform: scale(1.1);
+    }
+
+.back-btn {
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+
+    .back-btn:hover {
+        background-color: #5a6268;
+        border-color: #545b62;
+    }
+
+    .delete-btn .fas,
+    .back-btn .fas {
+        margin-right: 8px;
+    }
+
+/* Action column with buttons */
+.action-column {
+    text-align: center;
+}
+
+/* Responsive Design */
+
+
+
+
+/* Tạo các nút đẹp mắt với hiệu ứng hover */
+.container-custom {
+    padding: 5px; /* Giảm padding của container */
+}
+
+.form-action {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+button {
+    background-color: #28a745; /* Màu xanh lá cho nút */
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+    button:hover {
+        background-color: #218838; /* Xanh lá đậm khi hover */
+        transform: scale(1.1); /* Hiệu ứng phóng to khi hover */
+    }
+
+/* Nút xóa */
+.btn-delete {
+    background-color: #dc3545; /* Màu đỏ cho nút xóa */
+}
+
+    .btn-delete:hover {
+        background-color: #c82333; /* Đỏ đậm khi hover */
+    }
+
+    .btn-delete i {
+        margin-right: 5px;
+    }
+
+/* Nút phản hồi */
+.btn-reply {
+    background-color: #007bff; /* Màu xanh dương cho nút phản hồi */
+}
+
+    .btn-reply:hover {
+        background-color: #0056b3; /* Xanh dương đậm khi hover */
+    }
+
+    .btn-reply i {
+        margin-right: 5px;
+    }
+
+/* Biểu tượng cho các nút */
+button i {
+    font-size: 16px;
+    vertical-align: middle;
+}
+#editForm-@lienHe.Id {
+    display: none; /* Mặc định là ẩn */
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #f8f9fa;
+    border: 1px solid #ccc;
+}
+
+
+
+@media (max-width: 768px) {
+    .container-custom {
+        width: 95%;
+        max-width: 700px;
+    }
+
+    .custom-table th, .custom-table td {
+        padding: 8px 10px;
+        font-size: 0.85rem;
+    }
+
+    button {
+        font-size: 0.85rem;
+        padding: 8px 12px;
+    }
+
+    .delete-btn, .back-btn {
+        font-size: 0.85rem;
+        padding: 6px 12px;
+    }
+}
+
+@media (max-width: 576px) {
+    .container-custom {
+        width: 100%;
+        max-width: 600px;
+        padding: 10px;
+    }
+
+    .custom-table th, .custom-table td {
+        padding: 6px 8px;
+        font-size: 0.75rem;
+    }
+
+    button {
+        font-size: 0.8rem;
+        padding: 7px 10px;
+    }
+
+    .delete-btn, .back-btn {
+        font-size: 0.8rem;
+        padding: 5px 10px;
+    }
+}
+@media (max-width: 576px) {
+    .custom-table th,
+    .custom-table td {
+        padding: 8px 12px;
+        font-size: 0.8rem;
+    }
+
+    .delete-btn,
+    .back-btn {
+        font-size: 0.9rem;
+        padding: 8px 15px;
+    }
+
+    @media (max-width: 768px) {
+        h1 {
+            font-size: 2rem;
+        }
+
+        .custom-table th,
+        .custom-table td {
+            padding: 10px 15px;
+            font-size: 0.9rem;
+        }
+
+        .container-custom {
+            padding: 10px;
+        }
+    }
+}
+@media (max-width: 768px) {
+    .container-custom {
+        width: 95%;
+        max-width: 700px;
+    }
+
+    .custom-table th, .custom-table td {
+        padding: 8px 10px;
+        font-size: 0.85rem;
+    }
+
+    button {
+        font-size: 0.85rem;
+        padding: 8px 12px;
+    }
+
+    .delete-btn, .back-btn {
+        font-size: 0.85rem;
+        padding: 6px 12px;
+    }
+}
+
+@media (max-width: 576px) {
+    .container-custom {
+        width: 100%;
+        max-width: 600px;
+        padding: 10px;
+    }
+
+    .custom-table th, .custom-table td {
+        padding: 6px 8px;
+        font-size: 0.75rem;
+    }
+
+    button {
+        font-size: 0.8rem;
+        padding: 7px 10px;
+    }
+
+    .delete-btn, .back-btn {
+        font-size: 0.8rem;
+        padding: 5px 10px;
+    }
+}
+

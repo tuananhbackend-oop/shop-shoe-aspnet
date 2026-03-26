@@ -1,0 +1,1131 @@
+﻿
+@{
+    ViewData["Title"] = "TinTuc";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+	<title></title>
+	<style>
+		* {
+			font-family: Roboto Condensed;
+		}
+		*, ::after, ::before {
+			box-sizing: border-box;
+		}
+		#ega-blog {
+			padding-top: 48px;
+			padding-bottom: 64px;
+		}
+		body {
+			line-height: 1.5;
+			font-size: 1rem;
+			color: #333;
+			width: 100%;
+			min-height: 100%;
+			margin: 0;
+			scroll-behavior: smooth;
+		}
+		html, body {
+			font-size: 14px;
+		}
+		body {
+			background: #ffffff;
+			color: #000000;
+			overflow-x: hidden;
+		}
+		body.template_blog, body.template_article, body.template_cart, body.template_customers, body.template_page {
+			background: #f3f3f3;
+		}
+		.ega-container {
+			margin: 0 auto;
+		}
+		.ega-container, .ega-container--fluid {
+			padding-left: 15px;
+			padding-right: 15px;
+			width: 100%;
+		}
+	
+		.ega-container {
+			max-width: 540px;
+		}
+	
+		.ega-container {
+			max-width: 720px;
+		}
+	
+		.ega-container {
+			max-width: 960px;
+		}
+	
+		.ega-container {
+			max-width: 1140px;
+		}
+	
+		.ega-container {
+			max-width: 1140px;
+		}
+		#ega-blog .ega-blog--featured {
+			margin-bottom: 16px;
+		}
+	
+		#ega-blog .ega-blog--featured {
+			margin-bottom: 48px;
+		}
+		.ega-row {
+			display: flex;
+			flex-wrap: wrap;
+			margin-left: -15px;
+			margin-right: -15px;
+		}
+		#ega-blog .ega-row {
+			margin-left: -12px;
+			margin-right: -12px;
+		}
+		#ega-blog #pagination {
+			text-align: center;
+		}
+		.ega-d--i-block {
+			display: inline-block !important;
+		}
+		.ega-pagi {
+			display: flex;
+			flex-grow: 1;
+			flex-shrink: 1;
+		}
+		a {
+			color: #288ad6;
+		}
+		a {
+			text-decoration: none;
+		}
+		.ega-pagi__item {
+			display: inline-flex;
+			justify-content: center;
+			align-items: center;
+			padding-left: 0.5em;
+			padding-right: 0.5em;
+			margin: .25rem;
+			text-align: center;
+			min-width: 2.25rem;
+			border: 1px solid #dbdbdb;
+			font-size: 1rem;
+			height: 2.25rem;
+			border-radius: .25rem;
+			cursor: pointer;
+		}
+		.ega-pagi__item {
+			border: none;
+			font-size: 24px;
+			color: #0e1c22;
+			opacity: 0.3;
+			padding: 0;
+			margin: 0;
+		}
+		.ega-pagi__item.current {
+			background-color: #aab541;
+			border-color: #aab541;
+			color: #fff;
+		}
+		.ega-pagi__item.current {
+			background: none;
+			color: #0e1c22;
+			opacity: 1;
+		}
+		.ega-pagi__item + .ega-pagi__item {
+			margin-left: 24px;
+		}
+		.ega-pagi__item.ega-pagi__prev, .ega-pagi__item.ega-pagi__next {
+			opacity: 1;
+		}
+		[class*=' ega-ic-'], [class^=ega-ic-] {
+			display: inline-block;
+			width: 1em;
+			height: 1em;
+			stroke-width: 0;
+			stroke: currentColor;
+			fill: currentColor;
+			color: inherit;
+		}
+		.ega-col, [class*=ega-col-] {
+			padding-left: 15px;
+			padding-right: 15px;
+		}
+		.ega-col-6 {
+			flex: 0 0 50%;
+			max-width: 50%;
+		}
+	
+		.ega-col-lg-3 {
+			flex: 0 0 25%;
+			max-width: 25%;
+		}
+		#ega-blog .ega-row [class*=ega-col-] {
+			padding-left: 12px;
+			padding-right: 12px;
+		}
+		#ega-blog .article__item {
+			margin-bottom: 16px;
+		}
+
+		#ega-blog .article__item {
+			margin-bottom: 40px;
+		}
+		#ega-blog .article__img {
+			text-align: center;
+			background: #fff;
+		}
+		#ega-blog .article__info {
+			background: #fff;
+			color: #0e1c22;
+			padding: 16px;
+		}
+	
+		#ega-blog .article__info {
+			padding: 16px 24px;
+		}
+		.ega-h1, .ega-h2, .ega-h3, .ega-h4, .ega-h5, .ega-h6, h1, h2, h3, h4, h5, h6 {
+			font-family: inherit;
+			font-weight: 600;
+			line-height: 1.2;
+			color: inherit;
+			margin: 1rem 0;
+		}
+		.ega-h3, h3 {
+			font-size: 1.75rem;
+		}
+		#ega-blog .article__info h3 {
+			font-size: 16px;
+			margin: 0;
+			margin-bottom: 8px;
+			font-weight: normal;
+			max-height: 48px;
+			overflow: hidden;
+			display: -webkit-box;
+			-webkit-line-clamp: 2;
+			-webkit-box-orient: vertical;
+		}
+	
+		#ega-blog .article__info h3 {
+			font-size: 20px;
+		}
+		#ega-blog .article__info .desc-cut {
+			font-size: 14px;
+		}
+	
+		#ega-blog .article__info .desc-cut {
+			font-size: 16px;
+		}
+		#ega-blog .article__info .date-post {
+			display: block;
+			font-size: 12px;
+			opacity: 0.6;
+			margin-top: 4px;
+		}
+		.art-fea__info a, .article__info a {
+			color: #4a4a4a;
+		}
+		iframe, img {
+			max-width: 100%;
+			vertical-align: middle;
+		}
+		img {
+			max-width: 100%;
+			vertical-align: middle;
+			height: initial !important;
+		}
+		.dt-width-100 {
+			width: 100%;
+			height: auto;
+		}
+	</style>
+</head>
+<body class="template_blog" id="ega-fashion">
+	<div id="ega-blog">
+		<div class="ega-container">
+			<div class="ega-blog--featured">
+			</div>
+
+
+
+			<div class="ega-row">
+				<div class="ega-col-lg-3 ega-col-6 article__wrapper">
+					<div class="article__item">
+						<div class="article__img">
+
+
+							<a title="PUMA Future 8 “Teaser Edition” - Những hình ảnh đầu tiên về thế hệ mới của silo Future" href="/blogs/tin-tuc/puma-future-8-teaser-edition-nhung-hinh-anh-dau-tien-ve-the-he-moi"><img width="480" height="240" class="lazyload dt-width-100" alt="PUMA Future 8 “Teaser Edition” - Những hình ảnh đầu tiên về thế hệ mới của silo Future" src="//file.hstatic.net/200000278317/article/puma-future-8-teaser-edition-nhung-hinh-anh-dau-tien-ve-the-he-moi-1_2de4c7e6dcfa402288143efa36a3ce85_large.jpg"></a>
+						</div>
+						<div class="article__info">
+							<h3>
+								<a title="PUMA Future 8 “Teaser Edition” - Những hình ảnh đầu tiên về thế hệ mới của silo Future" href="/blogs/tin-tuc/puma-future-8-teaser-edition-nhung-hinh-anh-dau-tien-ve-the-he-moi">PUMA Future 8 “Teaser Edition” - Những hình ảnh đầu tiên về thế hệ mới của silo Future</a>
+							</h3>
+							<span class="desc-cut">Để chào đón sự ra đời của thế hệ Future mới, PUMA đã có màn...</span>
+							<span class="date-post"></span>
+
+						</div>
+					</div>
+				</div>
+				<div class="ega-col-lg-3 ega-col-6 article__wrapper">
+					<div class="article__item">
+						<div class="article__img">
+
+
+							<a title="Khám phá adidas Predator 25 “Goal Hunter” - Chào đón thế hệ mới nhất của silo ‘Quái thú’" href="/blogs/tin-tuc/kham-pha-adidas-predator-25-goal-hunter-chao-don-the-he-moi-nhat-cua-silo-quai-thu"><img width="480" height="240" class="lazyload dt-width-100" alt="Khám phá adidas Predator 25 “Goal Hunter” - Chào đón thế hệ mới nhất của silo ‘Quái thú’" src="//file.hstatic.net/200000278317/article/s-predator-25-goal-hunter-chao-don-the-he-moi-nhat-cua-silo-quai-thu-1_b9e31e3731b94095ada72a4f3369f042_large.jpg"></a>
+						</div>
+						<div class="article__info">
+							<h3>
+								<a title="Khám phá adidas Predator 25 “Goal Hunter” - Chào đón thế hệ mới nhất của silo ‘Quái thú’" href="/blogs/tin-tuc/kham-pha-adidas-predator-25-goal-hunter-chao-don-the-he-moi-nhat-cua-silo-quai-thu">Khám phá adidas Predator 25 “Goal Hunter” - Chào đón thế hệ mới nhất của silo ‘Quái thú’</a>
+							</h3>
+							<span class="desc-cut">Để khép lại chuỗi kỷ niệm 30 năm đầy ấn tượng của dòng giày đá...</span>
+							<span class="date-post"></span>
+
+						</div>
+					</div>
+				</div>
+				<div class="ega-col-lg-3 ega-col-6 article__wrapper">
+					<div class="article__item">
+						<div class="article__img">
+
+
+							<a title="PUMA trình làng mẫu giày đá bóng Ultra 5 Ultimate x F1 đặc biệt" href="/blogs/tin-tuc/puma-trinh-lang-mau-giay-da-bong-ultra-5-ultimate-x-f1-dac-biet"><img width="480" height="240" class="lazyload dt-width-100" alt="PUMA trình làng mẫu giày đá bóng Ultra 5 Ultimate x F1 đặc biệt" src="//file.hstatic.net/200000278317/article/puma-trinh-lang-mau-giay-da-bong-ultra-5-ultimate-x-f1-dac-biet-1_1b03eb39e0aa4f40aa75618e43f6d397_large.jpg"></a>
+						</div>
+						<div class="article__info">
+							<h3>
+								<a title="PUMA trình làng mẫu giày đá bóng Ultra 5 Ultimate x F1 đặc biệt" href="/blogs/tin-tuc/puma-trinh-lang-mau-giay-da-bong-ultra-5-ultimate-x-f1-dac-biet">PUMA trình làng mẫu giày đá bóng Ultra 5 Ultimate x F1 đặc biệt</a>
+							</h3>
+							<span class="desc-cut">Nếu phải tìm ra thương hiệu giày đá bóng có mối liên hệ mật thiết...</span>
+							<span class="date-post"></span>
+
+						</div>
+					</div>
+				</div>
+				<div class="ega-col-lg-3 ega-col-6 article__wrapper">
+					<div class="article__item">
+						<div class="article__img">
+
+
+							<a title="Khám phá PUMA Ultra 5 “Stealth” - Phiên bản Signature thứ 5 dành cho Christian Pulisic" href="/blogs/tin-tuc/kham-pha-puma-ultra-5-stealth-phien-ban-signature-thu-5-danh-cho-christian-pulisic"><img width="480" height="240" class="lazyload dt-width-100" alt="Khám phá PUMA Ultra 5 “Stealth” - Phiên bản Signature thứ 5 dành cho Christian Pulisic" src="//file.hstatic.net/200000278317/article/ultra-5-stealth-phien-ban-signature-thu-5-danh-cho-christian-pulisic-1_b4953d8872194298b739c03a84860b14_large.jpg"></a>
+						</div>
+						<div class="article__info">
+							<h3>
+								<a title="Khám phá PUMA Ultra 5 “Stealth” - Phiên bản Signature thứ 5 dành cho Christian Pulisic" href="/blogs/tin-tuc/kham-pha-puma-ultra-5-stealth-phien-ban-signature-thu-5-danh-cho-christian-pulisic">Khám phá PUMA Ultra 5 “Stealth” - Phiên bản Signature thứ 5 dành cho Christian Pulisic</a>
+							</h3>
+							<span class="desc-cut">Đã khá lâu rồi kể từ lần gần nhất Christian Pulisic nhận được đôi giày...</span>
+							<span class="date-post"></span>
+
+						</div>
+					</div>
+				</div>
+				<div class="ega-col-lg-3 ega-col-6 article__wrapper">
+					<div class="article__item">
+						<div class="article__img">
+
+
+							<a title="TOP 5 DÒNG GIÀY ĐÁ BÓNG CỎ NHÂN TẠO NGON NHẤT NĂM 2024" href="/blogs/tin-tuc/top-5-dong-giay-da-bong-co-nhan-tao-ngon-nhat-nam-2024"><img width="480" height="240" class="lazyload dt-width-100" alt="TOP 5 DÒNG GIÀY ĐÁ BÓNG CỎ NHÂN TẠO NGON NHẤT NĂM 2024" src="//file.hstatic.net/200000278317/article/top2024_dac78dcfae0648b792aad289856bf05b_large.jpg"></a>
+						</div>
+						<div class="article__info">
+							<h3>
+								<a title="TOP 5 DÒNG GIÀY ĐÁ BÓNG CỎ NHÂN TẠO NGON NHẤT NĂM 2024" href="/blogs/tin-tuc/top-5-dong-giay-da-bong-co-nhan-tao-ngon-nhat-nam-2024">TOP 5 DÒNG GIÀY ĐÁ BÓNG CỎ NHÂN TẠO NGON NHẤT NĂM 2024</a>
+							</h3>
+							<span class="desc-cut">Với sự phát triển nhanh chóng của bóng đá sân 7 trong những năm gần...</span>
+							<span class="date-post"></span>
+
+						</div>
+					</div>
+				</div>
+				<div class="ega-col-lg-3 ega-col-6 article__wrapper">
+					<div class="article__item">
+						<div class="article__img">
+
+
+							<a title="TOP 5 DÒNG GIÀY ĐÁ BÓNG CỎ NHÂN TẠO TỪ BÈ ÍT ĐẾN BÈ NHIỀU NGON NHẤT NĂM 2024" href="/blogs/tin-tuc/top-5-dong-giay-da-bong-co-nhan-tao-tu-be-it-den-be-nhieu-ngon-nhat-na"><img width="480" height="240" class="lazyload dt-width-100" alt="TOP 5 DÒNG GIÀY ĐÁ BÓNG CỎ NHÂN TẠO TỪ BÈ ÍT ĐẾN BÈ NHIỀU NGON NHẤT NĂM 2024" src="//file.hstatic.net/200000278317/article/beit-benhieu_e417bc905287463a8960e10f65452d10_large.jpg"></a>
+						</div>
+						<div class="article__info">
+							<h3>
+								<a title="TOP 5 DÒNG GIÀY ĐÁ BÓNG CỎ NHÂN TẠO TỪ BÈ ÍT ĐẾN BÈ NHIỀU NGON NHẤT NĂM 2024" href="/blogs/tin-tuc/top-5-dong-giay-da-bong-co-nhan-tao-tu-be-it-den-be-nhieu-ngon-nhat-na">TOP 5 DÒNG GIÀY ĐÁ BÓNG CỎ NHÂN TẠO TỪ BÈ ÍT ĐẾN BÈ NHIỀU NGON NHẤT NĂM 2024</a>
+							</h3>
+							<span class="desc-cut">“Chân bè khó tìm giày đá bóng ưng ý?” - Đây chính là câu hỏi...</span>
+							<span class="date-post"></span>
+
+						</div>
+					</div>
+				</div>
+				<div class="ega-col-lg-3 ega-col-6 article__wrapper">
+					<div class="article__item">
+						<div class="article__img">
+
+
+							<a title="TOP 5 GIÀY ĐÁ BÓNG CỎ NHÂN TẠO DÀNH CHO CHÂN THON ĐẾN BÈ ÍT NGON NHẤT NĂM 2024" href="/blogs/tin-tuc/top-5-giay-da-bong-co-nhan-tao-danh-cho-chan-thon-den-be-it-ngon-nhat"><img width="480" height="240" class="lazyload dt-width-100" alt="TOP 5 GIÀY ĐÁ BÓNG CỎ NHÂN TẠO DÀNH CHO CHÂN THON ĐẾN BÈ ÍT NGON NHẤT NĂM 2024" src="//file.hstatic.net/200000278317/article/thon-beit_4bee6d4773a24222a1e1b5514899aaa4_large.jpg"></a>
+						</div>
+						<div class="article__info">
+							<h3>
+								<a title="TOP 5 GIÀY ĐÁ BÓNG CỎ NHÂN TẠO DÀNH CHO CHÂN THON ĐẾN BÈ ÍT NGON NHẤT NĂM 2024" href="/blogs/tin-tuc/top-5-giay-da-bong-co-nhan-tao-danh-cho-chan-thon-den-be-it-ngon-nhat">TOP 5 GIÀY ĐÁ BÓNG CỎ NHÂN TẠO DÀNH CHO CHÂN THON ĐẾN BÈ ÍT NGON NHẤT NĂM 2024</a>
+							</h3>
+							<span class="desc-cut">Việc lựa chọn giày đá bóng phù hợp với form chân là điều vô cùng...</span>
+							<span class="date-post"></span>
+
+						</div>
+					</div>
+				</div>
+				<div class="ega-col-lg-3 ega-col-6 article__wrapper">
+					<div class="article__item">
+						<div class="article__img">
+
+
+							<a title="Khám phá adidas F50 “Two Horizons” - Mở ra thế giới Ả Rập ngay trên chính đôi chân của bạn!" href="/blogs/tin-tuc/kham-pha-adidas-f50-two-horizons-mo-ra-the-gioi-a-rap-ngay-tren-chinh-doi-chan-cua-ban"><img width="480" height="240" class="lazyload dt-width-100" alt="Khám phá adidas F50 “Two Horizons” - Mở ra thế giới Ả Rập ngay trên chính đôi chân của bạn!" src="//file.hstatic.net/200000278317/article/0-two-horizons-mo-ra-the-gioi-a-rap-ngay-tren-chinh-doi-chan-cua-ban-1_693354c214ad42c898e1e23adf7cc73f_large.jpg"></a>
+						</div>
+						<div class="article__info">
+							<h3>
+								<a title="Khám phá adidas F50 “Two Horizons” - Mở ra thế giới Ả Rập ngay trên chính đôi chân của bạn!" href="/blogs/tin-tuc/kham-pha-adidas-f50-two-horizons-mo-ra-the-gioi-a-rap-ngay-tren-chinh-doi-chan-cua-ban">Khám phá adidas F50 “Two Horizons” - Mở ra thế giới Ả Rập ngay trên chính đôi chân của bạn!</a>
+							</h3>
+							<span class="desc-cut">Mở ra một hướng đi hoàn toàn mới, adidas vừa qua đã chính thức trình...</span>
+							<span class="date-post"></span>
+
+						</div>
+					</div>
+				</div>
+				<div class="ega-col-lg-3 ega-col-6 article__wrapper">
+					<div class="article__item">
+						<div class="article__img">
+
+
+							<a title="Khám phá Nike Mercurial Vapor I RGN Remake - Sự trở lại của một huyền thoại!" href="/blogs/tin-tuc/kham-pha-nike-mercurial-vapor-i-rgn-remake-su-tro-lai-cua-mot-huyen-thoai"><img width="480" height="240" class="lazyload dt-width-100" alt="Khám phá Nike Mercurial Vapor I RGN Remake - Sự trở lại của một huyền thoại!" src="//file.hstatic.net/200000278317/article/pha-nike-mercurial-vapor-i-rgn-remake-su-tro-lai-cua-mot-huyen-thoai-1_1d0d4977321a4683b55dca1f78f4e50a_large.jpg"></a>
+						</div>
+						<div class="article__info">
+							<h3>
+								<a title="Khám phá Nike Mercurial Vapor I RGN Remake - Sự trở lại của một huyền thoại!" href="/blogs/tin-tuc/kham-pha-nike-mercurial-vapor-i-rgn-remake-su-tro-lai-cua-mot-huyen-thoai">Khám phá Nike Mercurial Vapor I RGN Remake - Sự trở lại của một huyền thoại!</a>
+							</h3>
+							<span class="desc-cut">Để đánh thức ký ức của những người hâm mộ bóng đá từ giai đoạn...</span>
+							<span class="date-post"></span>
+
+						</div>
+					</div>
+				</div>
+				<div class="ega-col-lg-3 ega-col-6 article__wrapper">
+					<div class="article__item">
+						<div class="article__img">
+
+
+							<a title="Nike trình làng Chapter 2 của series giày đá bóng Air Zoom Mercurial “Cosmic Speed” Chapter 2" href="/blogs/tin-tuc/nike-trinh-lang-chapter-2-cua-series-giay-da-bong-air-zoom-mercurial-cosmic-speed-chapter-2"><img width="480" height="240" class="lazyload dt-width-100" alt="Nike trình làng Chapter 2 của series giày đá bóng Air Zoom Mercurial “Cosmic Speed” Chapter 2" src="//file.hstatic.net/200000278317/article/-2-cua-series-giay-da-bong-air-zoom-mercurial-cosmic-speed-chapter-2-1_0b65df1def354aa4acb387cd8090f54f_large.jpg"></a>
+						</div>
+						<div class="article__info">
+							<h3>
+								<a title="Nike trình làng Chapter 2 của series giày đá bóng Air Zoom Mercurial “Cosmic Speed” Chapter 2" href="/blogs/tin-tuc/nike-trinh-lang-chapter-2-cua-series-giay-da-bong-air-zoom-mercurial-cosmic-speed-chapter-2">Nike trình làng Chapter 2 của series giày đá bóng Air Zoom Mercurial “Cosmic Speed” Chapter 2</a>
+							</h3>
+							<span class="desc-cut">Sau khi khép lại một kỷ nguyên đầy thành công của series Dream Speed với...</span>
+							<span class="date-post"></span>
+
+						</div>
+					</div>
+				</div>
+				<div class="ega-col-lg-3 ega-col-6 article__wrapper">
+					<div class="article__item">
+						<div class="article__img">
+
+
+							<a title="Khám phá adidas x David Beckham Predator 24 - Dấu ấn đến từ ‘Chủ tịch’ Beckham" href="/blogs/tin-tuc/kham-pha-adidas-x-david-beckham-predator-24-dau-an-den-tu-chu-tich-beckham"><img width="480" height="240" class="lazyload dt-width-100" alt="Khám phá adidas x David Beckham Predator 24 - Dấu ấn đến từ ‘Chủ tịch’ Beckham" src="//file.hstatic.net/200000278317/article/ha-adidas-x-david-beckham-predator-24-dau-an-den-tu-chu-tich-beckham-1_7c9599d675064886b00642282b4c5504_large.jpg"></a>
+						</div>
+						<div class="article__info">
+							<h3>
+								<a title="Khám phá adidas x David Beckham Predator 24 - Dấu ấn đến từ ‘Chủ tịch’ Beckham" href="/blogs/tin-tuc/kham-pha-adidas-x-david-beckham-predator-24-dau-an-den-tu-chu-tich-beckham">Khám phá adidas x David Beckham Predator 24 - Dấu ấn đến từ ‘Chủ tịch’ Beckham</a>
+							</h3>
+							<span class="desc-cut">Tiếp tục với chuỗi sự kiện kỷ niệm 30 năm ra mắt của silo Predator,...</span>
+							<span class="date-post"></span>
+
+						</div>
+					</div>
+				</div>
+				<div class="ega-col-lg-3 ega-col-6 article__wrapper">
+					<div class="article__item">
+						<div class="article__img">
+
+
+							<a title="Khám phá Nike Mercurial Dream Speed 009 - Phiên bản cuối cùng của series MDS" href="/blogs/tin-tuc/kham-pha-nike-mercurial-dream-speed-009-phien-ban-cuoi-cung-cua-series-mds"><img width="480" height="240" class="lazyload dt-width-100" alt="Khám phá Nike Mercurial Dream Speed 009 - Phiên bản cuối cùng của series MDS" src="//file.hstatic.net/200000278317/article/ha-nike-mercurial-dream-speed-009-phien-ban-cuoi-cung-cua-series-mds-1_b32539077f5c42c486882d07431ac5cc_large.jpg"></a>
+						</div>
+						<div class="article__info">
+							<h3>
+								<a title="Khám phá Nike Mercurial Dream Speed 009 - Phiên bản cuối cùng của series MDS" href="/blogs/tin-tuc/kham-pha-nike-mercurial-dream-speed-009-phien-ban-cuoi-cung-cua-series-mds">Khám phá Nike Mercurial Dream Speed 009 - Phiên bản cuối cùng của series MDS</a>
+							</h3>
+							<span class="desc-cut">Mang trên mình tinh thần di sản, tốc độ và niềm tin vào bản thân...</span>
+							<span class="date-post"></span>
+
+						</div>
+					</div>
+				</div>
+				<div class="ega-col-lg-3 ega-col-6 article__wrapper">
+					<div class="article__item">
+						<div class="article__img">
+
+
+							<a title="adidas thửa riêng cho Aitana Bonmatí phiên bản Predator 2024 Ballon d'Or đặc biệt" href="/blogs/tin-tuc/adidas-thua-rieng-cho-aitana-bonmati-phien-ban-predator-2024-ballon-d-or-dac-biet"><img width="480" height="240" class="lazyload dt-width-100" alt="adidas thửa riêng cho Aitana Bonmatí phiên bản Predator 2024 Ballon d'Or đặc biệt" src="//file.hstatic.net/200000278317/article/ieng-cho-aitana-bonmati-phien-ban-predator-2024-ballon-d-or-dac-biet-1_acf2a87dcb464feaa5b5a5e17048c6b8_large.jpg"></a>
+						</div>
+						<div class="article__info">
+							<h3>
+								<a title="adidas thửa riêng cho Aitana Bonmatí phiên bản Predator 2024 Ballon d'Or đặc biệt" href="/blogs/tin-tuc/adidas-thua-rieng-cho-aitana-bonmati-phien-ban-predator-2024-ballon-d-or-dac-biet">adidas thửa riêng cho Aitana Bonmatí phiên bản Predator 2024 Ballon d'Or đặc biệt</a>
+							</h3>
+							<span class="desc-cut">Vừa qua, Aitana Bonmatí đã vượt qua hai người đồng đội trong màu áo Barca...</span>
+							<span class="date-post"></span>
+
+						</div>
+					</div>
+				</div>
+				<div class="ega-col-lg-3 ega-col-6 article__wrapper">
+					<div class="article__item">
+						<div class="article__img">
+
+
+							<a title="adidas trình làng mẫu giày đá bóng Predator 24 “Preds of Darkness” dành riêng cho Emiliano Martínez" href="/blogs/tin-tuc/adidas-trinh-lang-mau-giay-da-bong-predator-24-preds-of-darkness-danh-rieng-cho-emiliano-martinez"><img width="480" height="240" class="lazyload dt-width-100" alt="adidas trình làng mẫu giày đá bóng Predator 24 “Preds of Darkness” dành riêng cho Emiliano Martínez" src="//file.hstatic.net/200000278317/article/-bong-predator-24-preds-of-darkness-danh-rieng-cho-emiliano-martinez-2_8ed05163a042478c8293ddfbe2b00a9f_large.jpg"></a>
+						</div>
+						<div class="article__info">
+							<h3>
+								<a title="adidas trình làng mẫu giày đá bóng Predator 24 “Preds of Darkness” dành riêng cho Emiliano Martínez" href="/blogs/tin-tuc/adidas-trinh-lang-mau-giay-da-bong-predator-24-preds-of-darkness-danh-rieng-cho-emiliano-martinez">adidas trình làng mẫu giày đá bóng Predator 24 “Preds of Darkness” dành riêng cho Emiliano Martínez</a>
+							</h3>
+							<span class="desc-cut">Vừa qua, adidas đã gây bất ngờ lớn cho người hâm mộ khi bắt tay...</span>
+							<span class="date-post"></span>
+
+						</div>
+					</div>
+				</div>
+				<div class="ega-col-lg-3 ega-col-6 article__wrapper">
+					<div class="article__item">
+						<div class="article__img">
+
+
+							<a title="Khám phá PUMA Future 7 x Orlinski - Khi bóng đá và nghệ thuật cùng gặp gỡ!" href="/blogs/tin-tuc/kham-pha-puma-future-7-x-orlinski-khi-bong-da-va-nghe-thuat-cung-gap-go"><img width="480" height="240" class="lazyload dt-width-100" alt="Khám phá PUMA Future 7 x Orlinski - Khi bóng đá và nghệ thuật cùng gặp gỡ!" src="//file.hstatic.net/200000278317/article/m-pha-puma-future-7-x-orlinski-khi-bong-da-va-nghe-thuat-cung-gap-go-1_70fa2862f6824791aedf8bf745df38ee_large.jpg"></a>
+						</div>
+						<div class="article__info">
+							<h3>
+								<a title="Khám phá PUMA Future 7 x Orlinski - Khi bóng đá và nghệ thuật cùng gặp gỡ!" href="/blogs/tin-tuc/kham-pha-puma-future-7-x-orlinski-khi-bong-da-va-nghe-thuat-cung-gap-go">Khám phá PUMA Future 7 x Orlinski - Khi bóng đá và nghệ thuật cùng gặp gỡ!</a>
+							</h3>
+							<span class="desc-cut">Trong một sự kết hợp đầy bất ngờ và thú vị, PUMA đã bắt tay...</span>
+							<span class="date-post"></span>
+
+						</div>
+					</div>
+				</div>
+				<div class="ega-col-lg-3 ega-col-6 article__wrapper">
+					<div class="article__item">
+						<div class="article__img">
+
+
+							<a title="PUMA tôn vinh huyền thoại Ayrton Senna với phiên bản giày đá bóng Ultra 5 Ultimate đặc biệt" href="/blogs/tin-tuc/puma-ton-vinh-huyen-thoai-ayrton-senna-voi-phien-ban-giay-da-bong-ultr"><img width="480" height="240" class="lazyload dt-width-100" alt="PUMA tôn vinh huyền thoại Ayrton Senna với phiên bản giày đá bóng Ultra 5 Ultimate đặc biệt" src="//file.hstatic.net/200000278317/article/ai-ayrton-senna-voi-phien-ban-giay-da-bong-ultra-5-ultimate-dac-biet-1_7f840bc6a4fc434b8347b419f8fbf0a6_large.jpg"></a>
+						</div>
+						<div class="article__info">
+							<h3>
+								<a title="PUMA tôn vinh huyền thoại Ayrton Senna với phiên bản giày đá bóng Ultra 5 Ultimate đặc biệt" href="/blogs/tin-tuc/puma-ton-vinh-huyen-thoai-ayrton-senna-voi-phien-ban-giay-da-bong-ultr">PUMA tôn vinh huyền thoại Ayrton Senna với phiên bản giày đá bóng Ultra 5 Ultimate đặc biệt</a>
+							</h3>
+							<span class="desc-cut">Luôn theo đuổi giới hạn của tốc độ, PUMA vừa bắt tay cùng Netflix để...</span>
+							<span class="date-post"></span>
+
+						</div>
+					</div>
+				</div>
+				<div class="ega-col-lg-3 ega-col-6 article__wrapper">
+					<div class="article__item">
+						<div class="article__img">
+
+
+							<a title="PUMA hợp tác cùng Pro:Direct Soccer ra mắt mẫu giày Ultra 5 x Mexico đặc biệt" href="/blogs/tin-tuc/puma-hop-tac-cung-pro-direct-soccer-ra-mat-mau-giay-ultra-5-x-mexico-dac-biet"><img width="480" height="240" class="lazyload dt-width-100" alt="PUMA hợp tác cùng Pro:Direct Soccer ra mắt mẫu giày Ultra 5 x Mexico đặc biệt" src="//file.hstatic.net/200000278317/article/tac-cung-pro-direct-soccer-ra-mat-mau-giay-ultra-5-x-mexico-dac-biet-1_058c33f6b4604052ab4a7b84807e784c_large.jpg"></a>
+						</div>
+						<div class="article__info">
+							<h3>
+								<a title="PUMA hợp tác cùng Pro:Direct Soccer ra mắt mẫu giày Ultra 5 x Mexico đặc biệt" href="/blogs/tin-tuc/puma-hop-tac-cung-pro-direct-soccer-ra-mat-mau-giay-ultra-5-x-mexico-dac-biet">PUMA hợp tác cùng Pro:Direct Soccer ra mắt mẫu giày Ultra 5 x Mexico đặc biệt</a>
+							</h3>
+							<span class="desc-cut">Với khát khao không ngừng chinh phục những giới hạn mới của tốc độ, PUMA...</span>
+							<span class="date-post"></span>
+
+						</div>
+					</div>
+				</div>
+				<div class="ega-col-lg-3 ega-col-6 article__wrapper">
+					<div class="article__item">
+						<div class="article__img">
+
+
+							<a title="PUMA tôn vinh Cody Gakpo bằng phiên bản giày đá bóng đặc biệt" href="/blogs/tin-tuc/puma-ton-vinh-cody-gakpo-bang-phien-ban-giay-da-bong-dac-biet"><img width="480" height="240" class="lazyload dt-width-100" alt="PUMA tôn vinh Cody Gakpo bằng phiên bản giày đá bóng đặc biệt" src="//file.hstatic.net/200000278317/article/puma-ton-vinh-cody-gakpo-bang-phien-ban-giay-da-bong-dac-biet-8_876475fc4e1e439488b957106f036dfd_large.jpg"></a>
+						</div>
+						<div class="article__info">
+							<h3>
+								<a title="PUMA tôn vinh Cody Gakpo bằng phiên bản giày đá bóng đặc biệt" href="/blogs/tin-tuc/puma-ton-vinh-cody-gakpo-bang-phien-ban-giay-da-bong-dac-biet">PUMA tôn vinh Cody Gakpo bằng phiên bản giày đá bóng đặc biệt</a>
+							</h3>
+							<span class="desc-cut">Trước màn trình diễn bùng nổ của Cody Gakpo tại EURO mùa hè vừa qua...</span>
+							<span class="date-post"></span>
+
+						</div>
+					</div>
+				</div>
+				<div class="ega-col-lg-3 ega-col-6 article__wrapper">
+					<div class="article__item">
+						<div class="article__img">
+
+
+							<a title="Khám phá adidas F50 Messi x Bad Bunny - Khi bóng đá giao thoa cùng âm nhạc!" href="/blogs/tin-tuc/kham-pha-adidas-f50-messi-x-bad-bunny-khi-bong-da-giao-thoa-cung-am-nhac"><img width="480" height="240" class="lazyload dt-width-100" alt="Khám phá adidas F50 Messi x Bad Bunny - Khi bóng đá giao thoa cùng âm nhạc!" src="//file.hstatic.net/200000278317/article/-pha-adidas-f50-messi-x-bad-bunny-khi-bong-da-giao-thoa-cung-am-nhac-1_eb858df2731344e7a033579363d95457_large.jpg"></a>
+						</div>
+						<div class="article__info">
+							<h3>
+								<a title="Khám phá adidas F50 Messi x Bad Bunny - Khi bóng đá giao thoa cùng âm nhạc!" href="/blogs/tin-tuc/kham-pha-adidas-f50-messi-x-bad-bunny-khi-bong-da-giao-thoa-cung-am-nhac">Khám phá adidas F50 Messi x Bad Bunny - Khi bóng đá giao thoa cùng âm nhạc!</a>
+							</h3>
+							<span class="desc-cut">Bóng đá và âm nhạc đã cùng hòa chung nhịp đập khi ‘GOAT’ bắt tay...</span>
+							<span class="date-post"></span>
+
+						</div>
+					</div>
+				</div>
+				<div class="ega-col-lg-3 ega-col-6 article__wrapper">
+					<div class="article__item">
+						<div class="article__img">
+
+
+							<a title="PUMA ra mắt bộ sưu tập giày đá bóng “Lights Out Pack” hoàn toàn mới" href="/blogs/tin-tuc/puma-ra-mat-bo-suu-tap-giay-da-bong-lights-out-pack-hoan-toan-moi"><img width="480" height="240" class="lazyload dt-width-100" alt="PUMA ra mắt bộ sưu tập giày đá bóng “Lights Out Pack” hoàn toàn mới" src="//file.hstatic.net/200000278317/article/puma-ra-mat-bo-suu-tap-giay-da-bong-lights-out-pack-hoan-toan-moi-1_50f9b0ee40ab44afbee4acaf90758bbb_large.jpg"></a>
+						</div>
+						<div class="article__info">
+							<h3>
+								<a title="PUMA ra mắt bộ sưu tập giày đá bóng “Lights Out Pack” hoàn toàn mới" href="/blogs/tin-tuc/puma-ra-mat-bo-suu-tap-giay-da-bong-lights-out-pack-hoan-toan-moi">PUMA ra mắt bộ sưu tập giày đá bóng “Lights Out Pack” hoàn toàn mới</a>
+							</h3>
+							<span class="desc-cut">Khi lượt trận thứ hai của các giải cúp châu Âu đang đến gần, thì...</span>
+							<span class="date-post"></span>
+
+						</div>
+					</div>
+				</div>
+				<div class="ega-col-lg-3 ega-col-6 article__wrapper">
+					<div class="article__item">
+						<div class="article__img">
+
+
+							<a title="Khám phá adidas Predator 24 “BelliGold” - phiên bản signature đầu tiên của Jude Bellingham!" href="/blogs/tin-tuc/kham-pha-adidas-predator-24-belligold-phien-ban-signature-dau-tien-cua-jude-bellingham"><img width="480" height="240" class="lazyload dt-width-100" alt="Khám phá adidas Predator 24 “BelliGold” - phiên bản signature đầu tiên của Jude Bellingham!" src="//file.hstatic.net/200000278317/article/edator-24-belligold-phien-ban-signature-dau-tien-cua-jude-bellingham-1_6c5ab8bb2ccc423091654dc531de9b21_large.jpg"></a>
+						</div>
+						<div class="article__info">
+							<h3>
+								<a title="Khám phá adidas Predator 24 “BelliGold” - phiên bản signature đầu tiên của Jude Bellingham!" href="/blogs/tin-tuc/kham-pha-adidas-predator-24-belligold-phien-ban-signature-dau-tien-cua-jude-bellingham">Khám phá adidas Predator 24 “BelliGold” - phiên bản signature đầu tiên của Jude Bellingham!</a>
+							</h3>
+							<span class="desc-cut">Tiếp nối bộ sưu tập trang phục signature đầu tiên, vừa qua, adidas đã dành...</span>
+							<span class="date-post"></span>
+
+						</div>
+					</div>
+				</div>
+				<div class="ega-col-lg-3 ega-col-6 article__wrapper">
+					<div class="article__item">
+						<div class="article__img">
+
+
+							<a title="Top 5 giày đá bóng cỏ nhân tạo làm từ sợi dệt ngon nhất hiện nay" href="/blogs/tin-tuc/top-5-giay-da-bong-co-nhan-tao-lam-tu-soi-det-ngon-nhat-hien-nay"><img width="480" height="240" class="lazyload dt-width-100" alt="Top 5 giày đá bóng cỏ nhân tạo làm từ sợi dệt ngon nhất hiện nay" src="//file.hstatic.net/200000278317/article/top-5-giay-da-bong-co-nhan-tao-lam-tu-soi-det-ngon-nhat-hien-nay-1_7167d7acc31343eea7aadaa786962c6b_large.jpg"></a>
+						</div>
+						<div class="article__info">
+							<h3>
+								<a title="Top 5 giày đá bóng cỏ nhân tạo làm từ sợi dệt ngon nhất hiện nay" href="/blogs/tin-tuc/top-5-giay-da-bong-co-nhan-tao-lam-tu-soi-det-ngon-nhat-hien-nay">Top 5 giày đá bóng cỏ nhân tạo làm từ sợi dệt ngon nhất hiện nay</a>
+							</h3>
+							<span class="desc-cut">Trên thị trường giày đá bóng cỏ nhân tạo hiện nay, những đôi giày với...</span>
+							<span class="date-post"></span>
+
+						</div>
+					</div>
+				</div>
+				<div class="ega-col-lg-3 ega-col-6 article__wrapper">
+					<div class="article__item">
+						<div class="article__img">
+
+
+							<a title="Khám phá adidas F50 Messi “Triunfo Estelar” - Kim chỉ nam cho những nhà vô địch tương lai!" href="/blogs/tin-tuc/kham-pha-adidas-f50-messi-triunfo-estelar-kim-chi-nam-cho-nhung-nha-vo-dich-tuong-lai"><img width="480" height="240" class="lazyload dt-width-100" alt="Khám phá adidas F50 Messi “Triunfo Estelar” - Kim chỉ nam cho những nhà vô địch tương lai!" src="//file.hstatic.net/200000278317/article/50-messi-triunfo-estelar-kim-chi-nam-cho-nhung-nha-vo-dich-tuong-lai-1_441baf191c99484c9e6167defe14caaf_large.jpg"></a>
+						</div>
+						<div class="article__info">
+							<h3>
+								<a title="Khám phá adidas F50 Messi “Triunfo Estelar” - Kim chỉ nam cho những nhà vô địch tương lai!" href="/blogs/tin-tuc/kham-pha-adidas-f50-messi-triunfo-estelar-kim-chi-nam-cho-nhung-nha-vo-dich-tuong-lai">Khám phá adidas F50 Messi “Triunfo Estelar” - Kim chỉ nam cho những nhà vô địch tương lai!</a>
+							</h3>
+							<span class="desc-cut">Trước ngày “Messi Day” (10.10), adidas đã chính thức trình làng mẫu giày đá bóng...</span>
+							<span class="date-post"></span>
+
+						</div>
+					</div>
+				</div>
+				<div class="ega-col-lg-3 ega-col-6 article__wrapper">
+					<div class="article__item">
+						<div class="article__img">
+
+
+							<a title="Khám phá Nike “Mad Voltage Pack” - Thổi bùng năng lượng cho những ngày đông ảm đạm!" href="/blogs/tin-tuc/kham-pha-nike-mad-voltage-pack-thoi-bung-nang-luong-cho-nhung-ngay-dong-am-dam"><img width="480" height="240" class="lazyload dt-width-100" alt="Khám phá Nike “Mad Voltage Pack” - Thổi bùng năng lượng cho những ngày đông ảm đạm!" src="//file.hstatic.net/200000278317/article/ike-mad-voltage-pack-thoi-bung-nang-luong-cho-nhung-ngay-dong-am-dam-1_da7bc3f9e2f74f49885807ec62ca0ada_large.jpg"></a>
+						</div>
+						<div class="article__info">
+							<h3>
+								<a title="Khám phá Nike “Mad Voltage Pack” - Thổi bùng năng lượng cho những ngày đông ảm đạm!" href="/blogs/tin-tuc/kham-pha-nike-mad-voltage-pack-thoi-bung-nang-luong-cho-nhung-ngay-dong-am-dam">Khám phá Nike “Mad Voltage Pack” - Thổi bùng năng lượng cho những ngày đông ảm đạm!</a>
+							</h3>
+							<span class="desc-cut">Xua tan màn đêm ảm đạm của mùa đông, Nike chính thức trình làng “Mad...</span>
+							<span class="date-post"></span>
+
+						</div>
+					</div>
+				</div>
+				<div class="ega-col-lg-3 ega-col-6 article__wrapper">
+					<div class="article__item">
+						<div class="article__img">
+
+
+							<a title="Soi giày Futsal trên chân các siêu phủi tại giải SC Business Cup 2024" href="/blogs/tin-tuc/soi-giay-futsal-tren-chan-cac-sieu-phui-tai-giai-sc-business-cup-2024"><img width="480" height="240" class="lazyload dt-width-100" alt="Soi giày Futsal trên chân các siêu phủi tại giải SC Business Cup 2024" src="//file.hstatic.net/200000278317/article/oi-giay-futsal-tren-chan-cac-sieu-phui-tai-giai-sc-business-cup-2024-0_f54cd4953ad549298ea619c91adaf397_large.jpg"></a>
+						</div>
+						<div class="article__info">
+							<h3>
+								<a title="Soi giày Futsal trên chân các siêu phủi tại giải SC Business Cup 2024" href="/blogs/tin-tuc/soi-giay-futsal-tren-chan-cac-sieu-phui-tai-giai-sc-business-cup-2024">Soi giày Futsal trên chân các siêu phủi tại giải SC Business Cup 2024</a>
+							</h3>
+							<span class="desc-cut">SC Business Cup 2024, giải đấu Futsal quy tụ 16 đội bóng đến từ các...</span>
+							<span class="date-post"></span>
+
+						</div>
+					</div>
+				</div>
+				<div class="ega-col-lg-3 ega-col-6 article__wrapper">
+					<div class="article__item">
+						<div class="article__img">
+
+
+							<a title="Top 5 dòng giày đá bóng phổ biến nhất tại Ngoại hạng Anh mùa giải 2024/25" href="/blogs/tin-tuc/top-5-dong-giay-da-bong-pho-bien-nhat-tai-ngoai-hang-anh-mua-giai-2024-2025"><img width="480" height="240" class="lazyload dt-width-100" alt="Top 5 dòng giày đá bóng phổ biến nhất tại Ngoại hạng Anh mùa giải 2024/25" src="//file.hstatic.net/200000278317/article/ong-giay-da-bong-pho-bien-nhat-tai-ngoai-hang-anh-mua-giai-2024-2025-1_16c8c3cb9b6c4271b591e18a081c34fe_large.jpg"></a>
+						</div>
+						<div class="article__info">
+							<h3>
+								<a title="Top 5 dòng giày đá bóng phổ biến nhất tại Ngoại hạng Anh mùa giải 2024/25" href="/blogs/tin-tuc/top-5-dong-giay-da-bong-pho-bien-nhat-tai-ngoai-hang-anh-mua-giai-2024-2025">Top 5 dòng giày đá bóng phổ biến nhất tại Ngoại hạng Anh mùa giải 2024/25</a>
+							</h3>
+							<span class="desc-cut">Ngoại hạng Anh mùa giải 2024/25 đã trải qua 6 vòng đấu. Bên cạnh những...</span>
+							<span class="date-post"></span>
+
+						</div>
+					</div>
+				</div>
+				<div class="ega-col-lg-3 ega-col-6 article__wrapper">
+					<div class="article__item">
+						<div class="article__img">
+
+
+							<a title="Khám phá Mizuno “The Art of Glory Pack” - Bộ sưu tập thửa riêng thứ 3 dành cho Sergio Ramos" href="/blogs/tin-tuc/kham-pha-mizuno-the-art-of-glory-pack-bo-suu-tap-thua-rieng-thu-3-danh-cho-sergio-ramos"><img width="480" height="240" class="lazyload dt-width-100" alt="Khám phá Mizuno “The Art of Glory Pack” - Bộ sưu tập thửa riêng thứ 3 dành cho Sergio Ramos" src="//file.hstatic.net/200000278317/article/-art-of-glory-pack-bo-suu-tap-thua-rieng-thu-3-danh-cho-sergio-ramos-1_0eaad161e5b84f9ab79fd6e4b30188a4_large.jpg"></a>
+						</div>
+						<div class="article__info">
+							<h3>
+								<a title="Khám phá Mizuno “The Art of Glory Pack” - Bộ sưu tập thửa riêng thứ 3 dành cho Sergio Ramos" href="/blogs/tin-tuc/kham-pha-mizuno-the-art-of-glory-pack-bo-suu-tap-thua-rieng-thu-3-danh-cho-sergio-ramos">Khám phá Mizuno “The Art of Glory Pack” - Bộ sưu tập thửa riêng thứ 3 dành cho Sergio Ramos</a>
+							</h3>
+							<span class="desc-cut">Tiếp tục hành trình tôn vinh một trong những hậu vệ vĩ đại nhất lịch...</span>
+							<span class="date-post"></span>
+
+						</div>
+					</div>
+				</div>
+				<div class="ega-col-lg-3 ega-col-6 article__wrapper">
+					<div class="article__item">
+						<div class="article__img">
+
+
+							<a title="Khám phá PUMA Future 7 " href="/blogs/tin-tuc/kham-pha-puma-future-7-njr-bna-phien-ban-signature-moi-nhat-danh-cho-neymar-jr" jr."="" neymar="" cho="" dành="" nhất="" mới="" signature="" bản="" phiên="" -="" bna"="" njr=""><img width="480" height="240" class="lazyload dt-width-100" alt="Khám phá PUMA Future 7 " src="//file.hstatic.net/200000278317/article/uma-future-7-njr-bna-phien-ban-signature-moi-nhat-danh-cho-neymar-jr-1_96a8d8f4b99b4ff48b6d1383665e1d51_large.jpg" jr."="" neymar="" cho="" dành="" nhất="" mới="" signature="" bản="" phiên="" -="" bna"="" njr=""></a>
+						</div>
+						<div class="article__info">
+							<h3>
+								<a title="Khám phá PUMA Future 7 " href="/blogs/tin-tuc/kham-pha-puma-future-7-njr-bna-phien-ban-signature-moi-nhat-danh-cho-neymar-jr" jr."="" neymar="" cho="" dành="" nhất="" mới="" signature="" bản="" phiên="" -="" bna"="" njr="">Khám phá PUMA Future 7 "NJR BNA" - phiên bản signature mới nhất dành cho Neymar Jr.</a>
+							</h3>
+							<span class="desc-cut">Lấy cảm hứng từ những màu sắc và họa tiết đặc trưng của quê hương...</span>
+							<span class="date-post"></span>
+
+						</div>
+					</div>
+				</div>
+				<div class="ega-col-lg-3 ega-col-6 article__wrapper">
+					<div class="article__item">
+						<div class="article__img">
+
+
+							<a title="Nike ra mắt series giày đá bóng Mercurial Cosmic Speed hoàn toàn mới" href="/blogs/tin-tuc/nike-ra-mat-series-giay-da-bong-mercurial-cosmic-speed-hoan-toan-moi"><img width="480" height="240" class="lazyload dt-width-100" alt="Nike ra mắt series giày đá bóng Mercurial Cosmic Speed hoàn toàn mới" src="//file.hstatic.net/200000278317/article/nike-ra-mat-series-giay-da-bong-mercurial-cosmic-speed-hoan-toan-moi-1_d363f3b9d8214b7f9a35aee99382d80b_large.jpg"></a>
+						</div>
+						<div class="article__info">
+							<h3>
+								<a title="Nike ra mắt series giày đá bóng Mercurial Cosmic Speed hoàn toàn mới" href="/blogs/tin-tuc/nike-ra-mat-series-giay-da-bong-mercurial-cosmic-speed-hoan-toan-moi">Nike ra mắt series giày đá bóng Mercurial Cosmic Speed hoàn toàn mới</a>
+							</h3>
+							<span class="desc-cut">Đánh dấu một kỷ nguyên mới cho tốc độ trong bóng đá, Nike vừa chính...</span>
+							<span class="date-post"></span>
+
+						</div>
+					</div>
+				</div>
+				<div class="ega-col-lg-3 ega-col-6 article__wrapper">
+					<div class="article__item">
+						<div class="article__img">
+
+
+							<a title="adidas trình làng bộ sưu tập giày đá bóng “Vivid Horizon Pack”" href="/blogs/tin-tuc/adidas-trinh-lang-bo-suu-tap-giay-da-bong-vivid-horizon-pack"><img width="480" height="240" class="lazyload dt-width-100" alt="adidas trình làng bộ sưu tập giày đá bóng “Vivid Horizon Pack”" src="//file.hstatic.net/200000278317/article/adidas-trinh-lang-bo-suu-tap-giay-da-bong-vivid-horizon-pack-3_c21beb4d9d7f42af8fd1a027831f515e_large.jpg"></a>
+						</div>
+						<div class="article__info">
+							<h3>
+								<a title="adidas trình làng bộ sưu tập giày đá bóng “Vivid Horizon Pack”" href="/blogs/tin-tuc/adidas-trinh-lang-bo-suu-tap-giay-da-bong-vivid-horizon-pack">adidas trình làng bộ sưu tập giày đá bóng “Vivid Horizon Pack”</a>
+							</h3>
+							<span class="desc-cut">Khi những tia nắng hè cuối cùng dần tắt và không khí se lạnh của...</span>
+							<span class="date-post"></span>
+
+						</div>
+					</div>
+				</div>
+				<div class="ega-col-lg-3 ega-col-6 article__wrapper">
+					<div class="article__item">
+						<div class="article__img">
+
+
+							<a title="Khám phá PUMA Future 7 “Campeones de Europa” - Siêu phẩm dành riêng cho những nhà vô địch EURO 2024" href="/blogs/tin-tuc/kham-pha-puma-future-7-campeones-de-europa-sieu-pham-danh-rieng-cho-nhung-nha-vo-dich-euro-2024"><img width="480" height="240" class="lazyload dt-width-100" alt="Khám phá PUMA Future 7 “Campeones de Europa” - Siêu phẩm dành riêng cho những nhà vô địch EURO 2024" src="//file.hstatic.net/200000278317/article/eones-de-europa-sieu-pham-danh-rieng-cho-nhung-nha-vo-dich-euro-2024-1_9ddc4824acbc46008ba525bf9685056c_large.jpg"></a>
+						</div>
+						<div class="article__info">
+							<h3>
+								<a title="Khám phá PUMA Future 7 “Campeones de Europa” - Siêu phẩm dành riêng cho những nhà vô địch EURO 2024" href="/blogs/tin-tuc/kham-pha-puma-future-7-campeones-de-europa-sieu-pham-danh-rieng-cho-nhung-nha-vo-dich-euro-2024">Khám phá PUMA Future 7 “Campeones de Europa” - Siêu phẩm dành riêng cho những nhà vô địch EURO 2024</a>
+							</h3>
+							<span class="desc-cut">Nhằm kỷ niệm chức vô địch EURO 2024 đầy thuyết phục cùng đội tuyển Tây...</span>
+							<span class="date-post"></span>
+
+						</div>
+					</div>
+				</div>
+				<div class="ega-col-lg-3 ega-col-6 article__wrapper">
+					<div class="article__item">
+						<div class="article__img">
+
+
+							<a title="Khám phá Nike Mercurial Vapor 16 &amp; Superfly 10 Mbappe Signature - Siêu phẩm mới nhất dành riêng cho ‘Ninja Rùa'" href="/blogs/tin-tuc/kham-pha-nike-mercurial-vapor-16-superfly-10-mbappe-signature-sieu-pham-moi-nhat-danh-rieng-cho-ninja-rua"><img width="480" height="240" class="lazyload dt-width-100" alt="Khám phá Nike Mercurial Vapor 16 &amp; Superfly 10 Mbappe Signature - Siêu phẩm mới nhất dành riêng cho ‘Ninja Rùa'" src="//file.hstatic.net/200000278317/article/rfly-10-mbappe-signature-sieu-pham-moi-nhat-danh-rieng-cho-ninja-rua-1_f237d5ec806c42f3902655d385b4c073_large.jpg"></a>
+						</div>
+						<div class="article__info">
+							<h3>
+								<a title="Khám phá Nike Mercurial Vapor 16 &amp; Superfly 10 Mbappe Signature - Siêu phẩm mới nhất dành riêng cho ‘Ninja Rùa'" href="/blogs/tin-tuc/kham-pha-nike-mercurial-vapor-16-superfly-10-mbappe-signature-sieu-pham-moi-nhat-danh-rieng-cho-ninja-rua">Khám phá Nike Mercurial Vapor 16 &amp; Superfly 10 Mbappe Signature - Siêu phẩm mới nhất dành riêng cho ‘Ninja Rùa'</a>
+							</h3>
+							<span class="desc-cut">Trong chiến thắng 2-0 trước Real Betis thuộc khuôn khổ vòng 4 La Liga vừa...</span>
+							<span class="date-post"></span>
+
+						</div>
+					</div>
+				</div>
+				<div class="ega-col-lg-3 ega-col-6 article__wrapper">
+					<div class="article__item">
+						<div class="article__img">
+
+
+							<a title="Mang giày cổ cao có tác dụng chống lật sơ mi không?" href="/blogs/tin-tuc/mang-giay-co-cao-co-tac-dung-chong-lat-so-mi-khong"><img width="480" height="240" class="lazyload dt-width-100" alt="Mang giày cổ cao có tác dụng chống lật sơ mi không?" src="//file.hstatic.net/200000278317/article/mang-giay-co-cao-co-tac-dung-chong-lat-so-mi-khong-2_a7d5241d710d40fdab75569e75e9b454_large.jpg"></a>
+						</div>
+						<div class="article__info">
+							<h3>
+								<a title="Mang giày cổ cao có tác dụng chống lật sơ mi không?" href="/blogs/tin-tuc/mang-giay-co-cao-co-tac-dung-chong-lat-so-mi-khong">Mang giày cổ cao có tác dụng chống lật sơ mi không?</a>
+							</h3>
+							<span class="desc-cut">Đây là một trong những hiểu lầm mà nhiều anh em mới chơi giày sẽ...</span>
+							<span class="date-post"></span>
+
+						</div>
+					</div>
+				</div>
+				<div class="ega-col-lg-3 ega-col-6 article__wrapper">
+					<div class="article__item">
+						<div class="article__img">
+
+
+							<a title="Giày chính hãng mới mua có cần khâu liền không?" href="/blogs/tin-tuc/giay-chinh-hang-moi-mua-co-can-khau-lien-khong"><img width="480" height="240" class="lazyload dt-width-100" alt="Giày chính hãng mới mua có cần khâu liền không?" src="//file.hstatic.net/200000278317/article/giay-chinh-hang-moi-mua-co-can-khau-lien-khong-3_67383881ef4a44268073c7ef03a9d606_large.jpg"></a>
+						</div>
+						<div class="article__info">
+							<h3>
+								<a title="Giày chính hãng mới mua có cần khâu liền không?" href="/blogs/tin-tuc/giay-chinh-hang-moi-mua-co-can-khau-lien-khong">Giày chính hãng mới mua có cần khâu liền không?</a>
+							</h3>
+							<span class="desc-cut">Đây là câu hỏi mà tụi mình thường xuyên nhận được từ những anh em...</span>
+							<span class="date-post"></span>
+
+						</div>
+					</div>
+				</div>
+				<div class="ega-col-lg-3 ega-col-6 article__wrapper">
+					<div class="article__item">
+						<div class="article__img">
+
+
+							<a title="Cristiano Ronaldo và Nike sắp ‘đường ai nấy đi’?" href="/blogs/tin-tuc/cristiano-ronaldo-va-nike-sap-duong-ai-nay-di"><img width="480" height="240" class="lazyload dt-width-100" alt="Cristiano Ronaldo và Nike sắp ‘đường ai nấy đi’?" src="//file.hstatic.net/200000278317/article/cristiano-ronaldo-va-nike-sap-duong-ai-nay-di-1_07c6d468c4f542d6952af384c74c55e4_large.jpg"></a>
+						</div>
+						<div class="article__info">
+							<h3>
+								<a title="Cristiano Ronaldo và Nike sắp ‘đường ai nấy đi’?" href="/blogs/tin-tuc/cristiano-ronaldo-va-nike-sap-duong-ai-nay-di">Cristiano Ronaldo và Nike sắp ‘đường ai nấy đi’?</a>
+							</h3>
+							<span class="desc-cut">Liệu Ronaldo có đang không hạnh phúc với Nike? Liệu anh Bảy sắp sửa ‘đường...</span>
+							<span class="date-post"></span>
+
+						</div>
+					</div>
+				</div>
+				<div class="ega-col-lg-3 ega-col-6 article__wrapper">
+					<div class="article__item">
+						<div class="article__img">
+
+
+							<a title="Khám phá những đôi giày đá bóng được custom đặc biệt" href="/blogs/tin-tuc/kham-pha-nhung-doi-giay-da-bong-duoc-custom-dac-biet"><img width="480" height="240" class="lazyload dt-width-100" alt="Khám phá những đôi giày đá bóng được custom đặc biệt" src="//file.hstatic.net/200000278317/article/kham-pha-nhung-doi-giay-da-bong-duoc-custom-dac-biet-4_89a6cf5258b549f58a96a4838bbaef85_large.jpg"></a>
+						</div>
+						<div class="article__info">
+							<h3>
+								<a title="Khám phá những đôi giày đá bóng được custom đặc biệt" href="/blogs/tin-tuc/kham-pha-nhung-doi-giay-da-bong-duoc-custom-dac-biet">Khám phá những đôi giày đá bóng được custom đặc biệt</a>
+							</h3>
+							<span class="desc-cut">Đâu là những điều bạn chưa biết về trào lưu custom giày đá bóng hiện...</span>
+							<span class="date-post"></span>
+
+						</div>
+					</div>
+				</div>
+				<div class="ega-col-lg-3 ega-col-6 article__wrapper">
+					<div class="article__item">
+						<div class="article__img">
+
+
+							<a title="Cách các thương hiệu tài trợ áo đấu giấu đi sự hiện diện của đối thủ?" href="/blogs/tin-tuc/cach-cac-thuong-hieu-tai-tro-ao-dau-giau-di-su-hien-dien-cua-doi-thu"><img width="480" height="240" class="lazyload dt-width-100" alt="Cách các thương hiệu tài trợ áo đấu giấu đi sự hiện diện của đối thủ?" src="//file.hstatic.net/200000278317/article/cach-cac-thuong-hieu-tai-tro-ao-dau-giau-di-su-hien-dien-cua-doi-thu-1_5af031b15e0d4db0967f0bfce22359fa_large.jpg"></a>
+						</div>
+						<div class="article__info">
+							<h3>
+								<a title="Cách các thương hiệu tài trợ áo đấu giấu đi sự hiện diện của đối thủ?" href="/blogs/tin-tuc/cach-cac-thuong-hieu-tai-tro-ao-dau-giau-di-su-hien-dien-cua-doi-thu">Cách các thương hiệu tài trợ áo đấu giấu đi sự hiện diện của đối thủ?</a>
+							</h3>
+							<span class="desc-cut">Đâu là 7749 cách các thương hiệu tài trợ áo đấu thường dùng để giấu...</span>
+							<span class="date-post"></span>
+
+						</div>
+					</div>
+				</div>
+				<div class="ega-col-lg-3 ega-col-6 article__wrapper">
+					<div class="article__item">
+						<div class="article__img">
+
+
+							<a title="Khám phá adidas F50 TM25 RAUMDEUTER - Phiên bản thửa riêng đặc biệt dành cho Thomas Muller" href="/blogs/tin-tuc/kham-pha-adidas-f50-tm25-raumdeuter-phien-ban-thua-rieng-dac-biet-danh-cho-thomas-muller"><img width="480" height="240" class="lazyload dt-width-100" alt="Khám phá adidas F50 TM25 RAUMDEUTER - Phiên bản thửa riêng đặc biệt dành cho Thomas Muller" src="//file.hstatic.net/200000278317/article/tm25-raumdeuter-phien-ban-thua-rieng-dac-biet-danh-cho-thomas-muller-1_301369a97ea243f28d818f92056ce940_large.jpg"></a>
+						</div>
+						<div class="article__info">
+							<h3>
+								<a title="Khám phá adidas F50 TM25 RAUMDEUTER - Phiên bản thửa riêng đặc biệt dành cho Thomas Muller" href="/blogs/tin-tuc/kham-pha-adidas-f50-tm25-raumdeuter-phien-ban-thua-rieng-dac-biet-danh-cho-thomas-muller">Khám phá adidas F50 TM25 RAUMDEUTER - Phiên bản thửa riêng đặc biệt dành cho Thomas Muller</a>
+							</h3>
+							<span class="desc-cut">Nhằm kỷ niệm cho cột mốc “cầu thủ ra sân nhiều nhất trong lịch sử...</span>
+							<span class="date-post"></span>
+
+						</div>
+					</div>
+				</div>
+				<div class="ega-col-lg-3 ega-col-6 article__wrapper">
+					<div class="article__item">
+						<div class="article__img">
+
+
+							<a title="Top 4 dòng giày đá bóng chính hãng giá rẻ dành cho học sinh, sinh viên" href="/blogs/tin-tuc/top-4-dong-giay-da-bong-chinh-hang-gia-re-danh-cho-hoc-sinh-sinh-vien"><img width="480" height="240" class="lazyload dt-width-100" alt="Top 4 dòng giày đá bóng chính hãng giá rẻ dành cho học sinh, sinh viên" src="//file.hstatic.net/200000278317/article/op-4-dong-giay-da-bong-chinh-hang-gia-re-danh-cho-hoc-sinh-sinh-vien-5_381e54eac801442fb429615d569efbed_large.jpg"></a>
+						</div>
+						<div class="article__info">
+							<h3>
+								<a title="Top 4 dòng giày đá bóng chính hãng giá rẻ dành cho học sinh, sinh viên" href="/blogs/tin-tuc/top-4-dong-giay-da-bong-chinh-hang-gia-re-danh-cho-hoc-sinh-sinh-vien">Top 4 dòng giày đá bóng chính hãng giá rẻ dành cho học sinh, sinh viên</a>
+							</h3>
+							<span class="desc-cut">Bóng đá luôn được xem là môn thể thao vua khi thu hút hàng triệu...</span>
+							<span class="date-post"></span>
+
+						</div>
+					</div>
+				</div>
+				<div class="ega-col-lg-3 ega-col-6 article__wrapper">
+					<div class="article__item">
+						<div class="article__img">
+
+
+							<a title="Skechers vinh danh Harry Kane bằng phiên bản giày đá bóng Golden Boot SE đặc biệt" href="/blogs/tin-tuc/skechers-vinh-danh-harry-kane-bang-phien-ban-giay-da-bong-golden-boot"><img width="480" height="240" class="lazyload dt-width-100" alt="Skechers vinh danh Harry Kane bằng phiên bản giày đá bóng Golden Boot SE đặc biệt" src="//file.hstatic.net/200000278317/article/kechers-vinh-danh-harry-kane-bang-phien-ban-giay-da-bong-golden-boot-1_def7b0de3db54f0c822b985d18081275_large.jpg"></a>
+						</div>
+						<div class="article__info">
+							<h3>
+								<a title="Skechers vinh danh Harry Kane bằng phiên bản giày đá bóng Golden Boot SE đặc biệt" href="/blogs/tin-tuc/skechers-vinh-danh-harry-kane-bang-phien-ban-giay-da-bong-golden-boot">Skechers vinh danh Harry Kane bằng phiên bản giày đá bóng Golden Boot SE đặc biệt</a>
+							</h3>
+							<span class="desc-cut">Nhằm tôn vinh thành tích xuất sắc của Harry Kane với danh hiệu Chiếc giày...</span>
+							<span class="date-post"></span>
+
+						</div>
+					</div>
+				</div>
+				<div class="ega-col-lg-3 ega-col-6 article__wrapper">
+					<div class="article__item">
+						<div class="article__img">
+
+
+							<a title="Mizuno phát hành mẫu giày đá bóng Morelia Neo IV β “Unlimited Black”" href="/blogs/tin-tuc/mizuno-phat-hanh-mau-giay-da-bong-morelia-neo-iv-beta-unlimited-black"><img width="480" height="240" class="lazyload dt-width-100" alt="Mizuno phát hành mẫu giày đá bóng Morelia Neo IV β “Unlimited Black”" src="//file.hstatic.net/200000278317/article/izuno-phat-hanh-mau-giay-da-bong-morelia-neo-iv-beta-unlimited-black-1_99a25afb5ae243a7afa96dedfc5e3afd_large.jpg"></a>
+						</div>
+						<div class="article__info">
+							<h3>
+								<a title="Mizuno phát hành mẫu giày đá bóng Morelia Neo IV β “Unlimited Black”" href="/blogs/tin-tuc/mizuno-phat-hanh-mau-giay-da-bong-morelia-neo-iv-beta-unlimited-black">Mizuno phát hành mẫu giày đá bóng Morelia Neo IV β “Unlimited Black”</a>
+							</h3>
+							<span class="desc-cut">Mang đến sự kết hợp hoàn hảo giữa tay nghề thủ công và truyền thống,...</span>
+							<span class="date-post"></span>
+
+						</div>
+					</div>
+				</div>
+				<div class="ega-col-lg-3 ega-col-6 article__wrapper">
+					<div class="article__item">
+						<div class="article__img">
+
+
+							<a title="PUMA trình làng mẫu giày đá bóng Ultra 5 Carbon “Speed Edition”" href="/blogs/tin-tuc/puma-trinh-lang-mau-giay-da-bong-ultra-5-carbon-speed-edition"><img width="480" height="240" class="lazyload dt-width-100" alt="PUMA trình làng mẫu giày đá bóng Ultra 5 Carbon “Speed Edition”" src="//file.hstatic.net/200000278317/article/puma-trinh-lang-mau-giay-da-bong-ultra-5-carbon-speed-edition-1_56c318d00628462d83a44a72249c9523_large.jpg"></a>
+						</div>
+						<div class="article__info">
+							<h3>
+								<a title="PUMA trình làng mẫu giày đá bóng Ultra 5 Carbon “Speed Edition”" href="/blogs/tin-tuc/puma-trinh-lang-mau-giay-da-bong-ultra-5-carbon-speed-edition">PUMA trình làng mẫu giày đá bóng Ultra 5 Carbon “Speed Edition”</a>
+							</h3>
+							<span class="desc-cut">Sau những sự bùng nổ đến từ phiên bản “Launch Edition” và “Formula”, PUMA vừa...</span>
+							<span class="date-post"></span>
+
+						</div>
+					</div>
+				</div>
+				<div class="ega-col-lg-3 ega-col-6 article__wrapper">
+					<div class="article__item">
+						<div class="article__img">
+
+
+							<a title="So sánh Nike Mercurial Vapor 16 PRO TF, Phantom GX 2 Pro TF và Tiempo 10 Pro TF" href="/blogs/tin-tuc/so-sanh-nike-mercurial-vapor-16-pro-tf-phantom-gx-2-pro-tf-va-tiempo-10-pro-tf"><img width="480" height="240" class="lazyload dt-width-100" alt="So sánh Nike Mercurial Vapor 16 PRO TF, Phantom GX 2 Pro TF và Tiempo 10 Pro TF" src="//file.hstatic.net/200000278317/article/ke-mercurial-vapor-16-pro-tf-phantom-gx-2-pro-tf-va-tiempo-10-pro-tf-1_487dd9a3262842eba57a964d40e4d56b_large.jpg"></a>
+						</div>
+						<div class="article__info">
+							<h3>
+								<a title="So sánh Nike Mercurial Vapor 16 PRO TF, Phantom GX 2 Pro TF và Tiempo 10 Pro TF" href="/blogs/tin-tuc/so-sanh-nike-mercurial-vapor-16-pro-tf-phantom-gx-2-pro-tf-va-tiempo-10-pro-tf">So sánh Nike Mercurial Vapor 16 PRO TF, Phantom GX 2 Pro TF và Tiempo 10 Pro TF</a>
+							</h3>
+							<span class="desc-cut">Nike luôn giữ vững vị thế hàng đầu trên thị trường giày đá bóng suốt...</span>
+							<span class="date-post"></span>
+
+						</div>
+					</div>
+				</div>
+				<div class="ega-col-lg-3 ega-col-6 article__wrapper">
+					<div class="article__item">
+						<div class="article__img">
+
+
+							<a title="Top 5 dòng giày đá bóng cỏ nhân tạo ngon nhất dành cho chân thon" href="/blogs/tin-tuc/top-5-dong-giay-da-bong-co-nhan-tao-ngon-nhat-danh-cho-chan-thon"><img width="480" height="240" class="lazyload dt-width-100" alt="Top 5 dòng giày đá bóng cỏ nhân tạo ngon nhất dành cho chân thon" src="//file.hstatic.net/200000278317/article/top-5-dong-giay-da-bong-co-nhan-tao-ngon-nhat-danh-cho-chan-thon-1_d373ebf2b8944d1e85c57aa844581ea7_large.jpg"></a>
+						</div>
+						<div class="article__info">
+							<h3>
+								<a title="Top 5 dòng giày đá bóng cỏ nhân tạo ngon nhất dành cho chân thon" href="/blogs/tin-tuc/top-5-dong-giay-da-bong-co-nhan-tao-ngon-nhat-danh-cho-chan-thon">Top 5 dòng giày đá bóng cỏ nhân tạo ngon nhất dành cho chân thon</a>
+							</h3>
+							<span class="desc-cut">Nếu bạn là một người sở hữu đôi chân thon, việc tìm kiếm một đôi...</span>
+							<span class="date-post"></span>
+
+						</div>
+					</div>
+				</div>
+				<div class="ega-col-lg-3 ega-col-6 article__wrapper">
+					<div class="article__item">
+						<div class="article__img">
+
+
+							<a title="So sánh Mercurial Vapor 16 Pro TF, F50 Pro TF và Ultra 5 Pro Cage" href="/blogs/tin-tuc/so-sanh-mercurial-vapor-16-pro-tf-f50-pro-tf-va-ultra-5-pro-cage"><img width="480" height="240" class="lazyload dt-width-100" alt="So sánh Mercurial Vapor 16 Pro TF, F50 Pro TF và Ultra 5 Pro Cage" src="//file.hstatic.net/200000278317/article/so-sanh-mercurial-vapor-16-pro-tf-f50-pro-tf-va-ultra-5-pro-cage-1_6b66af14a0434a3fb2b7c1e661273c0c_large.jpg"></a>
+						</div>
+						<div class="article__info">
+							<h3>
+								<a title="So sánh Mercurial Vapor 16 Pro TF, F50 Pro TF và Ultra 5 Pro Cage" href="/blogs/tin-tuc/so-sanh-mercurial-vapor-16-pro-tf-f50-pro-tf-va-ultra-5-pro-cage">So sánh Mercurial Vapor 16 Pro TF, F50 Pro TF và Ultra 5 Pro Cage</a>
+							</h3>
+							<span class="desc-cut">Hè 2024, cuộc đua tốc độ trên sân cỏ nhân tạo bỗng trở nên nóng...</span>
+							<span class="date-post"></span>
+
+						</div>
+					</div>
+				</div>
+				<div class="ega-col-lg-3 ega-col-6 article__wrapper">
+					<div class="article__item">
+						<div class="article__img">
+
+
+							<a title="Mizuno trình làng mẫu giày đá bóng Morelia II “Mugen Pack”" href="/blogs/tin-tuc/mizuno-trinh-lang-mau-giay-da-bong-morelia-ii-mugen-pack"><img width="480" height="240" class="lazyload dt-width-100" alt="Mizuno trình làng mẫu giày đá bóng Morelia II “Mugen Pack”" src="//file.hstatic.net/200000278317/article/mizuno-trinh-lang-mau-giay-da-bong-morelia-ii-mugen-pack-1_826ab4b8d25a4ddb9291c83047149d7f_large.jpg"></a>
+						</div>
+						<div class="article__info">
+							<h3>
+								<a title="Mizuno trình làng mẫu giày đá bóng Morelia II “Mugen Pack”" href="/blogs/tin-tuc/mizuno-trinh-lang-mau-giay-da-bong-morelia-ii-mugen-pack">Mizuno trình làng mẫu giày đá bóng Morelia II “Mugen Pack”</a>
+							</h3>
+							<span class="desc-cut">Hoàn thiện vẻ đẹp tinh tế của bộ sưu tập “Mugen Pack”, Mizuno chính thức...</span>
+							<span class="date-post"></span>
+
+						</div>
+					</div>
+				</div>
+				<div class="ega-col-lg-3 ega-col-6 article__wrapper">
+					<div class="article__item">
+						<div class="article__img">
+
+
+							<a title="Mizuno ra mắt mẫu giày đá bóng Morelia Neo IV β “Mugen Pack”" href="/blogs/tin-tuc/mizuno-ra-mat-mau-giay-da-bong-morelia-neo-iv-beta-mugen-pack"><img width="480" height="240" class="lazyload dt-width-100" alt="Mizuno ra mắt mẫu giày đá bóng Morelia Neo IV β “Mugen Pack”" src="//file.hstatic.net/200000278317/article/mizuno-ra-mat-mau-giay-da-bong-morelia-neo-iv-beta-mugen-pack-1_143801667236436785bd81db8ef3dede_large.jpg"></a>
+						</div>
+						<div class="article__info">
+							<h3>
+								<a title="Mizuno ra mắt mẫu giày đá bóng Morelia Neo IV β “Mugen Pack”" href="/blogs/tin-tuc/mizuno-ra-mat-mau-giay-da-bong-morelia-neo-iv-beta-mugen-pack">Mizuno ra mắt mẫu giày đá bóng Morelia Neo IV β “Mugen Pack”</a>
+							</h3>
+							<span class="desc-cut">Được mệnh danh là đỉnh cao của sự đổi mới đến từ Nhật Bản, Mizuno...</span>
+							<span class="date-post"></span>
+
+						</div>
+					</div>
+				</div>
+				<div class="ega-col-lg-3 ega-col-6 article__wrapper">
+					<div class="article__item">
+						<div class="article__img">
+
+
+							<a title="adidas trình làng mẫu giày đá bóng Predator 24 “Generation Pred 2.0”" href="/blogs/tin-tuc/adidas-trinh-lang-mau-giay-da-bong-predator-24-generation-pred-2-0"><img width="480" height="240" class="lazyload dt-width-100" alt="adidas trình làng mẫu giày đá bóng Predator 24 “Generation Pred 2.0”" src="//file.hstatic.net/200000278317/article/adidas-trinh-lang-mau-giay-da-bong-predator-24-generation-pred-2-0-1_22e366f94ee04883b7e1c1bebb272d1f_large.jpg"></a>
+						</div>
+						<div class="article__info">
+							<h3>
+								<a title="adidas trình làng mẫu giày đá bóng Predator 24 “Generation Pred 2.0”" href="/blogs/tin-tuc/adidas-trinh-lang-mau-giay-da-bong-predator-24-generation-pred-2-0">adidas trình làng mẫu giày đá bóng Predator 24 “Generation Pred 2.0”</a>
+							</h3>
+							<span class="desc-cut">Tiếp tục tôn vinh thế hệ ‘Quái thú’ tiếp theo, adidas đã chính thức tung...</span>
+							<span class="date-post"></span>
+
+						</div>
+					</div>
+				</div>
+				<div class="ega-col-lg-3 ega-col-6 article__wrapper">
+					<div class="article__item">
+						<div class="article__img">
+
+
+							<a title="adidas ra mắt mẫu giày đá bóng Copa Pure 2 “Made in Germany”" href="/blogs/tin-tuc/adidas-ra-mat-mau-giay-da-bong-copa-pure-2-made-in-germany"><img width="480" height="240" class="lazyload dt-width-100" alt="adidas ra mắt mẫu giày đá bóng Copa Pure 2 “Made in Germany”" src="//file.hstatic.net/200000278317/article/adidas-ra-mat-mau-giay-da-bong-copa-pure-2-made-in-germany-1_cfff772240e54dd0a67ef3702a604c95_large.jpg"></a>
+						</div>
+						<div class="article__info">
+							<h3>
+								<a title="adidas ra mắt mẫu giày đá bóng Copa Pure 2 “Made in Germany”" href="/blogs/tin-tuc/adidas-ra-mat-mau-giay-da-bong-copa-pure-2-made-in-germany">adidas ra mắt mẫu giày đá bóng Copa Pure 2 “Made in Germany”</a>
+							</h3>
+							<span class="desc-cut">Không chỉ dừng lại ở Predator Mania, adidas tiếp tục chuỗi sự kiện kỷ niệm...</span>
+							<span class="date-post"></span>
+
+						</div>
+					</div>
+				</div>
+				<div class="ega-col-lg-3 ega-col-6 article__wrapper">
+					<div class="article__item">
+						<div class="article__img">
+
+
+							<a title="adidas trình làng phiên bản giày đá bóng giới hạn Predator Mania “Pearl”" href="/blogs/tin-tuc/adidas-trinh-lang-phien-ban-giay-da-bong-gioi-han-predator-mania-pearl"><img width="480" height="240" class="lazyload dt-width-100" alt="adidas trình làng phiên bản giày đá bóng giới hạn Predator Mania “Pearl”" src="//file.hstatic.net/200000278317/article/idas-trinh-lang-phien-ban-giay-da-bong-gioi-han-predator-mania-pearl-1_f873776ec5f6486287350d5fa152d984_large.jpg"></a>
+						</div>
+						<div class="article__info">
+							<h3>
+								<a title="adidas trình làng phiên bản giày đá bóng giới hạn Predator Mania “Pearl”" href="/blogs/tin-tuc/adidas-trinh-lang-phien-ban-giay-da-bong-gioi-han-predator-mania-pearl">adidas trình làng phiên bản giày đá bóng giới hạn Predator Mania “Pearl”</a>
+							</h3>
+							<span class="desc-cut">Sau thành công vang dội của phiên bản “Japan Blue” trong series giày đá bóng...</span>
+							<span class="date-post"></span>
+
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="pagination">
+				<div class="ega-d--i-block">
+					<div class="ega-pagi">
+
+						<span class="ega-pagi__item current" data-page-id="1">
+							1
+						</span>
+						<a class="ega-pagi__item" asp-action="tintuc2">2</a>
+						<a class="ega-pagi__item" href="/blogs/tin-tuc?page=3" data-page-id="3">3</a>
+						<span class="ega-pagi__item " data-page-id="…">
+							…
+						</span>
+						<a class="ega-pagi__item" href="/blogs/tin-tuc?page=14" data-page-id="14">14</a>
+
+						<a class="ega-pagi__item ega-pagi__next" href="/blogs/tin-tuc?page=2" data-page-id="2">
+							<svg xmlns="http://www.w3.org/2000/svg" class="ega-ic-arrow-right"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#ega-ic-arrow-right" /></svg>
+						</a>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</body>
+</html>
+
+

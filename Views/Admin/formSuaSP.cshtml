@@ -1,0 +1,207 @@
+﻿@model LVTNWEBGIAYDEP.Models.SanPham
+
+@{
+    ViewData["Title"] = "Chỉnh sửa sản phẩm";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+    <style >
+    textarea.form-control {
+        height: 350px; /* hoặc chiều cao mong muốn */
+    }
+</style>
+
+<h4 class="text-center" style="font-size: 2.5rem; color: #007bff;">Chỉnh sửa thông tin sản phẩm</h4>
+<hr />
+
+<div class="form-container">
+    <div class="form-header">Form Chỉnh sửa Sản Phẩm</div>
+    <div class="form-body">
+        <form asp-action="suaSP" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="MaSp">Mã Sản Phẩm</label>
+                    <input asp-for="MaSp" class="form-control" readonly />
+                </div>
+                <div class="form-group">
+                    <label for="TenSp">Tên Sản Phẩm</label>
+                    <input asp-for="TenSp" class="form-control" placeholder="Nhập tên sản phẩm" />
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="GiaBan">Giá Bán</label>
+                    <input asp-for="GiaBan" class="form-control" placeholder="Nhập giá bán" />
+                </div>
+                <div class="form-group">
+                    <label for="TrangThai">Trạng Thái</label>
+                    <select asp-for="TrangThai" class="form-control">
+                        <option value="Còn">Còn sản phẩm</option>
+                        <option value="Hết">Hết sản phẩm</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="HangTonKho">Hàng Tồn Kho</label>
+                    <input asp-for="HangTonKho" class="form-control" placeholder="Nhập hàng tồn kho" />
+                </div>
+                <div class="form-group">
+                    <label for="KichCo">Kích Cỡ</label>
+                    <input asp-for="KichCo" class="form-control" placeholder="Nhập kích cỡ" />
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group full-width">
+                    <label for="MoTa">Mô Tả</label>
+                    <textarea asp-for="MoTa" class="form-control" rows="3" placeholder="Nhập mô tả sản phẩm">@Html.Raw(Model.MoTa.Replace("\r\n", "<br>").Replace("\n", "<br>"))</textarea>
+                </div>
+            </div>
+            <!-- Ngày thêm sản phẩm -->
+            <div class="row">
+                <div class="col-12 mb-3">
+                    <label for="NgayThemSP" class="font-weight-bold">Ngày thêm sản phẩm</label>
+                    <input asp-for="NgayThemSP" type="date" class="form-control" placeholder="Chọn ngày thêm sản phẩm" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="HinhAnh" class="control-label"></label>
+                <input asp-for="HinhAnh" class="form-control" />
+                <span asp-validation-for="HinhAnh" class="text-danger"></span>
+            </div>
+            <div class="form-row">
+           
+                <div class="form-group">
+                    <label for="MaLoai">Loại Sản Phẩm</label>
+                    <select asp-for="MaLoai" id="loaiSanPhamDropdown" class="form-control">
+                        <option value="">Chọn loại sản phẩm</option>
+                        @foreach (var group in (dynamic)ViewBag.GroupedLoaiSanPham)
+                        {
+                            <optgroup label="@group.TenLoai">
+                                @foreach (var item in group.MaLoaiList)
+                                {
+                                    <option value="@item.MaLoai">
+                                        @group.TenLoai - Thương hiệu: @item.TenTh
+                                    </option>
+                                }
+                            </optgroup>
+                        }
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group text-center">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save"></i> Lưu thay đổi
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="mt-3 text-center">
+    <a asp-action="SanPham" class="btn btn-outline-info">
+        <i class="fas fa-arrow-left"></i> Trở về
+    </a>
+</div>
+
+<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+
+<style>
+    .form-container {
+        max-width: 1200px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-header {
+        background-color: #007bff;
+        color: #ffffff;
+        padding: 15px;
+        border-radius: 10px 10px 0 0;
+        text-align: center;
+        font-size: 1.5rem;
+        font-weight: bold;
+    }
+
+    .form-body {
+        padding: 20px;
+    }
+
+    .form-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+
+    .form-group {
+        flex: 1;
+        min-width: calc(50% - 20px);
+        margin-bottom: 20px;
+    }
+
+        .form-group.full-width {
+            min-width: 100%;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #495057;
+        }
+
+    .form-control {
+        width: 100%;
+        padding: 10px;
+        font-size: 1rem;
+        border: 1px solid #ced4da;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+
+        .form-control:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+            outline: none;
+        }
+
+    .btn {
+        font-size: 1rem;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.2s;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        color: #ffffff;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+    .btn-outline-info {
+        background-color: transparent;
+        border: 1px solid #007bff;
+        color: #007bff;
+        transition: all 0.3s ease;
+    }
+
+        .btn-outline-info:hover {
+            background-color: #007bff;
+            color: #ffffff;
+        }
+</style>

@@ -1,0 +1,1902 @@
+﻿@model LVTNWEBGIAYDEP.Models.SanPham
+@using Microsoft.EntityFrameworkCore;
+@using LVTNWEBGIAYDEP.Models
+@using Microsoft.EntityFrameworkCore 
+@inject DBGiayDepContext db
+@{
+    ViewData["Title"] = "chiTietSP";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+@{
+	
+	var ten = TempData["TenSanPham"] as string; // Lấy tên sản phẩm từ TempData
+
+
+		// Lấy danh sách sản phẩm theo tên
+		var Sanp = db.SanPhams.Include(sp => sp.MaLoaiNavigation)
+									.ThenInclude(sp1 => sp1.MaThNavigation)
+									.Where(t => t.TenSp == ten)
+									.ToList();			
+}
+
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+	<title></title>
+	<style>
+	
+		.product-description pre {
+			white-space: pre-wrap; /* Giữ các dòng mới và ngắt dòng khi cần */
+			word-wrap: break-word; /* Ngắt từ khi gặp độ rộng tối đa */
+		}
+
+		* {
+			font-family: Roboto Condensed;
+		}
+
+		*, ::after, ::before {
+			box-sizing: border-box;
+		}
+
+		.ega-container {
+			margin: 0 auto;
+		}
+
+		.ega-container, .ega-container--fluid {
+			padding-left: 15px;
+			padding-right: 15px;
+			width: 100%;
+		}
+
+		.ega-container {
+			max-width: 540px;
+		}
+
+		.ega-container {
+			max-width: 720px;
+		}
+
+		.ega-container {
+			max-width: 960px;
+		}
+
+		.ega-container {
+			max-width: 1140px;
+		}
+
+		.ega-container {
+			max-width: 1140px;
+		}
+
+		body {
+			line-height: 1.5;
+			font-size: 1rem;
+			color: #333;
+			width: 100%;
+			min-height: 100%;
+			margin: 0;
+			scroll-behavior: smooth;
+		}
+
+		html, body {
+			font-size: 14px;
+		}
+
+		body {
+			background: #ffffff;
+			color: #000000;
+			overflow-x: hidden;
+		}
+
+		.ega-pro {
+			position: relative;
+		}
+
+		#ega-product-detail {
+			margin-top: 24px;
+		}
+
+		.ega-row {
+			display: flex;
+			flex-wrap: wrap;
+			margin-left: -15px;
+			margin-right: -15px;
+		}
+
+		.ega-flex--between {
+			justify-content: space-between;
+		}
+
+		#ega-product-detail .ega-row {
+			margin-left: -12px;
+			margin-right: -12px;
+		}
+
+		#ega-product-detail .ega-related-pd {
+			border-bottom: 2px solid rgba(238, 238, 238, 0.5);
+			padding-bottom: 62px;
+		}
+
+		#ega-product-detail .ega-related-pd__title {
+			text-align: center;
+			margin-bottom: 40px;
+		}
+
+		#ega-product-detail .ega-related-pd__seemore {
+			text-align: center;
+			margin-top: 62px;
+		}
+
+		a {
+			color: #288ad6;
+		}
+
+		a {
+			text-decoration: none;
+		}
+
+		#ega-product-detail .ega-related-pd__seemore a {
+			display: inline-block;
+			border: 1px solid #0E1C22;
+			color: #0e1c22;
+			padding: 8px 44px;
+			-webkit-transition: all 0.5s ease;
+			-o-transition: all 0.5s ease;
+			transition: all 0.5s ease;
+		}
+
+		#ega-product-detail .ega-related-pd__seemore a {
+			padding: 12px 54px;
+		}
+
+		.ega-col, [class*=ega-col-] {
+			padding-left: 15px;
+			padding-right: 15px;
+		}
+
+		.ega-col-6 {
+			flex: 0 0 50%;
+			max-width: 50%;
+		}
+
+		.ega-col-lg-3 {
+			flex: 0 0 25%;
+			max-width: 25%;
+		}
+
+		.ega-col-12 {
+			flex: 0 0 100%;
+			max-width: 100%;
+		}
+
+		.ega-col-lg-6 {
+			flex: 0 0 50%;
+			max-width: 50%;
+		}
+
+		.ega-p--0 {
+			padding: 0 !important;
+		}
+
+		#ega-product-detail .ega-row [class*=ega-col-] {
+			padding-left: 12px;
+			padding-right: 12px;
+		}
+
+		.pd-item {
+			position: relative;
+			display: block;
+			overflow: hidden;
+		}
+
+		.pd-item__img {
+			position: relative;
+			overflow: hidden;
+			position: relative;
+			padding-top: 100%;
+			display: flex;
+			align-items: center;
+			margin-bottom: 15px;
+		}
+
+			.pd-item__img.img-featured {
+				display: block;
+			}
+
+		.ega-h1, .ega-h2, .ega-h3, .ega-h4, .ega-h5, .ega-h6, h1, h2, h3, h4, h5, h6 {
+			font-family: inherit;
+			font-weight: 600;
+			line-height: 1.2;
+			color: inherit;
+			margin: 1rem 0;
+		}
+
+		.ega-h2, h2 {
+			font-size: 2rem;
+		}
+
+		.pd-item h2 {
+			overflow: hidden !important;
+			line-height: 1.3em !important;
+			color: #333 !important;
+			clear: both;
+			display: -webkit-box !important;
+			-webkit-line-clamp: 3;
+			-webkit-box-orient: vertical;
+			white-space: initial;
+			margin: 10px 0 !important;
+			font-size: 14px;
+			font-weight: 400;
+		}
+
+
+		.pd-item h2 {
+			font-size: 16px !important;
+		}
+
+		.pd-item .price {
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			padding-bottom: 10px;
+		}
+
+		.ega-text--no-underline {
+			text-decoration: none !important;
+		}
+
+		.pd-item .price ins {
+			display: inline-block;
+			vertical-align: middle;
+			overflow: hidden;
+			font-size: 14px;
+			color: #c54934;
+			font-weight: bold;
+			line-height: 15px;
+		}
+
+		.pd-item .price del {
+			display: inline-block;
+			vertical-align: middle;
+			font-size: 14px;
+			text-decoration: line-through;
+			margin-left: 5px;
+			color: #0e1c22;
+			opacity: 0.4;
+		}
+
+		iframe, img {
+			max-width: 100%;
+			vertical-align: middle;
+		}
+
+		img {
+			max-width: 100%;
+			vertical-align: middle;
+			height: initial !important;
+		}
+
+		.pd-item__img img {
+			-webkit-transition: all 0.6s ease;
+			-moz-transition: all 0.6s ease;
+			transition: all 0.6s ease;
+			display: inline-block;
+			height: 100%;
+			object-fit: contain;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+		}
+
+		.pd-item img {
+			display: block;
+		}
+
+		.pd-item .label-sale {
+			position: absolute;
+			top: 5px;
+			left: 5px;
+			min-width: 56px;
+			text-align: center;
+			background: #fff;
+			color: #d9121f;
+			padding: 5px 10px;
+			border-radius: 0px;
+			font-size: 16px;
+			font-weight: bold;
+			line-height: 18px;
+		}
+
+		.tag_sale {
+			position: absolute;
+			top: 5px;
+			right: 5px;
+			padding: 5px 10px;
+			background: #d9121f;
+			color: #fff;
+			text-transform: uppercase;
+			line-height: 18px;
+			font-size: 16px;
+			font-weight: bold;
+		}
+
+		#ega-product-detail .ega-related-pd__title h2 {
+			font-weight: 400;
+			display: inline-block;
+			margin-bottom: 8px;
+			margin-top: 0px;
+			font-size: 24px;
+		}
+
+		#ega-product-detail .ega-related-pd__title span {
+			display: block;
+		}
+
+		#coll-index-tab {
+			padding-top: 40px;
+		}
+
+		#coll-index-tab {
+			padding-top: 52px;
+		}
+
+		.tab-pd-page#coll-index-tab {
+			border-bottom: 2px solid rgba(238, 238, 238, 0.5);
+			margin-bottom: 60px;
+			padding-top: 72px;
+		}
+
+		.ega-ul {
+			padding-left: 0px;
+			list-style: none;
+		}
+
+		.ega-text--left {
+			text-align: left !important;
+		}
+
+		.ega-tab__title {
+			background: #eee;
+			margin: 0;
+			border: 1px solid #e7e7e7;
+		}
+
+			.ega-tab__title::after {
+				display: block;
+				clear: both;
+				content: "";
+			}
+
+		#coll-index-tab .ega-tab__title {
+			background: none;
+			border: none;
+			text-align: center;
+			padding-bottom: 25px;
+		}
+
+		.tab-pd-page#coll-index-tab .ega-tab__title {
+			position: relative;
+			padding: 0;
+			margin-bottom: 40px;
+		}
+
+			.tab-pd-page#coll-index-tab .ega-tab__title::before {
+				content: "";
+				position: absolute;
+				width: 100%;
+				height: 2px;
+				background: rgba(238, 238, 238, 0.5);
+				left: 0px;
+				bottom: -1px;
+			}
+
+		.ega-col-lg-9 {
+			flex: 0 0 75%;
+			max-width: 75%;
+		}
+
+		.ega-tab__content {
+			padding: 1.2rem;
+			border: 1px solid #e7e7e7;
+			border-top: 0;
+		}
+
+		#coll-index-tab .ega-tab__content {
+			border: none;
+		}
+
+		.ega-tab__pane {
+			display: none;
+		}
+
+			.ega-tab__pane.is-active {
+				display: block;
+			}
+
+		.ega-pro__content {
+			padding: 1rem;
+		}
+
+		#ega-product-detail .ega-pro__content {
+			overflow: hidden;
+			padding: 0;
+		}
+
+		#ega-product-detail .ega-pro__content {
+			padding: 0 98px;
+		}
+
+		.ega-h6, h6, p {
+			font-size: 1rem;
+		}
+
+			p:first-child {
+				margin-top: 0px;
+			}
+
+		#ega-product-detail .ega-pro__seemore {
+			position: relative;
+			text-align: center;
+		}
+
+			#ega-product-detail .ega-pro__seemore::before {
+				position: absolute;
+				content: "";
+				left: 0px;
+				right: 0px;
+				bottom: 100%;
+				height: 100px;
+				background: linear-gradient(180deg, rgba(255, 255, 255, 0) 17%, #FFFFFF 93.12%);
+			}
+
+			#ega-product-detail .ega-pro__seemore a {
+				display: inline-block;
+				border: 1px solid #0E1C22;
+				color: #0e1c22;
+				padding: 8px 44px;
+				-webkit-transition: all 0.5s ease;
+				-o-transition: all 0.5s ease;
+				transition: all 0.5s ease;
+			}
+
+			#ega-product-detail .ega-pro__seemore a {
+				padding: 12px 54px;
+			}
+
+		.product__content {
+			font-size: 15px;
+		}
+
+		.ega-tab__title > li {
+			float: left;
+			position: relative;
+		}
+
+			.ega-tab__title > li.is-active {
+				bottom: -1px;
+				background-color: #fff;
+			}
+
+		#coll-index-tab .ega-tab__title li {
+			float: none;
+			display: inline-block;
+			font-size: 20px;
+		}
+
+		#coll-index-tab .ega-tab__title li {
+			font-size: 32px;
+		}
+
+			#coll-index-tab .ega-tab__title li.is-active {
+				border-bottom: 1px solid #333;
+				font-weight: bold;
+			}
+
+		.tab-pd-page#coll-index-tab .ega-tab__title li {
+			position: relative;
+			z-index: 99;
+		}
+
+			.tab-pd-page#coll-index-tab .ega-tab__title li.is-active {
+				border-bottom: 2px solid #0E1C22;
+			}
+
+			.tab-pd-page#coll-index-tab .ega-tab__title li + li {
+				margin-left: 32px;
+			}
+
+		.ega-small, small {
+			font-size: 0.9em;
+		}
+
+		.ega-tab__title > li > a {
+			line-height: 1.5;
+			display: block;
+			color: inherit;
+			padding: .6rem 1rem;
+		}
+
+		.tab-pd-page#coll-index-tab .ega-tab__title li a {
+			padding: 0;
+			font-size: 24px;
+		}
+
+		.ega-h1, h1 {
+			font-size: 2.5rem;
+		}
+
+		.ega-m-t--0 {
+			margin-top: 0px !important;
+		}
+
+		.ega-pro__title {
+			font-size: 0.9rem;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			overflow: hidden;
+		}
+
+		.ega-pro__price-group, .ega-pro__title {
+			margin-bottom: 0.5rem;
+		}
+
+		.ega-pro.ega-pro--detail .ega-pro__title {
+			font-size: 1.2rem;
+			font-weight: 700;
+		}
+
+		#ega-product-detail .ega-pro__title {
+			font-size: 28px;
+			color: #0e1c22;
+			margin-bottom: 8px;
+			font-weight: normal;
+		}
+
+		#ega-product-main .ega-pro__title {
+			white-space: normal !important;
+			overflow: initial;
+		}
+
+		#ega-product-detail .ega-pro__info {
+			display: flex;
+			margin: 15px 0;
+		}
+
+		#ega-product-detail .ega-pro__price-group {
+			margin-bottom: 1rem;
+		}
+
+		.ega-swatch__wrapper {
+			margin-bottom: 10px;
+		}
+
+		.ega-swatch__wrapper {
+			margin-bottom: 0px;
+		}
+
+		.ega-pro__qty-wrapper {
+			margin-bottom: 1rem;
+		}
+
+		.ega-swatch {
+			padding: 0;
+			width: 100%;
+			float: left;
+			border: none;
+			margin-bottom: 0px;
+		}
+
+		.ega-clearfix::after {
+			display: block;
+			clear: both;
+			content: "";
+		}
+
+		#ega-product-detail .size {
+			padding-top: 10px;
+		}
+
+		#ega-product-detail .ega-pro-action-wrapper {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			grid-gap: 10px;
+		}
+
+		#ega-product-detail .pd-policy {
+			display: flex;
+			flex-wrap: wrap;
+		}
+
+		#ega-product-detail .pd-policy__item {
+			display: flex;
+			justify-content: space-between;
+			max-width: 100%;
+			margin-bottom: 15px;
+		}
+
+		#ega-product-detail .pd-policy__img {
+			margin-right: 32px;
+			max-width: 48px;
+		}
+
+		#ega-product-detail .pd-policy__info {
+			width: calc(100% - 80px);
+		}
+
+		.ega-h3, h3 {
+			font-size: 1.75rem;
+		}
+
+		#ega-product-detail .pd-policy__info h3 {
+			font-size: 14px;
+			margin: 0;
+			margin-bottom: 8px;
+		}
+
+		.viewStore .title-viewstore {
+			font-size: 18px;
+			display: block;
+			text-align: left;
+			padding-left: 10px;
+			color: #3bafda;
+		}
+
+		#ega-product-detail .ega-pro__price {
+			font-size: 28px;
+			color: #0e1c22;
+			margin-right: 16px;
+			font-weight: normal;
+		}
+
+		#ega-product-detail .pd-policy__info h3, #ega-product-detail .ega-pro__price, .viewStore .title-viewstore {
+			color: #d71c36;
+		}
+
+		#ega-product-detail .pd-policy__desc {
+			font-size: 12px;
+		}
+
+		.dt-width-auto {
+			width: auto;
+			height: auto;
+		}
+
+		#ega-product-detail .ega-pro__action {
+			display: inline-block;
+		}
+
+		#ega-product-detail .ega-pro__action__wrapper {
+			display: flex;
+			margin-bottom: 40px;
+			margin-top: 5px;
+			flex-wrap: wrap;
+			grid-column: 1/-1;
+		}
+
+		#ega-product-detail .buynow_btn {
+			width: 100%;
+		}
+
+		.viewStore {
+			width: 100%;
+			border: 1px solid black;
+			font-size: 15px;
+			text-transform: uppercase;
+			outline: none;
+			transition: all 0.3s ease-in-out 0s;
+			-moz-transition: all 0.3s ease-in-out 0s;
+			-o-transition: all 0.3s ease-in-out 0s;
+			-webkit-transition: all 0.3s ease-in-out 0s;
+			-ms-transition: all 0.3s ease-in-out 0s;
+			background-size: 25px;
+			background-position: 45px 11px;
+			text-align: center;
+			line-height: 47px;
+			margin-top: 15px;
+			margin-bottom: 10px;
+		}
+
+		.ega-h4, h4 {
+			font-size: 1.5rem;
+		}
+
+		.viewStore .title-viewstore img {
+			margin-right: 3px;
+		}
+
+		.viewStore .title-viewstore span {
+			font-weight: 600;
+		}
+
+		#ega-product-detail .ega-pro__buynow {
+			background: #fff;
+			color: #0e1c22;
+			padding: 8px 0;
+			font-size: 16px;
+			border: 1px solid #0E1C22;
+			width: 100%;
+			line-height: 1.2;
+			display: inline-block;
+			background: #0E1C22;
+			color: #fff;
+			text-align: center;
+		}
+
+		.ega-btn, .ega-item-ic {
+			display: inline-block;
+		}
+
+		.ega-btn {
+			-webkit-appearance: none;
+			border: 1px solid transparent;
+			position: relative;
+			line-height: 1.25;
+			padding: .62rem 1.5rem;
+			font-size: 0.9rem;
+			overflow: hidden;
+			will-change: box-shadow;
+			outline: 0;
+			text-decoration: none;
+			text-align: center;
+			white-space: nowrap;
+			vertical-align: middle;
+			margin: .5rem;
+			background: #aab541;
+			color: #fff;
+			border-radius: .25rem;
+			transition: all .2s ease-in-out;
+		}
+
+		.ega-btn--lg {
+			font-size: 1.1rem;
+			padding: .8rem 2rem;
+		}
+
+		.ega-m-l--0 {
+			margin-left: 0px !important;
+		}
+
+		.ega-btn.ega-btn--block {
+			display: block;
+			width: 100%;
+		}
+
+		.ega-btn.ega-btn--square {
+			border-radius: 0;
+		}
+
+		#ega-product-detail #addcart-btn {
+			background: #fff;
+			color: #0e1c22;
+			padding: 6px 0;
+			font-size: 16px;
+			border: 1px solid #0E1C22;
+			width: 100%;
+			line-height: 1.2;
+			margin: 0;
+		}
+
+		#ega-product-detail #addcart-btn {
+			background: #d71c36;
+			color: #fff;
+			border-color: #d71c36;
+		}
+
+		.ega-pro__qty-title {
+			margin-right: 10px;
+			line-height: 34px;
+			vertical-align: top;
+		}
+
+		#ega-product-detail .ega-pro__qty-wrapper .ega-pro__qty-title {
+			display: inline-block;
+			width: 80px;
+			margin-right: 32px;
+			font-size: 14px;
+			color: #0e1c22;
+			opacity: 0.6;
+			font-weight: normal;
+		}
+
+		.ega-pro__qty, .ega-pro__quantity {
+			position: relative;
+			display: inline-block;
+			width: 70px;
+		}
+
+		.ega-pro__qty {
+			vertical-align: top;
+		}
+
+		#ega-product-detail .ega-pro__qty-wrapper .ega-pro__qty {
+			width: auto;
+			font-size: 24px;
+		}
+
+		input, select, textarea {
+			margin: 0;
+			font-family: inherit;
+			font-size: inherit;
+			line-height: inherit;
+		}
+
+		.ega-text--center {
+			text-align: center !important;
+		}
+
+		.ega-pro__qty-control {
+			display: block;
+			border-radius: 0;
+			-webkit-appearance: none;
+			position: absolute;
+			border: 1px solid #dedede;
+			height: 14px;
+			width: 18px;
+			line-height: 14px;
+			right: 0px;
+			font-size: 0.8rem;
+			cursor: pointer;
+			padding: 0;
+		}
+
+			.ega-pro__qty-control.minus {
+				bottom: 0px;
+			}
+
+			.ega-pro__qty-control.plus {
+				top: 0px;
+				border-bottom: 0;
+			}
+
+		#ega-product-detail .ega-pro__qty-wrapper .ega-pro__qty-control {
+			position: relative;
+			display: inline-block;
+			width: 40px;
+			height: 32px;
+			border: 1px solid rgba(14, 28, 34, 0.3);
+			background: none;
+			font-size: 24px;
+			color: #0e1c22;
+			float: left;
+			padding: 0;
+		}
+
+		.ega-pro__qty-input {
+			float: left;
+			height: 2rem;
+			line-height: 2rem;
+			border-right: 0;
+			border-top: 1px solid #dedede;
+			border-bottom: 1px solid #dedede;
+			border-left: 1px solid #dedede;
+			width: 100%;
+			padding-right: 1rem;
+			border-radius: 0;
+		}
+
+		#ega-product-detail .ega-pro__qty-wrapper .ega-pro__qty-input {
+			width: 60px;
+			height: 32px;
+			line-height: 32px;
+			border: none;
+			padding-right: 0px;
+			float: left;
+			font-size: inherit;
+			padding: 0;
+		}
+
+		#ega-product-detail .size h4 {
+			margin-top: 0px;
+		}
+
+			#ega-product-detail .size h4 a {
+				font-size: 12px;
+				color: #0e1c22;
+				text-decoration: underline;
+				font-weight: initial;
+			}
+
+		.ega-swatch {
+			padding: 10px 0;
+			width: 100%;
+			float: left;
+			border-bottom: 1px dotted #dfe0e1;
+		}
+
+		.ega-swatch__heading {
+			font-size: 0.9rem;
+			margin-top: 0px;
+			margin-bottom: 5px;
+		}
+
+		.ega-swatch__heading {
+			display: inline-block;
+			width: 80px;
+			margin-right: 32px;
+			font-size: 14px;
+			color: #0e1c22;
+			opacity: 0.6;
+			font-weight: normal;
+			vertical-align: top;
+			margin-top: 8px;
+		}
+
+		.ega-d--i-block {
+			display: inline-block !important;
+		}
+
+		.ega-swatch__wrapper .select-swap {
+			display: inline-block;
+		}
+
+		#ega-product-detail .size-chosen__wrapper {
+			margin-top: 16px;
+		}
+
+		#ega-product-detail .size-chosen {
+			font-size: 12px;
+			color: #0e1c22;
+			text-decoration: underline;
+		}
+
+		[class*=' ega-ic-'], [class^=ega-ic-] {
+			display: inline-block;
+			width: 1em;
+			height: 1em;
+			stroke-width: 0;
+			stroke: currentColor;
+			fill: currentColor;
+			color: inherit;
+		}
+
+		#ega-product-detail .size-chosen svg {
+			color: #84b1e0;
+			font-size: 25px;
+			vertical-align: top;
+		}
+
+		.ega-swatch__element {
+			display: inline-block;
+			margin-right: 8px;
+			position: relative;
+			vertical-align: bottom;
+		}
+
+		.ega-swatch__element {
+			margin: 8px 12px 0 0;
+		}
+
+			.ega-swatch__element.soldout {
+				overflow: hidden;
+				pointer-events: none;
+			}
+
+			.ega-swatch__element.soldout {
+				display: none !important;
+			}
+
+				.ega-swatch__element.soldout::before {
+					content: "";
+					position: absolute;
+					z-index: 999;
+					top: 0px;
+					left: 0px;
+					right: 0px;
+					bottom: 0px;
+					margin: auto;
+					width: 50%;
+					height: 50%;
+					background: url(sold_out.png) no-repeat;
+					background-size: 100% 100%;
+				}
+
+			.ega-swatch__element label {
+				display: block;
+				margin: 0;
+				background-color: #fff;
+				width: 40px;
+				height: 40px;
+				line-height: 40px;
+				position: relative;
+				border: 1px solid #e5e5e5;
+				font-size: 12px;
+				font-weight: 500;
+				text-align: center;
+				cursor: pointer;
+			}
+
+			.ega-swatch__element label {
+				width: auto;
+				padding-left: 12px;
+				padding-right: 12px;
+				height: 32px;
+				line-height: 32px;
+				border: 1px solid rgba(14, 28, 34, 0.3);
+			}
+
+		.ega-color--danger {
+			color: #f4516c;
+		}
+
+		.ega-pro__price {
+			margin-right: 0.3rem;
+		}
+
+		.ega-pro.ega-pro--detail .ega-pro__price {
+			font-size: 1.8rem;
+			font-weight: lighter;
+		}
+
+		.ega-color--secondary {
+			color: #999;
+		}
+
+		#ega-product-detail .ega-pro__price-del {
+			font-size: 24px;
+			color: #0e1c22;
+			opacity: 0.4;
+			margin-right: 16px;
+		}
+
+		#ega-product-detail .ega-pro__price-save {
+			display: inline-block;
+			font-size: 24px;
+			color: #0e1c22;
+		}
+
+			#ega-product-detail .ega-pro__price-save span {
+				color: red;
+			}
+
+		#ega-product-detail .ega-pro__info li + li {
+			position: relative;
+			padding-left: 10px;
+			margin-left: 10px;
+		}
+
+			#ega-product-detail .ega-pro__info li + li::before {
+				position: absolute;
+				content: "";
+				top: 4px;
+				left: 0px;
+				width: 1px;
+				height: 15px;
+				background: #333;
+			}
+
+		.ega-pro.ega-pro--detail .ega-pro__sku {
+			font-size: 0.8rem;
+			margin-bottom: 5px;
+		}
+
+		#ega-product-detail .ega-pro__sku {
+			font-size: 14px;
+		}
+
+		.ega-pro__img {
+			position: relative;
+			overflow: hidden;
+		}
+
+		#ega-product-detail .ega-pro__img {
+			display: flex;
+			flex-wrap: wrap;
+		}
+
+		.ega-pro__sale-tag.style1 {
+			position: absolute;
+			width: 70px;
+			text-align: center;
+			top: 0px;
+			right: 0px;
+			padding: 5px;
+			background-color: #f4516c;
+			color: #fff;
+		}
+
+		#ega-product-detail .ega-pro__sale-tag {
+			background: #d9121f;
+			color: #fff;
+			font-size: 16px;
+			padding: 5px 7px;
+			border-radius: 0px;
+			z-index: 7;
+		}
+
+		#ega-product-detail .ega-pro__img #ega-pro-gallery {
+			position: relative;
+			order: 1;
+			cursor: zoom-in;
+			margin-left: auto;
+		}
+
+		:not(.slick-slider).ega-pro__gallery-main {
+			display: flex;
+			overflow-x: auto;
+			-ms-overflow-style: none;
+			scrollbar-width: none;
+		}
+
+		#ega-product-detail .ega-pro__img #ega-pro-gallery .ega-pro__gallery-main {
+			margin-bottom: 0px;
+		}
+
+		#ega-product-detail .ega-pro__img #ega-pro-gallery :not(.slick-slider).ega-pro__gallery-main {
+			display: flex;
+		}
+
+			#ega-product-detail .ega-pro__img #ega-pro-gallery :not(.slick-slider).ega-pro__gallery-main > div {
+				flex: 0 0 100%;
+			}
+
+		.dt-width-100 {
+			width: 100%;
+			height: auto;
+		}
+
+		.ega-pro.ega-pro--detail .ega-pro__img img {
+			width: auto;
+			height: auto;
+			margin-left: auto;
+			margin-right: auto;
+		}
+
+		#ega-product-detail .ega-pro__img #ega-pro-gallery :not(.slick-slider).ega-pro__gallery-main img {
+			flex: 0 0 100%;
+		}
+	</style>
+	<style>
+
+		.quantity-wrapper {
+			display: flex;
+			align-items: center;
+			border: 1px solid #ddd;
+			border-radius: 4px;
+			overflow: hidden;
+			width: 120px;
+		}
+
+		.btn-quantity {
+			width: 30px;
+			height: 40px;
+			background-color: #f5f5f5;
+			border: none;
+			color: #333;
+			font-size: 18px;
+			cursor: pointer;
+			transition: background-color 0.3s ease;
+		}
+
+			.btn-quantity:hover {
+				background-color: #ddd;
+			}
+
+		.quantity-input {
+			width: 60px;
+			height: 40px;
+			text-align: center;
+			border: none;
+			font-size: 16px;
+			outline: none;
+			appearance: textfield;
+		}
+
+			.quantity-input::-webkit-outer-spin-button,
+			.quantity-input::-webkit-inner-spin-button {
+				-webkit-appearance: none;
+				margin: 0;
+			}
+
+	</style>
+	<style>
+		.custom-btn {
+			display: inline-block;
+			width: 100%; /* Chiếm toàn bộ chiều rộng nút cha */
+			padding: 12px 20px; /* Kích thước nút */
+			font-size: 16px;
+			font-weight: bold;
+			color: #ffffff; /* Màu chữ trắng */
+			background-color: #e74c3c;
+			border: none;
+			border-radius: 8px; /* Bo tròn nút */
+			text-align: center;
+			text-transform: uppercase;
+			transition: all 0.3s ease;
+			cursor: pointer;
+			box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Hiệu ứng bóng */
+		}
+
+			.custom-btn:hover {
+				background-color: #c0392b; /* Màu nền đỏ đậm khi hover */
+				box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15); /* Hiệu ứng bóng mạnh hơn */
+				transform: translateY(-2px); /* Hiệu ứng nhấn nổi */
+			}
+
+			.custom-btn:active {
+				transform: translateY(0); /* Hiệu ứng khi bấm */
+				box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+			}
+
+	</style>
+	<style>
+		.product-status {
+			font-size: 20px; /* Tăng kích thước chữ */
+			color: red; /* Đặt màu chữ là đỏ */
+			font-weight: bold; /* Đặt chữ đậm */
+		}
+	</style>
+</head>
+<body class="template_product" id="ega-fashion">
+
+	<div class="ega-container">
+		<div class="ega-pro ega-pro--detail" id="ega-product-detail">
+			<div>
+				@if (@Model.HangTonKho == 0)
+				{
+					<form asp-action="hetSP" method="post">
+						<div class="ega-row ega-flex--between" id="ega-product-main">
+							<div class="ega-16col-9  ega-col-lg-6 ega-col-12">
+
+
+								<!---  giay-da-banh-nike-mad-voltage-pack | giay-da-banh-nike-phantom | shop | nike-co-nhan-tao | giay-co-nhan-tao | san-pham | -->
+
+
+								<div class="ega-pro__img">
+
+
+
+									<div class="ega-pro__gallery master-product-image ega-col-lg-9 ega-col-12 ega-p--0" id="ega-pro-gallery">
+
+
+										<div class="ega-pro__gallery-main">
+											<div>
+												<img width="600" height="600" class="  dt-width-100" src="@Url.Content("/HinhAnh/"+Model.HinhAnh)" />
+											</div>
+
+
+
+										</div>
+
+									</div>
+								</div>
+							</div>
+
+							<div class="ega-16col-6 ega-col-lg-6 ega-col-12">
+								<h1 class="ega-pro__title ega-m-t--0">@Model.TenSp</h1>
+								<ul class="ega-pro__info ega-ul">
+									<li class="ega-pro__vendor">
+										Loại: <span>@Model.MaLoaiNavigation.TenLoai</span>
+									</li>
+
+									<li>
+										Thương hiệu: <span class="ega-pro__sku">@Model.MaLoaiNavigation.MaThNavigation.TenTh</span>
+									</li>
+								</ul>
+								<div class="ega-pro__price-group">
+									<ins class="ega-pro__price ega-text--no-underline ega-color--danger">
+
+									</ins>
+
+
+
+								</div>
+
+
+								<!-- <div class="custom-price-box">
+
+								hoặc <strong><span class="pro-price">≈ 750,000₫ </span> x3 kỳ</strong> với <strong style="color: #12a3ff">Fundiin</strong> <a target="_blank" href="https://fundiin.vn/ecompopup/">Tìm hiểu (?)</a>
+								</div> -->
+
+								<script>var price = `2250000`;</script>
+								<script id="product-detail" src="https://assets.fundiin.vn/merchant/product-detail.js"></script>
+								<div id="script-product-detail"></div>
+
+
+
+								<div class="ega-swatch__wrapper ega-clearfix">
+
+
+
+
+
+									<div class="ega-swatch ega-clearfix" id="variant-swatch-0" data-option-index="0" data-option="option1">
+										<h4 class="ega-swatch__heading">Kích thước</h4>
+										<div class="ega-d--i-block">
+											<div class="select-swap">
+
+
+
+
+
+												<div class="ega-swatch__element 38-5  " data-value="38.5">
+													<label data-name="option1" data-value="38.5" data-vhandle="38-5">
+														<span>@Model.KichCo</span>
+													</label>
+												</div>
+
+
+											</div>
+
+
+											<div class="size-chosen__wrapper" style="display: none;">
+												<a class="ega-modal__open size-chosen" href="#" data-ega-modal="modal-chon-size">
+													Hướng dẫn chọn size
+													<svg xmlns="http://www.w3.org/2000/svg" class="ega-ic-question-circle"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#ega-ic-question-circle" /></svg>
+												</a>
+											</div>
+										</div>
+
+
+
+									</div>
+								</div>
+								<div class="size">
+									<h4 style="text-align: left;">
+
+										<a href="//theme.hstatic.net/200000278317/1000929405/14/quydoisize.png?v=1911" data-caption="Caption for single image" data-fancybox="">
+											Bảng quy đổi size
+										</a>
+
+
+
+										<span>&nbsp;|&nbsp;</span>
+
+										<a href="//theme.hstatic.net/200000278317/1000929405/14/huongdanchonsize.png?v=1911" data-caption="Caption for single image" data-fancybox="">
+											Hướng dẫn đo size giày
+										</a>
+
+									</h4>
+								</div>
+								<div class="ega-pro-action-wrapper">
+									<div class="ega-pro__qty-wrapper ega-clearfix" data-ega-role="qty-wrapper">
+
+
+										<tr>
+
+											<td>
+												@if (@Model.HangTonKho == 0)
+												{
+													<div class="product-status">
+														<span>@Model.TrangThai</span>
+													</div>
+												}
+												else
+												{
+													<div class="quantity-wrapper">
+														<button type="button" class="btn-quantity minus">−</button>
+														<input type="number" name="soluong"
+															   class="quantity-input"
+															   value="1"
+															   min="0"
+															   max="@Model.HangTonKho"
+															   data-max="@Model.HangTonKho" />
+														<button type="button" class="btn-quantity plus">+</button>
+													</div>
+												}
+											</td>
+
+
+
+									</div>
+									<div>
+										<a id="addcart-btn" data-ega-role="addtocart" data-quantity="1">
+											<input value="@Model.MaSp" name="MaSp" type="hidden" />
+											<input type="submit" value="Thêm vào giỏ hàng" class="custom-btn" />
+										</a>
+									</div>
+
+
+
+									<div class="ega-pro__action__wrapper">
+
+
+										<div class="viewStore">
+											<h4 class="title-viewstore">
+												<img width="22" height="22" alt="Store" src="//theme.hstatic.net/200000278317/1000929405/14/logo_store.png?v=1911">
+												Có tại <span>1</span> cửa hàng
+											</h4>
+											<div class="content-store">
+											</div>
+										</div>
+										<div class="product-info">
+										</div>
+
+									</div>
+
+								</div>
+								<div class="pd-policy">
+									<div class="pd-policy__item">
+										<div class="pd-policy__img">
+											<img width="48" height="48" class="dt-width-auto" alt="pd_policy_1_img.png" src="//theme.hstatic.net/200000278317/1000929405/14/pd_policy_1_img.png?v=1911">
+										</div>
+										<div class="pd-policy__info">
+											<h3>ƯU ĐÃI TẶNG KÈM</h3>
+											<div class="pd-policy__desc">
+												<span>
+													Tặng kèm vớ dệt kim và balô chống thấm đựng giày cho mỗi đơn hàng Giày đá bóng.
+												</span>
+												<!--<a href="">Xem chi tiết</a>-->
+											</div>
+										</div>
+									</div>
+									<div class="pd-policy__item">
+										<div class="pd-policy__img">
+											<img width="48" height="48" class="dt-width-auto" alt="pd_policy_2_img.png" src="//theme.hstatic.net/200000278317/1000929405/14/pd_policy_2_img.png?v=1911">
+										</div>
+										<div class="pd-policy__info">
+											<h3>ĐỔI HÀNG DỄ DÀNG</h3>
+											<div class="pd-policy__desc">
+												<span>
+													Hỗ trợ khách hàng đổi size hoặc mẫu trong vòng 7 ngày. (Sản phẩm chưa qua sử dụng).
+												</span>
+												<!--<a href="https://thanhhungfutsal.com/pages/chinh-sach-doi-tra">Xem chi tiết</a>-->
+											</div>
+										</div>
+									</div>
+									<div class="pd-policy__item">
+										<div class="pd-policy__img">
+											<img width="48" height="48" class="dt-width-auto" alt="pd_policy_3_img.png" src="//theme.hstatic.net/200000278317/1000929405/14/pd_policy_3_img.png?v=1911">
+										</div>
+										<div class="pd-policy__info">
+											<h3>CHÍNH SÁCH GIAO HÀNG</h3>
+											<div class="pd-policy__desc">
+												<span>
+													COD &amp; Freeship toàn quốc khi khách hàng thanh toán chuyển khoản trước từ 100k. Áp dụng với đơn hàng giày đá bóng, không áp dụng với đơn hàng phụ kiện.
+												</span>
+												<!--<a href="https://thanhhungfutsal.com/pages/chinh-sach-gia-nhan">Xem chi tiết</a>-->
+											</div>
+										</div>
+									</div>
+									<div class="pd-policy__item">
+										<div class="pd-policy__img">
+											<img width="48" height="48" class="dt-width-auto" alt="pd_policy_4_img.png" src="//theme.hstatic.net/200000278317/1000929405/14/pd_policy_4_img.png?v=1911">
+										</div>
+										<div class="pd-policy__info">
+											<h3>THANH TOÁN TIỆN LỢI</h3>
+											<div class="pd-policy__desc">
+												<span>
+													Chấp nhận các loại hình thanh toán bằng thẻ, tiền mặt, chuyển khoản.
+												</span>
+												<!--<a href="">Xem chi tiết</a>-->
+											</div>
+										</div>
+									</div>
+								</div>
+
+
+							</div>
+
+						</div>
+						<div class="ega-row">
+							<div class="ega-col-12">
+								<div class="ega-tab tab-pd-page" id="coll-index-tab">
+									<ul class="ega-tab__title ega-ul ega-text--left">
+										<li class="is-active">
+											<a class="ega-small" href="#tab-1" data-ega-role="tab">MÔ TẢ SẢN PHẨM</a>
+										</li>
+										<li>
+											<a class="ega-small" href="#tab-2" data-ega-role="tab">CHÍNH SÁCH BẢO HÀNH</a>
+										</li>
+										<li>
+											<a class="ega-small" href="#tab-3" data-ega-role="tab">LỜI KHUYÊN CHỌN GIÀY</a>
+										</li>
+
+									</ul>
+									<div class="ega-tab__content ega-p--0">
+										<div class="ega-tab__pane is-active" id="tab-1">
+											<div class="ega-pro__content">
+												<p><span style="font-size: 15px;"><strong>@Model.MoTa </strong></span></p><p><span style="font-size: 15px;">Chơi bóng với sức mạnh và sự chính xác tuyệt đối cùng <strong>NIKE PHANTOM LUNA 2 ACADEMY TF</strong>. Được thiết kế cho các ngôi sao hàng đầu ở vị trí tấn công như Kevin De Bruyne, Erling Haaland, Phil Foden….<strong>PHANTOM LUNA 2 ACADEMY TF</strong> với những cải tiến đặc biệt sẽ giúp bạn phát huy toàn bộ khả năng tốt nhất của bản thân trên sân cỏ!</span></p><p><span style="font-size: 15px;"><strong>Thông số kỹ thuật</strong></span></p><p><span style="font-size: 15px;"><strong>NIKE PHANTOM LUNA 2 ACADEMY TF </strong>là mẫu giày đá banh đế TF dành cho sân cỏ nhân tạo 5-7 người.&nbsp;</span></p><p><span style="font-size: 15px;">Phân khúc : <strong>Academy (tầm trung).</strong></span></p><p><span style="font-size: 15px;"><strong>Phần upper</strong> làm từ da tổng hợp mềm mại được mô phỏng theo chất liệu sợi dệt sẽ mang đến cảm giác thật chân nhất trong từng pha chạm bóng. Trên bề mặt Phantom Luna 2 Academy TF được trang bị thêm <strong>lớp phủ NikeSkin</strong> giúp tăng độ bám bóng, từ đó người chơi có thể kiểm soát và rê bóng tốt hơn ở bất kỳ điều kiện thời tiết.&nbsp;</span></p><p><span style="font-size: 15px;"><strong>Công nghệ Strike Zone </strong>với các vân vòng tròn được in dập nổi ở những vùng tiếp xúc bóng chủ yếu giúp tăng thêm độ xoáy cho những cú phất bóng và cứa lòng.&nbsp;</span></p><p><span style="font-size: 15px;"><strong>Hệ thống dây giày</strong> được thiết kế lệch về phía má ngoài nhằm mở rộng diện tích sút và chuyền bóng.</span></p><p><span style="font-size: 15px;"><strong>Phần cổ thun Dynamic Fit</strong> được thiết kế theo <strong>công nghệ Asym Fit</strong> giúp ôm trọn khu vực cổ chân của bạn, tạo cảm giác chắc chắn, đồng thời hạn chế tình trạng các hạt cao su rơi vào giày khi chơi bóng.&nbsp;</span></p><p><span style="font-size: 15px;"><strong>Gót giày</strong> được làm từ vải nhung, mang lại cảm giác ôm chân thoải mái. Đặc biệt, khung bọc gót bên ngoài được thiết kế nhằm làm giảm áp lực tác động lên khu vực gót chân người mang mà không gây ảnh hưởng đến cấu trúc và sự ổn định của đôi giày.</span></p><p><span style="font-size: 15px;"><strong>Bộ đệm EVA</strong> tạo cảm giác êm ái trong từng pha di chuyển, đồng thời giúp hạn chế phản lực từ bề mặt sân cỏ nhân tạo cứng lên các khớp gối và gót.&nbsp;</span></p><p><span style="font-size: 15px;"><strong>Đế ngoài </strong>làm từ chất liệu cao su cao cấp với các đinh dạng Elip lớn nhỏ khác nhau, hỗ trợ khả năng xử lý bóng bằng gầm và tăng cường độ bám sân.</span></p><p><span style="font-size: 15px;">Phù hợp với cầu thủ có <strong>thiên hướng</strong> rê dắt, kiểm soát và phân phối bóng, sử dụng kỹ thuật.&nbsp;</span></p><p><span style="font-size: 15px;">Bộ sưu tập: <strong>Mad Voltage Pack</strong> (10/2024).</span></p><p style="text-align: center;"><img class="lazyload" data-src="//file.hstatic.net/200000278317/file/iay-da-bong-nike-phantom-luna-2-academy-tf-fj2566-003-xam-xanh-chuoi-9.jpg"></p><p style="text-align: center;"><img class="lazyload" data-src="//file.hstatic.net/200000278317/file/iay-da-bong-nike-phantom-luna-2-academy-tf-fj2566-003-xam-xanh-chuoi-8.jpg"></p><p style="text-align: center;"><img class="lazyload" data-src="//file.hstatic.net/200000278317/file/iay-da-bong-nike-phantom-luna-2-academy-tf-fj2566-003-xam-xanh-chuoi-7.jpg"></p><p style="text-align: center;"><img class="lazyload" data-src="//file.hstatic.net/200000278317/file/iay-da-bong-nike-phantom-luna-2-academy-tf-fj2566-003-xam-xanh-chuoi-6.jpg"></p>
+
+
+
+
+												<p class="product__content">
+													Sản phẩm đang có mặt tại <strong>Shop Giày Đá Banh Chính Hãng - Thanh Hùng Futsal:</strong>
+												</p>
+
+
+
+												<p class="product__content" style="margin: 5px 0px;">
+													Thanh Hùng Futsal Store I: <strong>27 ĐƯỜNG D52, P. 12, Q. TÂN BÌNH, TP. HCM | ĐT: 0901 377 722</strong>
+												</p>
+
+
+
+												<p class="product__content" style="margin: 5px 0px;">
+													Thanh Hùng Futsal Store II: <strong>32A THẠCH THỊ THANH, P. TÂN ĐỊNH, Q. 1, TP. HCM | ĐT: 0901 710 730</strong>
+												</p>
+
+
+
+												<p class="product__content" style="margin: 5px 0px;">
+													Thanh Hùng Futsal Store III: <strong>48 PHẠM VĂN BẠCH, P. 15, Q. TÂN BÌNH, TP. HCM | ĐT: 0901 710 780</strong>
+												</p>
+
+
+
+											</div>
+											<div class="ega-pro__seemore">
+												<a href="javascript:void(0);">Xem thêm</a>
+											</div>
+
+										</div>
+										<div class="ega-tab__pane" id="tab-2">
+											<div class="ega-pro__content">
+
+												<p><span style="font-size: 15px;">Thanh Hùng Futsal luôn nỗ lực mang đến trải nghiệm mua sắm tuyệt vời dành cho Khách Hàng từ việc đa dạng hoá mẫu mã&nbsp;từ nhiều thương hiệu quốc tế nổi tiếng,&nbsp;dịch vụ tư vấn bán hàng online, offline và những dịch vụ hậu mãi không ngừng được hoàn thiện.</span></p><p style="text-align: center;"><img class="lazyload" data-src="//file.hstatic.net/200000278317/file/baohanh2_93b9597ceba746559f5ba19054546a1d.jpg"></p><p><span style="font-size: 15px;">Dưới đây là chính sách bảo hành của Thanh Hùng Futsal.</span></p><p><span style="font-size: 15px;"><strong>ĐIỀU KIỆN BẢO HÀNH</strong></span></p><p><span style="font-size: 15px;">- Thanh Hùng Futsal hỗ trợ khách hàng <strong>bảo hành&nbsp;sửa chữa 6&nbsp;tháng </strong>miễn phí:</span></p><ol><li><span style="font-size: 15px;">Sản phẩm phải do chính Shop Thanh Hùng Futsal&nbsp;phân phối.</span></li><li><span style="font-size: 15px;">Sản phẩm còn trong thời hạn bảo hành và bị hư hỏng do lỗi kỹ thuật của Nhà sản xuất:&nbsp;hở keo, đứt chỉ.</span></li><li><span style="font-size: 15px;">Khách hàng phải xuất trình được phiếu bảo hành sản phẩm hợp lệ hoặc có thông tin mua hàng đầy đủ trên hệ thống.</span></li></ol><p><span style="font-size: 15px;">- Thanh Hùng Futsal <strong>từ chối bảo hành</strong> sản phẩm đối với các trường hợp:</span></p><ol><li><span style="font-size: 15px;">Không có thông tin hoá đơn mua hàng</span></li><li><span style="font-size: 15px;">Sản phẩm bị hư hỏng và lỗi từ phía khách hàng gây nên như trầy xước, đế mòn, sản phẩm không còn nguyên vẹn do bị động vật cắn, bảo quản không tốt gây ẩm mốc, phai nắng, nóng chảy.</span></li></ol><p><span style="font-size: 15px;">Sau khi hết thời gian bảo hành, shop vẫn hỗ trợ sửa chữa giày với chi phí hợp lý tại các cơ sở sửa chữa uy tín cho quý khách hàng trong suốt quá trình sử dụng.</span></p><p style="text-align: center;"><img class="lazyload" data-src="//file.hstatic.net/200000278317/file/baohanh1_b702947d711c4ffca5a837f8c9363d1d.jpg"></p><p><span style="font-size: 15px;"><strong>THỜI GIAN BẢO HÀNH</strong></span></p><p><span style="font-size: 15px;">Xử lý và trao trả sản phẩm đã được sửa chữa bảo hành cho khách hàng trong khoảng thời gian 05 ngày làm việc kể từ khi tiếp nhận sản phẩm (trừ các tình huống đặc biệt hoặc&nbsp;phải tìm chất liệu khó để thay thế, Shop sẽ liên hệ và đàm phán trực tiếp với khách hàng).</span></p>
+
+											</div>
+										</div>
+
+										<div class="ega-tab__pane" id="tab-3">
+											<div class="ega-pro__content">
+
+												<p><span style="font-size: 15px;">Giày đá banh chính hãng là một sản phẩm với công năng riêng biệt, chuyên dành cho những&nbsp;trận thi đấu bóng đá, từ đó mà vật liệu, thiết kế và cách thi công giày&nbsp;cũng rất riêng, khác với những dòng sản phẩm giày thông thường. Vậy nên để có được trải nghiệm "trên chân" tốt nhất, đặc biệt là với những anh em chưa có nhiều kinh nghiệm trong việc chọn một đôi giày đá banh phù hợp với mình,&nbsp;thì anh em có thể theo một số lời khuyên của ThanhHung Futsal như sau:</span></p><p><span style="font-size: 15px;"><strong>1. Khi chọn size giày, anh em nên chọn size mà khi mang vào thì phần mũi giày và mũi chân sẽ&nbsp;vừa với nhau&nbsp;( hoặc dư mũi khoảng&nbsp;0.5cm hoặc dư ít hơn tuỳ vào cảm giác của anh em).</strong></span></p><p style="text-align: center;"><span style="font-size: 15px;"><img class="lazyload" data-src="//file.hstatic.net/200000278317/file/trang-break-in-giay-2_8b96a8d5d72d462685947682b1963ea2.jpg"></span></p><p><span style="font-size: 15px;"><strong>2. Với những đôi giày đá banh mới "cóng" thì bề ngang sẽ hơi bó làm anh em khó chịu vài trận đầu (có thể sẽ làm anh em mất phong độ 1-2 trận đầu luôn), nhưng tầm trận thứ 4,&nbsp;thứ 5 thì giày&nbsp;sẽ bắt đầu Break-in (giày sẽ mềm dần) và bắt đầu thuần chân của anh em.&nbsp;</strong></span></p><p><span style="font-size: 15px;"><em>Lưu ý là trong khoảng thời gian để giày&nbsp;Break-in, khi ra sân anh em năng nổ chạy&nbsp;một tý để giày nhanh thuần chân&nbsp;anh em hơn. Đừng ra sân khởi động nhẹ, sẽ làm giày lâu Break-in hơn.</em></span></p><p style="text-align: center;"><span style="font-size: 15px;"><img class="lazyload" data-src="//file.hstatic.net/200000278317/file/trang-break-in-giay-1_f006461552604f3bb0cccf4fe3b64c5e.jpg"></span></p><p><span style="font-size: 15px;"><strong>3.&nbsp;Hãy luôn luôn ưu tiên đến cửa hàng để được đo kích thước chân thật chuẩn, và được thử trực tiếp đôi giày trước khi quyết định mua. Ở Thanh Hùng Futsal, chúng mình luôn có bước đo chân bằng dụng cụ chuyên dụng và luôn khuyến khích các bạn thử giày thật kỹ trước khi mua.</strong></span></p><p style="text-align: center;"><span style="font-size: 15px;"><img class="lazyload" data-src="//file.hstatic.net/200000278317/file/trang-break-in-giay-3_9804664335254ab3940fd6172881d3c7.jpg"></span></p>
+											</div>
+										</div>
+									</div>
+								</div>
+
+
+							</div>
+						</div>
+
+					</form>
+				}
+				else
+				{
+					<form asp-action="ChiTietSanPham" method="post">
+						<div class="ega-row ega-flex--between" id="ega-product-main">
+							<div class="ega-16col-9  ega-col-lg-6 ega-col-12">
+
+
+								<!---  giay-da-banh-nike-mad-voltage-pack | giay-da-banh-nike-phantom | shop | nike-co-nhan-tao | giay-co-nhan-tao | san-pham | -->
+
+
+								<div class="ega-pro__img">
+
+
+
+									<div class="ega-pro__gallery master-product-image ega-col-lg-9 ega-col-12 ega-p--0" id="ega-pro-gallery">
+
+
+										<div class="ega-pro__gallery-main">
+											<div>
+												<img width="600" height="600" class="  dt-width-100" src="@Url.Content("/HinhAnh/"+Model.HinhAnh)" />
+											</div>
+
+
+
+										</div>
+
+									</div>
+								</div>
+							</div>
+
+							<div class="ega-16col-6 ega-col-lg-6 ega-col-12">
+								<h1 class="ega-pro__title ega-m-t--0">@Model.TenSp</h1>
+								<ul class="ega-pro__info ega-ul">
+									<li class="ega-pro__vendor">
+										Loại: <span>@Model.MaLoaiNavigation.TenLoai</span>
+									</li>
+
+									<li>
+										Thương hiệu: <span class="ega-pro__sku">@Model.MaLoaiNavigation.MaThNavigation.TenTh</span>
+									</li>
+								</ul>
+								<div class="ega-pro__price-group">
+									<ins class="ega-pro__price ega-text--no-underline ega-color--danger">
+
+									</ins>
+
+
+
+								</div>
+
+
+								<!-- <div class="custom-price-box">
+
+								hoặc <strong><span class="pro-price">≈ 750,000₫ </span> x3 kỳ</strong> với <strong style="color: #12a3ff">Fundiin</strong> <a target="_blank" href="https://fundiin.vn/ecompopup/">Tìm hiểu (?)</a>
+								</div> -->
+
+								<script>var price = `2250000`;</script>
+								<script id="product-detail" src="https://assets.fundiin.vn/merchant/product-detail.js"></script>
+								<div id="script-product-detail"></div>
+
+
+
+								<div class="ega-swatch__wrapper ega-clearfix">
+
+
+
+
+
+									<div class="ega-swatch ega-clearfix" id="variant-swatch-0" data-option-index="0" data-option="option1">
+										<h4 class="ega-swatch__heading">Kích thước</h4>
+										<div class="ega-d--i-block">
+											<div class="select-swap">
+
+
+
+
+
+												<div class="ega-swatch__element 38-5  " data-value="38.5">
+													<label data-name="option1" data-value="38.5" data-vhandle="38-5">
+														<span>@Model.KichCo</span>
+													</label>
+												</div>
+
+
+											</div>
+
+
+											<div class="size-chosen__wrapper" style="display: none;">
+												<a class="ega-modal__open size-chosen" href="#" data-ega-modal="modal-chon-size">
+													Hướng dẫn chọn size
+													<svg xmlns="http://www.w3.org/2000/svg" class="ega-ic-question-circle"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#ega-ic-question-circle" /></svg>
+												</a>
+											</div>
+										</div>
+
+
+
+									</div>
+								</div>
+								<div class="size">
+									<h4 style="text-align: left;">
+
+										<a href="//theme.hstatic.net/200000278317/1000929405/14/quydoisize.png?v=1911" data-caption="Caption for single image" data-fancybox="">
+											Bảng quy đổi size
+										</a>
+
+
+
+										<span>&nbsp;|&nbsp;</span>
+
+										<a href="//theme.hstatic.net/200000278317/1000929405/14/huongdanchonsize.png?v=1911" data-caption="Caption for single image" data-fancybox="">
+											Hướng dẫn đo size giày
+										</a>
+
+									</h4>
+								</div>
+								<div class="ega-pro-action-wrapper">
+									<div class="ega-pro__qty-wrapper ega-clearfix" data-ega-role="qty-wrapper">
+
+
+										<tr>
+
+											<td>
+												@if (@Model.HangTonKho == 0)
+												{
+													<div class="product-status">
+														<span>@Model.TrangThai</span>
+													</div>
+												}
+												else
+												{
+													<div class="quantity-wrapper">
+														<button type="button" class="btn-quantity minus">−</button>
+														<input type="number" name="soluong"
+															   class="quantity-input"
+															   value="1"
+															   min="0"
+															   max="@Model.HangTonKho"
+															   data-max="@Model.HangTonKho" />
+														<button type="button" class="btn-quantity plus">+</button>
+													</div>
+												}
+											</td>
+
+
+
+									</div>
+									<div>
+										<a id="addcart-btn" data-ega-role="addtocart" data-quantity="1">
+											<input value="@Model.MaSp" name="MaSp" type="hidden" />
+											<input type="submit" value="Thêm vào giỏ hàng" class="custom-btn" />
+										</a>
+									</div>
+
+
+
+									<div class="ega-pro__action__wrapper">
+
+
+										<div class="viewStore">
+											<h4 class="title-viewstore">
+												<img width="22" height="22" alt="Store" src="//theme.hstatic.net/200000278317/1000929405/14/logo_store.png?v=1911">
+												Có tại <span>1</span> cửa hàng
+											</h4>
+											<div class="content-store">
+											</div>
+										</div>
+										<div class="product-info">
+										</div>
+
+									</div>
+
+								</div>
+								<div class="pd-policy">
+									<div class="pd-policy__item">
+										<div class="pd-policy__img">
+											<img width="48" height="48" class="dt-width-auto" alt="pd_policy_1_img.png" src="//theme.hstatic.net/200000278317/1000929405/14/pd_policy_1_img.png?v=1911">
+										</div>
+										<div class="pd-policy__info">
+											<h3>ƯU ĐÃI TẶNG KÈM</h3>
+											<div class="pd-policy__desc">
+												<span>
+													Tặng kèm vớ dệt kim và balô chống thấm đựng giày cho mỗi đơn hàng Giày đá bóng.
+												</span>
+												<!--<a href="">Xem chi tiết</a>-->
+											</div>
+										</div>
+									</div>
+									<div class="pd-policy__item">
+										<div class="pd-policy__img">
+											<img width="48" height="48" class="dt-width-auto" alt="pd_policy_2_img.png" src="//theme.hstatic.net/200000278317/1000929405/14/pd_policy_2_img.png?v=1911">
+										</div>
+										<div class="pd-policy__info">
+											<h3>ĐỔI HÀNG DỄ DÀNG</h3>
+											<div class="pd-policy__desc">
+												<span>
+													Hỗ trợ khách hàng đổi size hoặc mẫu trong vòng 7 ngày. (Sản phẩm chưa qua sử dụng).
+												</span>
+												<!--<a href="https://thanhhungfutsal.com/pages/chinh-sach-doi-tra">Xem chi tiết</a>-->
+											</div>
+										</div>
+									</div>
+									<div class="pd-policy__item">
+										<div class="pd-policy__img">
+											<img width="48" height="48" class="dt-width-auto" alt="pd_policy_3_img.png" src="//theme.hstatic.net/200000278317/1000929405/14/pd_policy_3_img.png?v=1911">
+										</div>
+										<div class="pd-policy__info">
+											<h3>CHÍNH SÁCH GIAO HÀNG</h3>
+											<div class="pd-policy__desc">
+												<span>
+													COD &amp; Freeship toàn quốc khi khách hàng thanh toán chuyển khoản trước từ 100k. Áp dụng với đơn hàng giày đá bóng, không áp dụng với đơn hàng phụ kiện.
+												</span>
+												<!--<a href="https://thanhhungfutsal.com/pages/chinh-sach-gia-nhan">Xem chi tiết</a>-->
+											</div>
+										</div>
+									</div>
+									<div class="pd-policy__item">
+										<div class="pd-policy__img">
+											<img width="48" height="48" class="dt-width-auto" alt="pd_policy_4_img.png" src="//theme.hstatic.net/200000278317/1000929405/14/pd_policy_4_img.png?v=1911">
+										</div>
+										<div class="pd-policy__info">
+											<h3>THANH TOÁN TIỆN LỢI</h3>
+											<div class="pd-policy__desc">
+												<span>
+													Chấp nhận các loại hình thanh toán bằng thẻ, tiền mặt, chuyển khoản.
+												</span>
+												<!--<a href="">Xem chi tiết</a>-->
+											</div>
+										</div>
+									</div>
+								</div>
+
+
+							</div>
+
+						</div>
+						<div class="ega-row">
+							<div class="ega-col-12">
+								<div class="ega-tab tab-pd-page" id="coll-index-tab">
+									<ul class="ega-tab__title ega-ul ega-text--left">
+										<li class="is-active">
+											<a class="ega-small" href="#tab-1" data-ega-role="tab">MÔ TẢ SẢN PHẨM</a>
+										</li>
+
+									</ul>
+									<div class="ega-tab__content ega-p--0">
+										<div class="ega-tab__pane is-active" id="tab-1">
+											<div class="product-description">
+												<pre>@Model.MoTa</pre>
+											</div>
+										</div>
+
+									</div>
+								</div>
+
+
+							</div>
+						</div>
+
+					</form>
+				}
+
+			</div>
+
+
+		</div>
+	</div>
+	<script>
+		// Xử lý sự kiện tăng/giảm số lượng
+		document.querySelectorAll('.quantity-wrapper').forEach(function (wrapper) {
+			const input = wrapper.querySelector('.quantity-input');
+			const minusBtn = wrapper.querySelector('.minus');
+			const plusBtn = wrapper.querySelector('.plus');
+
+			// Sự kiện khi nhấn nút cộng (+)
+			plusBtn.addEventListener('click', function () {
+				input.value = parseInt(input.value) + 1;
+			});
+
+			// Sự kiện khi nhấn nút trừ (-)
+			minusBtn.addEventListener('click', function () {
+				if (parseInt(input.value) > 0) {
+					input.value = parseInt(input.value) - 1;
+				}
+			});
+
+			// Xử lý nhập giá trị trực tiếp
+			input.addEventListener('input', function () {
+				if (parseInt(input.value) < 0 || isNaN(input.value)) {
+					input.value = 0; // Không cho phép giá trị âm
+				}
+			});
+		});
+
+	</script>
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+			// Lấy tất cả các hàng có .quantity-wrapper
+			document.querySelectorAll(".quantity-wrapper").forEach((wrapper) => {
+				const input = wrapper.querySelector(".quantity-input");
+				const minusButton = wrapper.querySelector(".btn-quantity.minus");
+				const plusButton = wrapper.querySelector(".btn-quantity.plus");
+				const max = parseInt(input.dataset.max);
+
+				// Đặt giá trị mặc định là max nếu vượt quá max
+				if (parseInt(input.value) > max) {
+					input.value = max - 1;
+				}
+
+				// Xử lý nút giảm
+				minusButton.addEventListener("click", function (event) {
+					event.preventDefault(); // Ngăn sự kiện mặc định
+					const currentValue = parseInt(input.value) || 0;
+					const min = parseInt(input.min) || 0;
+
+					if (currentValue > min) {
+						input.value = currentValue; // Giảm 1
+					}
+				});
+
+				// Xử lý nút tăng
+				plusButton.addEventListener("click", function (event) {
+					event.preventDefault(); // Ngăn sự kiện mặc định
+					const currentValue = parseInt(input.value) || 0;
+
+					if (currentValue < max) {
+						input.value = currentValue; // Tăng 1
+					} else {
+						alert(`Số lượng không được vượt quá ${max}`);
+						input.value = max; // Đặt về max nếu vượt
+					}
+				});
+
+				// Kiểm tra khi nhập giá trị trực tiếp
+				input.addEventListener("input", function () {
+					let value = parseInt(this.value) || 0;
+
+					if (value > max) {
+						alert(`Số lượng không được vượt quá ${max}`);
+						this.value = max; // Đặt về max nếu vượt
+					} else if (value < 0) {
+						this.value = 0; // Đặt về 0 nếu nhỏ hơn 0
+					}
+				});
+			});
+		});
+
+
+
+
+
+
+	</script>
+</body>
+</html>

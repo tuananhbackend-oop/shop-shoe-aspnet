@@ -1,0 +1,99 @@
+﻿@using Microsoft.EntityFrameworkCore
+@using LVTNWEBGIAYDEP.Models
+@inject DBGiayDepContext db
+@{
+    ViewData["Title"] = "bieuDo";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+@{
+   
+    var ngayHienTai = DateTime.Now;
+
+    // Lấy dữ liệu 7 ngày qua, chỉ chọn đơn hàng có trạng thái "Hoàn Tất" và không tính ngày hôm nay
+    var donHangTheoNgay = db.DonHangs
+        .Where(dh => dh.ngayLapDon.HasValue && dh.ngayLapDon.Value >= ngayHienTai.AddDays(-7) && dh.ngayLapDon.Value < ngayHienTai)
+        .Where(dh => dh.trangThai == "Hoàn Tất")
+        .GroupBy(dh => dh.ngayLapDon.Value.Date)
+        .Select(g => new
+        {
+            Ngay = g.Key,
+            TongTien = g.SelectMany(dh => dh.ChiTietDonHangs)
+                        .Where(ctdh => ctdh.MaSpNavigation.GiaBan.HasValue)
+                        .Sum(ctdh => ctdh.MaSpNavigation.GiaBan.Value * ctdh.SoLuong),
+            SoLuongDonHang = g.SelectMany(dh => dh.ChiTietDonHangs)
+                              .Sum(ctdh => ctdh.SoLuong)  // Tính tổng số lượng đơn hàng trong ngày
+        })
+        .OrderBy(g => g.Ngay)
+        .ToList();
+
+    var ngayDanhSach = Enumerable.Range(0, 7)
+        .Select(offset => ngayHienTai.Date.AddDays(-6 + offset))
+        .ToList();
+
+    // Tính tổng tiền cho từng ngày
+    var soTienDonHang = ngayDanhSach.Select(ngay =>
+    {
+        var donHangTrongNgay = donHangTheoNgay.FirstOrDefault(dh => dh.Ngay == ngay);
+        return donHangTrongNgay?.TongTien ?? 0;
+    }).ToList();
+
+    // Tính số lượng đơn hàng cho từng ngày
+    var soLuongDonHang = ngayDanhSach.Select(ngay =>
+    {
+        var donHangTrongNgay = donHangTheoNgay.FirstOrDefault(dh => dh.Ngay == ngay);
+        return donHangTrongNgay?.SoLuongDonHang ?? 0;
+    }).ToList();
+}
+
+<canvas id="chart7Days"></canvas>
+
+<script>
+    var labels7Days = @Html.Raw(Json.Serialize(ngayDanhSach.Select(x => x.ToString("dd/MM"))));
+    var data7Days = @Html.Raw(Json.Serialize(soTienDonHang));  // Dùng danh sách soTienDonHang
+    var soLuongDonHang = @Html.Raw(Json.Serialize(soLuongDonHang));  // Số lượng đơn hàng cho mỗi ngày
+
+    new Chart(document.getElementById('chart7Days'), {
+        type: 'bar',
+        data: {
+            labels: labels7Days,
+            datasets: [{
+                label: 'Tổng tiền đơn hàng',
+                data: data7Days,
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Tổng tiền (VND)'
+                    }
+                },
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Ngày'
+                    }
+                }
+            },
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        afterLabel: function (tooltipItem) {
+                            var index = tooltipItem.dataIndex;
+                            var soLuong = soLuongDonHang[index];  // Lấy số lượng đơn hàng từ danh sách
+                            return 'Số lượng đơn hàng: ' + soLuong;
+                        }
+                    }
+                }
+            }
+        }
+    });
+</script>

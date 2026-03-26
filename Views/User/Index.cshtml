@@ -1,0 +1,924 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+	<title></title>
+
+	<link href="/GiaoDien/User/userTrangChu.css" rel="stylesheet" />
+	<style>
+		* {
+			font-family: Roboto Condensed;
+		}
+
+		*, ::after, ::before {
+			box-sizing: border-box;
+		}
+
+		body {
+			line-height: 1.5;
+			font-size: 1rem;
+			color: #333;
+			width: 100%;
+			min-height: 100%;
+			margin: 0;
+			scroll-behavior: smooth;
+		}
+
+		html, body {
+			font-size: 14px;
+		}
+
+		body {
+			background: #ffffff;
+			color: #000000;
+			overflow-x: hidden;
+		}
+
+		.ega-container {
+			margin: 0 auto;
+		}
+
+		.ega-container, .ega-container--fluid {
+			padding-left: 15px;
+			padding-right: 15px;
+			width: 100%;
+		}
+
+		.ega-container {
+			max-width: 540px;
+		}
+
+		.ega-container {
+			max-width: 720px;
+		}
+
+		.ega-container {
+			max-width: 960px;
+		}
+
+		.ega-container {
+			max-width: 1140px;
+		}
+
+		.ega-container {
+			max-width: 1140px;
+		}
+
+		.newcoll__title {
+			text-align: center;
+		}
+
+		.ega-row {
+			display: flex;
+			flex-wrap: wrap;
+			margin-left: -15px;
+			margin-right: -15px;
+		}
+
+		.ega-col, [class*=ega-col-] {
+			padding-left: 15px;
+			padding-right: 15px;
+		}
+
+		.ega-col-6 {
+			flex: 0 0 50%;
+			max-width: 50%;
+		}
+
+		.ega-col-md-3 {
+			flex: 0 0 25%;
+			max-width: 25%;
+		}
+
+		a {
+			color: #288ad6;
+		}
+
+		a {
+			text-decoration: none;
+		}
+
+		.fimr-q-title {
+			font-size: 17px;
+			margin-top: 10px;
+			margin-bottom: 10px;
+		}
+
+		.hover-zoom {
+			position: relative;
+			display: block;
+			overflow: hidden;
+		}
+
+			.hover-zoom::before {
+				position: absolute;
+				z-index: 1;
+				top: 0px;
+				left: -10%;
+				width: 120%;
+				height: 100%;
+				background: rgba(255, 255, 255, 0.2);
+				content: "";
+				-webkit-transition: -webkit-transform .6s;
+				transition: transform .8s;
+				-webkit-transform: scale3d(1.9, 1.4, 1) rotate3d(0, 0, 1, 45deg) translate3d(0, 100%, 0);
+				transform: scale3d(1.9, 1.4, 1) rotate3d(0, 0, 1, 135deg) translate3d(0px, 100%, 0px);
+				opacity: 0;
+				filter: alpha(opacity=0);
+				visibility: hidden;
+				-webkit-box-sizing: border-box;
+				-moz-box-sizing: border-box;
+				box-sizing: border-box;
+			}
+
+		iframe, img {
+			max-width: 100%;
+			vertical-align: middle;
+		}
+
+		img {
+			max-width: 100%;
+			vertical-align: middle;
+			height: initial !important;
+		}
+
+		.dt-width-100 {
+			width: 100%;
+			height: auto;
+		}
+
+		.ega-h1, .ega-h2, .ega-h3, .ega-h4, .ega-h5, .ega-h6, h1, h2, h3, h4, h5, h6 {
+			font-family: inherit;
+			font-weight: 600;
+			line-height: 1.2;
+			color: inherit;
+			margin: 1rem 0;
+		}
+
+		.ega-h2, h2 {
+			font-size: 2rem;
+		}
+
+		.title--line {
+			display: inline-block;
+			position: relative;
+			padding-bottom: 10px;
+		}
+
+			.title--line::before {
+				position: absolute;
+				content: "";
+				width: 80%;
+				height: 2px;
+				background: #0E1C22;
+				bottom: 0px;
+				left: 50%;
+				-webkit-transform: translateX(-50%);
+				-ms-transform: translateX(-50%);
+				-o-transform: translateX(-50%);
+				transform: translateX(-50%);
+			}
+
+		.new-col-lds h2.title--line {
+			position: relative;
+			display: inline-block;
+			margin: 45px 0 40px 0;
+			font-size: 32px;
+			font-weight: 400;
+		}
+	</style>
+	<style>
+		* {
+			font-family: Roboto Condensed;
+		}
+
+		*, ::after, ::before {
+			box-sizing: border-box;
+		}
+
+		.groupbuy {
+			padding-top: 45px;
+		}
+
+		.groupbuy {
+			padding-top: 60px;
+		}
+
+		body {
+			line-height: 1.5;
+			font-size: 1rem;
+			color: #333;
+			width: 100%;
+			min-height: 100%;
+			margin: 0;
+			scroll-behavior: smooth;
+		}
+
+		html, body {
+			font-size: 14px;
+		}
+
+		body {
+			background: #ffffff;
+			color: #000000;
+			overflow-x: hidden;
+		}
+
+		.ega-text--center {
+			text-align: center !important;
+		}
+
+		.groupbuy__wrapper {
+			padding: 0px 0 40px 0;
+		}
+
+		.ega-container {
+			margin: 0 auto;
+		}
+
+		.ega-container, .ega-container--fluid {
+			padding-left: 15px;
+			padding-right: 15px;
+			width: 100%;
+		}
+
+		.ega-container {
+			max-width: 540px;
+		}
+
+		.ega-container {
+			max-width: 720px;
+		}
+
+		.ega-container {
+			max-width: 960px;
+		}
+
+		.ega-container {
+			max-width: 1140px;
+		}
+
+		.ega-container {
+			max-width: 1140px;
+		}
+
+		:not(.slick-slider).groupbuy__slider {
+			display: flex;
+			overflow-x: auto;
+			-ms-overflow-style: none;
+			scrollbar-width: none;
+		}
+
+		.groupbuy__item {
+			padding-left: 12px;
+			padding-right: 12px;
+			text-align: center;
+		}
+
+		.groupbuy__img {
+			margin-top: 5px;
+			box-shadow: 1px 1px 8px rgba(0,0,0,0.08);
+			border-radius: 50%;
+			display: inline-block;
+			overflow: hidden;
+			border: 2px solid #efefef;
+		}
+
+		.ega-h1, .ega-h2, .ega-h3, .ega-h4, .ega-h5, .ega-h6, h1, h2, h3, h4, h5, h6 {
+			font-family: inherit;
+			font-weight: 600;
+			line-height: 1.2;
+			color: inherit;
+			margin: 1rem 0;
+		}
+
+		.ega-h3, h3 {
+			font-size: 1.75rem;
+		}
+
+		.groupbuy__item h3 {
+			font-size: 14px;
+			font-weight: 400;
+			margin-top: 5px;
+			margin-bottom: 0px;
+			line-height: initial;
+		}
+
+		.groupbuy__item h3 {
+			margin-top: 24px;
+			font-size: 16px;
+		}
+
+		a {
+			color: #288ad6;
+		}
+
+		a {
+			text-decoration: none;
+		}
+
+		.hover-zoom {
+			position: relative;
+			display: block;
+			overflow: hidden;
+		}
+
+			.hover-zoom::before {
+				position: absolute;
+				z-index: 1;
+				top: 0px;
+				left: -10%;
+				width: 120%;
+				height: 100%;
+				background: rgba(255, 255, 255, 0.2);
+				content: "";
+				-webkit-transition: -webkit-transform .6s;
+				transition: transform .8s;
+				-webkit-transform: scale3d(1.9, 1.4, 1) rotate3d(0, 0, 1, 45deg) translate3d(0, 100%, 0);
+				transform: scale3d(1.9, 1.4, 1) rotate3d(0, 0, 1, 135deg) translate3d(0px, 100%, 0px);
+				opacity: 0;
+				filter: alpha(opacity=0);
+				visibility: hidden;
+				-webkit-box-sizing: border-box;
+				-moz-box-sizing: border-box;
+				box-sizing: border-box;
+			}
+
+		.groupbuy__img .hover-zoom {
+			overflow: hidden;
+			position: relative;
+			z-index: 1;
+			border-radius: 50%;
+			display: block;
+		}
+
+		iframe, img {
+			max-width: 100%;
+			vertical-align: middle;
+		}
+
+		img {
+			max-width: 100%;
+			vertical-align: middle;
+			height: initial !important;
+		}
+
+		.groupbuy__slider .lazyload {
+			width: 95px;
+			height: 95px;
+			background: #eee;
+		}
+
+		.ega-h2, h2 {
+			font-size: 2rem;
+		}
+
+		.title--line {
+			display: inline-block;
+			position: relative;
+			padding-bottom: 10px;
+		}
+
+		.groupbuy h2 {
+			position: relative;
+			display: inline-block;
+			font-size: 24px;
+			text-align: center;
+			font-weight: 400;
+			margin: 0 0 24px 0;
+		}
+
+		.groupbuy h2 {
+			font-size: 32px;
+			margin: 0 0 40px 0;
+		}
+
+		.title--line::before {
+			position: absolute;
+			content: "";
+			width: 80%;
+			height: 2px;
+			background: #0E1C22;
+			bottom: 0px;
+			left: 50%;
+			-webkit-transform: translateX(-50%);
+			-ms-transform: translateX(-50%);
+			-o-transform: translateX(-50%);
+			transform: translateX(-50%);
+		}
+	</style>
+	<style>
+		.slideshow-container {
+			max-width: 100%;
+			position: relative;
+			margin: auto;
+		}
+
+		.slideshow img {
+			width: 100%;
+			display: none;
+		}
+
+			.slideshow img.active {
+				display: block;
+			}
+	</style>
+	
+</head>
+<body class="template_index" id="ega-fashion">
+	<div class="mustbuy">
+
+			<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		
+		
+	
+			<div class="slideshow-container">
+				<div class="slideshow">
+					<img src="https://theme.hstatic.net/200000278317/1000929405/14/slideshow_5.jpg?v=667" alt="Image 1" class="active">
+					<img src="https://theme.hstatic.net/200000278317/1000929405/14/slideshow_4.jpg?v=667" alt="Image 2">
+					<img src="https://theme.hstatic.net/200000278317/1000929405/14/slideshow_5.jpg?v=667" alt="Image 3">
+					<img src="https://theme.hstatic.net/200000278317/1000929405/14/slideshow_6.jpg?v=667" alt="Image 4">
+					<img src="https://theme.hstatic.net/200000278317/1000929405/14/slideshow_7.jpg?v=667" alt="Image 5">
+					<img src="https://theme.hstatic.net/200000278317/1000929405/14/slideshow_3.jpg?v=667" alt="Image 6">
+				<img src="https://theme.hstatic.net/200000278317/1000929405/14/slideshow_6.jpg?v=667" alt="Image 7">
+
+				
+			
+			
+				</div>
+			</div>
+
+			<script>
+				const images = document.querySelectorAll('.slideshow img');
+				let currentIndex = 0;
+
+				function showNextImage() {
+					images[currentIndex].classList.remove('active');
+					currentIndex = (currentIndex + 1) % images.length;
+					images[currentIndex].classList.add('active');
+				}
+
+				setInterval(showNextImage, 2000); // Hiển thị ảnh tiếp theo sau mỗi giây
+			</script>
+	
+			<br>
+		<div class="ega-container">
+
+
+			<div class="mustbuy__title">
+				<h2 class="title--line">HOT DEAL</h2>
+			</div>
+			<div class="mustbuy__img ega-m-b--3">
+				<a class="hover-zoom" style="cursor: pointer;">
+					<img width="1600" height="600" class="lazyload dt-width-100" src="/HinhAnhGiaoDien/bannerHotDeal.PNG">
+				</a>
+			</div>
+			<br />
+			<div class="mustbuy__title">
+				<h2 class="title--line">Bạn Đang Quan Tâm</h2>
+			</div>
+			<div class="mustbuy__product ega-row">
+				<div class="mustbuy__item ega-col-6 ega-col-md-3">
+					<a>
+						<div class="pd-item__img img-featured">
+							<img width="480" height="480" class="lazyload" src="/HinhAnhGiaoDien/care-gcnt.PNG">
+						</div>
+					</a>
+				</div>
+				<div class="mustbuy__item ega-col-6 ega-col-md-3">
+
+					<a>
+						<div class="pd-item__img img-featured">
+							<img width="480" height="480" class="lazyload" src="/HinhAnhGiaoDien/dep.jpg">
+
+						</div>
+
+					</a>
+				</div>
+				<div class="mustbuy__item ega-col-6 ega-col-md-3">
+
+					<a>
+						<div class="pd-item__img img-featured">
+							<img width="480" height="480" class="lazyload" src="/HinhAnhGiaoDien/care-hotSale.webp">
+
+						</div>
+
+					</a>
+				</div>
+				<div class="mustbuy__item ega-col-6 ega-col-md-3">
+
+					<a>
+						<div class="pd-item__img img-featured">
+							<img width="480" height="480" class="lazyload" src="/HinhAnhGiaoDien/care-gcnt.PNG">
+
+						</div>
+
+					</a>
+				</div>
+			</div>
+			
+		
+			
+			<div class="new-col-lds">
+					<div class="ega-container">
+						<div class="newcoll__title">
+							<h2 class="title--line">TÌM THEO THƯƠNG HIỆU</h2>
+						</div>
+						<div class="ega-row">
+
+
+
+							<div class="ega-col-md-3 ega-col-6">
+								<div class="fimr-q">
+									<div class="fimr-q-img">
+										<a class="hover-zoom">
+										<img width="177" height="66" class="lazyload dt-width-100" src=/HinhAnhGiaoDien/bannerNike.webp>
+										</a>
+									</div>
+									<a >
+										<div class="fimr-q-title">
+										Giày đá banh Nike
+										</div>
+									</a>
+									
+								</div>
+							</div>
+
+
+
+							<div class="ega-col-md-3 ega-col-6">
+								<div class="fimr-q">
+									<div class="fimr-q-img">
+										<a class="hover-zoom" >
+										<img width="177" height="66" class="lazyload dt-width-100" src=/HinhAnhGiaoDien/bannerAdidas.webp>
+										</a>
+									</div>
+									<a >
+										<div class="fimr-q-title">
+											Giày đá banh adidas
+										</div>
+									</a>
+								</div>
+							</div>
+
+
+
+							<div class="ega-col-md-3 ega-col-6">
+								<div class="fimr-q">
+									<div class="fimr-q-img">
+										<a class="hover-zoom" >
+										<img width="177" height="66" class="lazyload dt-width-100" src=/HinhAnhGiaoDien/bannerMizuno.webp>
+										</a>
+									</div>
+									<a >
+										<div class="fimr-q-title">
+											Giày đá banh Mizuno
+										</div>
+									</a>
+								</div>
+							</div>
+
+
+							<div class="ega-col-md-3 ega-col-6">
+								<div class="fimr-q">
+									<div class="fimr-q-img">
+										<a class="hover-zoom" >
+										<img width="177" height="66" class="lazyload dt-width-100" src=/HinhAnhGiaoDien/bannerPuma.webp>
+										</a>
+									</div>
+									<a >
+										<div class="fimr-q-title">
+											Giày đá banh Puma
+										</div>
+									</a>
+								</div>
+							</div>
+
+
+
+							<div class="ega-col-md-3 ega-col-6">
+								<div class="fimr-q">
+									<div class="fimr-q-img">
+										<a class="hover-zoom" >
+										<img width="177" height="66" class="lazyload dt-width-100" src=/HinhAnhGiaoDien/bannerJoma.webp>
+										</a>
+									</div>
+									<a >
+										<div class="fimr-q-title">
+											Giày đá banh Joma
+										</div>
+									</a>
+								</div>
+							</div>
+
+
+							<div class="ega-col-md-3 ega-col-6">
+								<div class="fimr-q">
+									<div class="fimr-q-img">
+										<a class="hover-zoom" >
+										<img width="177" height="66" class="lazyload dt-width-100" src=/HinhAnhGiaoDien/bannerDesporte.webp>
+										</a>
+									</div>
+									<a >
+										<div class="fimr-q-title">
+											Giày đá banh Desporte
+										</div>
+									</a>
+								</div>
+							</div>
+
+
+							<div class="ega-col-md-3 ega-col-6">
+								<div class="fimr-q">
+									<div class="fimr-q-img">
+										<a class="hover-zoom">
+										<img width="177" height="66" class="lazyload dt-width-100" src=/HinhAnhGiaoDien/bannerAdidas.webp>
+										</a>
+									</div>
+									<a >
+										<div class="fimr-q-title">
+											Giày đá banh Asics
+										</div>
+									</a>
+								</div>
+							</div>
+
+
+							<div class="ega-col-md-3 ega-col-6">
+								<div class="fimr-q">
+									<div class="fimr-q-img">
+										<a class="hover-zoom" >
+										<img width="177" height="66" class="lazyload dt-width-100" src=/HinhAnhGiaoDien/bannerKamito.jpg>
+										</a>
+									</div>
+									<a >
+										<div class="fimr-q-title">
+											Giày đá banh Kamito
+										</div>
+									</a>
+								</div>
+							</div>
+
+
+							<div class="ega-col-md-3 ega-col-6">
+								<div class="fimr-q">
+									<div class="fimr-q-img">
+										<a class="hover-zoom">
+										<img width="177" height="66" class="lazyload dt-width-100" src=/HinhAnhGiaoDien/bannerZocker.jpg>
+										</a>
+									</div>
+									<a >
+										<div class="fimr-q-title">
+											Giày đá banh Zocker
+										</div>
+									</a>
+								</div>
+							</div>
+
+
+							<div class="ega-col-md-3 ega-col-6">
+								<div class="fimr-q">
+									<div class="fimr-q-img">
+										<a >
+										<img width="177" height="66" class="lazyload dt-width-100" src=/HinhAnhGiaoDien/bannerBall.jpg>
+										</a>
+									</div>
+									<a >
+										<div class="fimr-q-title">
+											Trái bóng Động Lực
+										</div>
+									</a>
+								</div>
+							</div>
+
+
+							<div class="ega-col-md-3 ega-col-6">
+								<div class="fimr-q">
+									<div class="fimr-q-img">
+										<a class="hover-zoom" >
+										<img width="177" height="66" class="lazyload dt-width-100" src=/HinhAnhGiaoDien/bannerStarbalm.webp>
+										</a>
+									</div>
+									<a >
+										<div class="fimr-q-title">
+											Trái bóng Geru Star - Zocker
+										</div>
+									</a>
+								</div>
+							</div>
+
+							<div class="ega-col-md-3 ega-col-6">
+								<div class="fimr-q">
+									<div class="fimr-q-img">
+										<a class="hover-zoom" >
+										<img width="177" height="66" class="lazyload dt-width-100" src=/HinhAnhGiaoDien/depunbox.webp>
+										</a>
+									</div>
+									<a >
+										<div class="fimr-q-title">
+											Dép Unbox
+										</div>
+									</a>
+								</div>
+							</div>
+							
+						
+							
+
+
+
+
+					
+					</div>
+						
+				</div>
+			</div>
+			<br />
+			<br />
+		
+			<div class="mustbuy__img ega-m-b--3">
+				<a class="hover-zoom" style="cursor: pointer;">
+					<img width="1600" height="600" class="lazyload dt-width-100" src="/HinhAnhGiaoDien/bannerHome.webp">
+				</a>
+			</div>
+		
+				
+			
+			
+			<div class="groupbuy">
+					<div class="groupbuy__title ega-text--center">
+						<h2 class="title--line">TRẢI NGHIỆM MUA SẮM TẠI CỬA HÀNG</h2>
+					</div>
+					<div class="groupbuy__wrapper">
+						<div class="ega-container">
+							<div class="groupbuy__slider">
+
+								<div class="groupbuy__item ">
+									<div class="groupbuy__img">
+										<a class="hover-zoom" >
+										<img width="160" height="160" class="lazyload" style="min-width: 95px;" src="/HinhAnhGiaoDien/tuvan.webp">
+										</a>
+									</div>
+									<h3>Tư vấn bán hàng chuyên nghiệp.</h3>
+								</div>
+
+								<div class="groupbuy__item ">
+									<div class="groupbuy__img">
+										<a class="hover-zoom" >
+										<img width="160" height="160" class="lazyload" style="min-width: 95px;" src="/HinhAnhGiaoDien/hoTroDoChan.jpg">
+										</a>
+									</div>
+									<h3>Hỗ trợ đo chân bằng thiết bị chuyên dụng.</h3>
+								</div>
+
+								<div class="groupbuy__item ">
+									<div class="groupbuy__img">
+										<a class="hover-zoom">
+										<img width="160" height="160" class="lazyload" style="min-width: 95px;" src="/HinhAnhGiaoDien/quaTang.webp">
+										</a>
+									</div>
+									<h3>Quà tặng khi mua giày (Vớ, Balo).</h3>
+								</div>
+
+								<div class="groupbuy__item ">
+									<div class="groupbuy__img">
+										<a class="hover-zoom" >
+										<img width="160" height="160" class="lazyload" style="min-width: 95px;" src="/HinhAnhGiaoDien/thanhToan.webp">
+										</a>
+									</div>
+									<h3>Thanh toán linh hoạt (Tiền mặt, Thẻ, Chuyển khoản).</h3>
+								</div>
+
+								<div class="groupbuy__item ">
+									<div class="groupbuy__img">
+										<a class="hover-zoom" >
+											<img width="160" height="160" class="lazyload" style="min-width: 95px;" src="/HinhAnhGiaoDien/hoTroTraGop.webp">
+										</a>
+									</div>
+									<h3>Hỗ trợ trả góp 0% lãi suất qua Fundiin (Thủ tục đơn giản).</h3>
+								</div>
+
+								<div class="groupbuy__item ">
+									<div class="groupbuy__img">
+										<a class="hover-zoom" >
+										<img width="160" height="160" class="lazyload" style="min-width: 95px;" src="/HinhAnhGiaoDien/dichVuGiaoHangNhanh.webp">
+										</a>
+									</div>
+									<h3>Dịch vụ giao hàng nhanh chóng (Grab &amp; GHTK).</h3>
+								</div>
+							</div>
+						</div>
+					</div>
+			
+			
+			
+				<div class="homeblog" id="ega-blog">
+					<div class="ega-container">
+						<div class="homeblog__header ega-text--center">
+							<h2 class="title--line">TIN TỨC NỔI BẬT</h2>
+						</div>
+						<div class="homeblog__wrapper">
+							<div class="ega-row">
+								<div class="ega-row">
+									<div class="ega-col-lg-3 ega-col-6 article__wrapper">
+										<div class="article__item">
+											<div class="article__img">
+
+
+												<a title="PUMA Future 8 “Teaser Edition” - Những hình ảnh đầu tiên về thế hệ mới của silo Future" href="/blogs/tin-tuc/puma-future-8-teaser-edition-nhung-hinh-anh-dau-tien-ve-the-he-moi"><img width="480" height="240" class="lazyload dt-width-100" alt="PUMA Future 8 “Teaser Edition” - Những hình ảnh đầu tiên về thế hệ mới của silo Future" src="//file.hstatic.net/200000278317/article/puma-future-8-teaser-edition-nhung-hinh-anh-dau-tien-ve-the-he-moi-1_2de4c7e6dcfa402288143efa36a3ce85_large.jpg"></a>
+											</div>
+											<div class="article__info">
+												<h3>
+													<a title="PUMA Future 8 “Teaser Edition” - Những hình ảnh đầu tiên về thế hệ mới của silo Future" href="/blogs/tin-tuc/puma-future-8-teaser-edition-nhung-hinh-anh-dau-tien-ve-the-he-moi">PUMA Future 8 “Teaser Edition” - Những hình ảnh đầu tiên về thế hệ mới của silo Future</a>
+												</h3>
+												<span class="desc-cut">Để chào đón sự ra đời của thế hệ Future mới, PUMA đã có màn...</span>
+												<span class="date-post"></span>
+
+											</div>
+										</div>
+									</div>
+									<div class="ega-col-lg-3 ega-col-6 article__wrapper">
+										<div class="article__item">
+											<div class="article__img">
+
+
+												<a title="Khám phá adidas Predator 25 “Goal Hunter” - Chào đón thế hệ mới nhất của silo ‘Quái thú’" href="/blogs/tin-tuc/kham-pha-adidas-predator-25-goal-hunter-chao-don-the-he-moi-nhat-cua-silo-quai-thu"><img width="480" height="240" class="lazyload dt-width-100" alt="Khám phá adidas Predator 25 “Goal Hunter” - Chào đón thế hệ mới nhất của silo ‘Quái thú’" src="//file.hstatic.net/200000278317/article/s-predator-25-goal-hunter-chao-don-the-he-moi-nhat-cua-silo-quai-thu-1_b9e31e3731b94095ada72a4f3369f042_large.jpg"></a>
+											</div>
+											<div class="article__info">
+												<h3>
+													<a title="Khám phá adidas Predator 25 “Goal Hunter” - Chào đón thế hệ mới nhất của silo ‘Quái thú’" href="/blogs/tin-tuc/kham-pha-adidas-predator-25-goal-hunter-chao-don-the-he-moi-nhat-cua-silo-quai-thu">Khám phá adidas Predator 25 “Goal Hunter” - Chào đón thế hệ mới nhất của silo ‘Quái thú’</a>
+												</h3>
+												<span class="desc-cut">Để khép lại chuỗi kỷ niệm 30 năm đầy ấn tượng của dòng giày đá...</span>
+												<span class="date-post"></span>
+
+											</div>
+										</div>
+									</div>
+								
+							</div>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
+
+		<script>
+			document.addEventListener("DOMContentLoaded", function () {
+				const successMessage = '@Html.Raw(ViewData["SuccessMessage"])';
+				if (successMessage) {
+					alert(successMessage);
+				}
+			});
+		</script>
+
+		
+
+	</body>
+</html>
+
+
+		
+
+
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+					
+
+
+					

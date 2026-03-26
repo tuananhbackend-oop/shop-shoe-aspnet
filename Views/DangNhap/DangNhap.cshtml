@@ -1,0 +1,373 @@
+﻿
+@{
+    ViewData["Title"] = "DangNhap";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";    
+}
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+	<title></title>
+	<style>
+		* {
+			font-family: Roboto Condensed;
+		}
+		*, ::after, ::before {
+			box-sizing: border-box;
+		}
+		#ega-login-page, #ega-reset-page {
+			padding-top: 48px;
+			padding-bottom: 48px;
+		}
+		body {
+			line-height: 1.5;
+			font-size: 1rem;
+			color: #333;
+			width: 100%;
+			min-height: 100%;
+			margin: 0;
+			scroll-behavior: smooth;
+		}
+		html, body {
+			font-size: 14px;
+		}
+		body {
+			background: #ffffff;
+			color: #000000;
+			overflow-x: hidden;
+		}
+		body.template_blog, body.template_article, body.template_cart, body.template_customers, body.template_page {
+			background: #f3f3f3;
+		}
+		.ega-container {
+			margin: 0 auto;
+		}
+		.ega-container, .ega-container--fluid {
+			padding-left: 15px;
+			padding-right: 15px;
+			width: 100%;
+		}
+		
+		.ega-container {
+			max-width: 540px;
+		}
+	
+		.ega-container {
+			max-width: 720px;
+		}
+	
+		.ega-container {
+			max-width: 960px;
+		}
+
+		.ega-container {
+			max-width: 1140px;
+		}
+	
+		.ega-container {
+			max-width: 1140px;
+		}
+		.ega-text--center {
+			text-align: center !important;
+		}
+		.ega-card {
+			position: relative;
+			display: flex;
+			flex-direction: column;
+			min-width: 0px;
+			word-wrap: break-word;
+			background-clip: border-box;
+			border: 1px solid rgba(0, 0, 0, .125);
+		}
+		.ega-border--0 {
+			border: 0 !important;
+		}
+		#ega-login-page #ega-login, #ega-login-page #ega-reset, #ega-reset-page #ega-login, #ega-reset-page #ega-reset {
+			display: inline-block;
+			width: 100%;
+			text-align: left;
+			background: #fff;
+			padding: 24px 16px;
+		}
+	
+		#ega-login-page #ega-login, #ega-login-page #ega-reset, #ega-reset-page #ega-login, #ega-reset-page #ega-reset {
+			width: 588px;
+			padding: 40px 48px 48px;
+		}
+		#ega-login-page #ega-recover, #ega-reset-page #ega-recover {
+			display: inline-block;
+			width: 100%;
+			text-align: left;
+			background: #fff;
+			padding: 24px 16px;
+		}
+		
+		#ega-login-page #ega-recover, #ega-reset-page #ega-recover {
+			width: 588px;
+			padding: 40px 48px 48px;
+		}
+		.ega-h1, .ega-h2, .ega-h3, .ega-h4, .ega-h5, .ega-h6, h1, h2, h3, h4, h5, h6 {
+			font-family: inherit;
+			font-weight: 600;
+			line-height: 1.2;
+			color: inherit;
+			margin: 1rem 0;
+		}
+		.ega-h4, h4 {
+			font-size: 1.5rem;
+		}
+		#ega-login-page #ega-recover .recover-title, #ega-reset-page #ega-recover .recover-title {
+			font-size: 28px;
+			font-weight: bold;
+			margin: 0;
+			padding-bottom: 16px;
+			border-bottom: 2px solid rgba(238, 238, 238, 0.5);
+			margin-bottom: 50px;
+		}
+		input, select, textarea {
+			margin: 0;
+			font-family: inherit;
+			font-size: inherit;
+			line-height: inherit;
+		}
+		.ega-form__group {
+			margin-bottom: 0.75rem;
+			position: relative;
+		}
+		#ega-login-page #ega-recover .recover-action, #ega-reset-page #ega-recover .recover-action {
+			margin-top: 32px;
+		}
+		.ega-btn, .ega-item-ic {
+			display: inline-block;
+		}
+		.ega-btn {
+			-webkit-appearance: none;
+			border: 1px solid transparent;
+			position: relative;
+			line-height: 1.25;
+			padding: .62rem 1.5rem;
+			font-size: 0.9rem;
+			overflow: hidden;
+			will-change: box-shadow;
+			outline: 0;
+			text-decoration: none;
+			text-align: center;
+			white-space: nowrap;
+			vertical-align: middle;
+			margin: .5rem;
+			background: #aab541;
+			color: #fff;
+			border-radius: .25rem;
+			transition: all .2s ease-in-out;
+		}
+		.ega-btn.ega-btn--outline {
+			background-color: transparent;
+			color: #aab541;
+			border-color: #aab541;
+		}
+		#ega-login-page #ega-recover .recover-action .ega-btn, #ega-reset-page #ega-recover .recover-action .ega-btn {
+			display: inline-block;
+			border: 1px solid #0E1C22;
+			color: #0e1c22;
+			padding: 8px 44px;
+			border-radius: 0;
+			font-size: 16px;
+			font-weight: bold;
+			margin: 0;
+			margin-bottom: 24px;
+			-webkit-transition: all 0.5s ease;
+			-o-transition: all 0.5s ease;
+			transition: all 0.5s ease;
+		}
+		
+		#ega-login-page #ega-recover .recover-action .ega-btn, #ega-reset-page #ega-recover .recover-action .ega-btn {
+			padding: 12px 64px;
+		}
+		a {
+			color: #288ad6;
+		}
+		a {
+			text-decoration: none;
+		}
+		#ega-login-page #ega-recover .recover-action .recover-back, #ega-reset-page #ega-recover .recover-action .recover-back {
+			display: block;
+			color: initial;
+			font-size: 16px;
+		}
+		.ega-form__group label {
+			display: block;
+			font-size: 1rem;
+			font-weight: 700;
+			margin-bottom: 0.25rem;
+		}
+		#ega-login-page #ega-recover .ega-form__group label, #ega-reset-page #ega-recover .ega-form__group label {
+			font-size: 14px;
+			letter-spacing: 0.1em;
+			color: #0e1c22;
+			opacity: 0.6;
+			margin-bottom: 14px;
+		}
+		.ega-form__control {
+			width: 100%;
+			border: 1px solid #eee;
+			vertical-align: top;
+			font-size: 1rem;
+			padding: .375rem .75rem;
+			border-radius: .25rem;
+			height: calc(1.5em + .75rem + 2px);
+		}
+		#ega-login-page #ega-recover .ega-form__group input, #ega-reset-page #ega-recover .ega-form__group input {
+			font-size: 20px;
+			border: none;
+			border-bottom: 1px solid rgba(14, 28, 34, 0.4);
+			padding: 0 0 8px 0;
+			border-radius: 0;
+		}
+		.ega-form__mess {
+			display: none;
+		}
+		#ega-login-page #ega-login .login-title, #ega-login-page #ega-reset .login-title, #ega-reset-page #ega-login .login-title, #ega-reset-page #ega-reset .login-title {
+			font-size: 28px;
+			font-weight: bold;
+			margin: 0;
+			padding-bottom: 16px;
+			border-bottom: 2px solid rgba(238, 238, 238, 0.5);
+			margin-bottom: 50px;
+		}
+		#ega-login-page #ega-login .ega-form__group + .ega-form__group, #ega-login-page #ega-reset .ega-form__group + .ega-form__group, #ega-reset-page #ega-login .ega-form__group + .ega-form__group, #ega-reset-page #ega-reset .ega-form__group + .ega-form__group {
+			margin-top: 49px;
+		}
+		#ega-login-page #ega-login .login-action, #ega-login-page #ega-reset .login-action, #ega-reset-page #ega-login .login-action, #ega-reset-page #ega-reset .login-action {
+			margin-top: 32px;
+		}
+		#ega-login-page #ega-login .login-action .ega-btn, #ega-login-page #ega-reset .login-action .ega-btn, #ega-reset-page #ega-login .login-action .ega-btn, #ega-reset-page #ega-reset .login-action .ega-btn {
+			display: inline-block;
+			border: 1px solid #0E1C22;
+			color: #0e1c22;
+			padding: 8px 44px;
+			border-radius: 0;
+			font-size: 16px;
+			font-weight: bold;
+			margin: 0;
+			margin-bottom: 24px;
+			-webkit-transition: all 0.5s ease;
+			-o-transition: all 0.5s ease;
+			transition: all 0.5s ease;
+		}
+	
+		#ega-login-page #ega-login .login-action .ega-btn, #ega-login-page #ega-reset .login-action .ega-btn, #ega-reset-page #ega-login .login-action .ega-btn, #ega-reset-page #ega-reset .login-action .ega-btn {
+			padding: 12px 35px;
+		}
+		#ega-login-page #ega-login .login-action .register-link, #ega-login-page #ega-reset .login-action .register-link, #ega-reset-page #ega-login .login-action .register-link, #ega-reset-page #ega-reset .login-action .register-link {
+			font-size: 16px;
+			margin-bottom: 56px;
+		}
+		.ega-text--no-underline {
+			text-decoration: none !important;
+		}
+		#ega-login-page #ega-login .login-action .forgot-pass, #ega-login-page #ega-reset .login-action .forgot-pass, #ega-reset-page #ega-login .login-action .forgot-pass, #ega-reset-page #ega-reset .login-action .forgot-pass {
+			font-size: 16px;
+		}
+		#ega-login-page #ega-login .login-action .ega-link, #ega-login-page #ega-reset .login-action .ega-link, #ega-reset-page #ega-login .login-action .ega-link, #ega-reset-page #ega-reset .login-action .ega-link {
+			color: #0e1c22;
+			font-weight: bold;
+		}
+		#ega-login-page #ega-login .ega-form__group label, #ega-login-page #ega-reset .ega-form__group label, #ega-reset-page #ega-login .ega-form__group label, #ega-reset-page #ega-reset .ega-form__group label {
+			font-size: 14px;
+			letter-spacing: 0.1em;
+			color: #0e1c22;
+			opacity: 0.6;
+			margin-bottom: 14px;
+		}
+		#ega-login-page #ega-login .ega-form__group input, #ega-login-page #ega-reset .ega-form__group input, #ega-reset-page #ega-login .ega-form__group input, #ega-reset-page #ega-reset .ega-form__group input {
+			font-size: 20px;
+			border: none;
+			border-bottom: 1px solid rgba(14, 28, 34, 0.4);
+			padding: 0 0 8px 0;
+			border-radius: 0;
+		}
+	</style>
+	<style>
+		.success-message {
+			margin-top: 20px; /* Khoảng cách từ trên xuống */
+			padding: 10px 20px;
+		
+			color: black; /* Màu chữ trắng */
+			font-size: 18px; /* Kích thước chữ */
+			font-weight: bold; /* Chữ đậm */
+			text-align: center; /* Căn giữa chữ */
+			border-radius: 5px; /* Bo góc */
+			width: 100%; /* Chiếm toàn bộ chiều rộng */
+		}
+	</style>
+</head>
+<body class="template_customers" id="ega-fashion">
+	<!-- Hiển thị thông báo thành công nếu có -->
+	
+	
+
+	<div id="ega-login-page">
+		<div class="ega-container">
+			<div class="ega-text--center">
+				<div class="ega-card ega-border--0" id="ega-login">
+					<h4 class="login-title">Đăng nhập</h4>
+
+					<form asp-action="qlDangNhap" method="post">
+						<input name="form_type" type="hidden" value="customer_login">
+						<input name="utf8" type="hidden" value="✓">
+						<div class="ega-form__group">
+							<label for="customer_email">EMAIL</label>
+							<input name="customerEmail" class="ega-form__control" id="customerEmail" required type="email" placeholder="Nhập Email của bạn" value="">
+						</div>
+						<div class="ega-form__group">
+							<label for="customer_password">MẬT KHẨU</label>
+							<input name="customerPassword" class="ega-form__control" id="customerPassword" required type="password" placeholder="Nhập Mật khẩu" value="">
+						</div>
+
+						<div class="login-action">
+							<button class="ega-btn ega-btn--outline" type="submit">Đăng nhập</button>
+							<div class="register-link">
+								Bạn chưa có tài khoản? <a asp-controller="DangNhap" asp-action="DangKi" class="ega-link ega-text--no-underline">Đăng kí</a>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+			const successMessagedk = '@Html.Raw(ViewData["SuccessMessagedk"])';
+			if (successMessagedk) {
+				alert(successMessagedk);
+			}
+		});
+	</script>
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+			const successMessage5 = '@Html.Raw(ViewData["SuccessMessage5"])';
+			if (successMessage5) {
+				alert(successMessage5);
+			}
+		});
+	</script>
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+			const successMessagedb = '@Html.Raw(ViewData["SuccessMessagedb"])';
+			if (successMessagedb) {
+				alert(successMessagedb);
+			}
+		});
+	</script>
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+			const successMessage = '@Html.Raw(ViewData["SuccessMessage"])';
+			if (successMessage) {
+				alert(successMessage);
+			}
+		});
+	</script>
+</body>
+</html>
+
+

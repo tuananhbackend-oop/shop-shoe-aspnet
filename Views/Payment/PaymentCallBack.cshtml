@@ -1,0 +1,108 @@
+﻿@using LVTNWEBGIAYDEP.Models.Momo
+
+@model MomoExecuteResponseModel
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thanh Toán Thành Công</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7fa;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            font-size: 2.5rem;
+            color: #28a745;
+        }
+        .header p {
+            font-size: 1.2rem;
+            color: #777;
+        }
+        .transaction-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .transaction-details div {
+            padding: 10px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .transaction-details div strong {
+            color: #555;
+        }
+        .transaction-details .transaction-status {
+            grid-column: span 2;
+            text-align: center;
+            font-size: 1.5rem;
+            color: #28a745;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 1rem;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="header">
+            <h1>Thanh Toán Thành Công</h1>
+            <p>Chúng tôi đã nhận được thanh toán của bạn. Cảm ơn bạn đã mua hàng!</p>
+        </div>
+
+        <div class="transaction-status">
+            <div><strong>Trạng thái:</strong> Thanh toán thành công</div>
+        </div>
+
+        <div class="transaction-details">
+
+
+
+
+
+
+
+
+            <div><strong>Số tiền:</strong>@(ViewBag.SuccessMessage3)đ</div>
+
+
+
+
+
+            <div><strong>Mã giao dịch:</strong>@Model.OrderId</div>
+            <div><strong>Tài khoản/Thẻ:</strong> Ví MoMo</div>
+           
+            <div><strong>Địa chỉ:</strong> @Model.OrderInfo</div>
+            <div><strong>Phí giao dịch:</strong> Miễn phí</div>
+        </div>
+
+        <div class="footer">
+            <p>Cảm ơn bạn đã mua sắm tại cửa hàng của chúng tôi. Chúng tôi sẽ sớm giao hàng cho bạn!</p>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,143 @@
+﻿@model LVTNWEBGIAYDEP.Models.ThuongHieu
+@{
+    ViewData["Title"] = "Thêm Thương Hiệu";
+    Layout = "~/Views/Shared/_LayoutNVQLSP.cshtml";
+}
+
+<hr />
+<!-- Cung cấp một lớp bao quanh cho form để căn giữa -->
+<div class="row justify-content-center mt-4">
+    <div class="col-md-6">
+        <div class="card shadow-lg border-light">
+            <div class="card-header bg-info text-white text-center">
+                <h2 class="mb-0">Thêm Thương Hiệu</h2>
+            </div>
+            <div class="card-body">
+                <form asp-action="themThuongHieu" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                    <!-- Mã Thương Hiệu -->
+                    <div class="form-group">
+                        <label class="control-label font-weight-bold text-primary">Mã Thương Hiệu</label>
+                        <input asp-for="MaTh" class="form-control form-control-lg" placeholder="Nhập Mã Thương Hiệu" />
+                        <span asp-validation-for="MaTh" class="text-danger"></span>
+                    </div>
+
+                    <!-- Tên Thương Hiệu -->
+                    <div class="form-group">
+                        <label class="control-label font-weight-bold text-primary">Tên Thương Hiệu</label>
+                        <input asp-for="TenTh" class="form-control form-control-lg" placeholder="Nhập Tên Thương Hiệu" />
+                        <span asp-validation-for="TenTh" class="text-danger"></span>
+                    </div>
+
+                    <!-- Nút Submit -->
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success btn-lg btn-block shadow-sm">
+                            <i class="fas fa-plus-circle"></i> Thêm Thương Hiệu
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="mt-3 text-center">
+    <a asp-action="Index" class="btn btn-outline-info btn-lg">
+        <i class="fas fa-arrow-left"></i> Trở Về
+    </a>
+</div>
+
+<!-- Include Font Awesome for Icons -->
+<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+
+<!-- CSS đặc biệt cho form -->
+<style>
+    /* Flexbox chỉ áp dụng cho phần form */
+    .row {
+        display: flex;
+        justify-content: center; /* Căn giữa theo chiều ngang */
+        align-items: center; /* Căn giữa theo chiều dọc */
+        min-height: 100vh; /* Đảm bảo chiều cao đủ để căn giữa */
+    }
+
+    .col-md-6 {
+        /* Đảm bảo chiều rộng của form không quá lớn */
+        max-width: 600px;
+        width: 100%;
+    }
+
+    .card {
+        border-radius: 10px;
+        border: 1px solid #ddd;
+    }
+
+    .card-header {
+        background-color: #007bff;
+        color: white;
+        border-bottom: 2px solid #ddd;
+        text-align: center;
+    }
+
+    .btn-success {
+        background-color: #28a745;
+        border-color: #28a745;
+        transition: all 0.3s ease; /* Hiệu ứng chuyển đổi mượt mà */
+    }
+
+        .btn-success:hover {
+            background-color: #218838; /* Màu khi hover */
+            border-color: #1e7e34; /* Màu biên khi hover */
+            transform: scale(1.05); /* Phóng to nút khi hover */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Tạo bóng đổ khi hover */
+        }
+
+        /* Thêm hiệu ứng khi nút được focus (khi nhấn vào) */
+        .btn-success:focus {
+            outline: none; /* Loại bỏ viền mặc định */
+            box-shadow: 0 0 5px rgba(40, 167, 69, 0.6); /* Thêm bóng đổ khi focus */
+        }
+
+    .btn-outline-info {
+        border-color: #17a2b8;
+        color: #17a2b8;
+    }
+
+        .btn-outline-info:hover {
+            background-color: #17a2b8;
+            color: white;
+        }
+
+    .form-control {
+        border-radius: 5px;
+        font-size: 1rem;
+        padding: 0.75rem 1.25rem;
+    }
+
+        .form-control:focus {
+            border-color: #66afe9;
+            box-shadow: 0 0 8px rgba(102, 175, 233, 0.6);
+        }
+
+    .text-primary {
+        color: #007bff !important;
+    }
+
+    .shadow-lg {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .shadow-sm {
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    .btn-lg {
+        padding: 1rem 2rem;
+        font-size: 1.25rem;
+    }
+
+</style>

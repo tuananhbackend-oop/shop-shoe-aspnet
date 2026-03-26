@@ -1,0 +1,140 @@
+﻿@model LVTNWEBGIAYDEP.Models.SanPham
+
+@{
+    ViewData["Title"] = "Form Sửa Sản Phẩm";
+    Layout = "~/Views/Shared/_LayoutNVQLSP.cshtml";
+}
+
+<h4 class="text-center" style="font-size: 2rem; color: #007bff;">Sửa Thông Tin Sản Phẩm</h4>
+<hr />
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow-lg border-light">
+            <div class="card-header bg-info text-white text-center">
+            </div>
+            <div class="card-body">
+                <form asp-action="suaSP" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                    <!-- Mã Sản Phẩm -->
+                    <div class="form-group">
+                        <label asp-for="MaSp" class="control-label font-weight-bold text-primary">Mã Sản Phẩm</label>
+                        <input asp-for="MaSp" class="form-control custom-input" placeholder="Nhập Mã Sản Phẩm" />
+                        <span asp-validation-for="MaSp" class="text-danger"></span>
+                    </div>
+
+                    <!-- Tên Sản Phẩm -->
+                    <div class="form-group">
+                        <label asp-for="TenSp" class="control-label font-weight-bold text-primary">Tên Sản Phẩm</label>
+                        <input asp-for="TenSp" class="form-control custom-input" placeholder="Nhập Tên Sản Phẩm" />
+                        <span asp-validation-for="TenSp" class="text-danger"></span>
+                    </div>
+
+                    <!-- Hình Ảnh -->
+                    <div class="form-group">
+                        <label asp-for="HinhAnh" class="control-label font-weight-bold text-primary">Hình Ảnh</label>
+                        <input asp-for="HinhAnh" class="form-control custom-input" placeholder="Nhập Hình Ảnh" />
+                        <span asp-validation-for="HinhAnh" class="text-danger"></span>
+                    </div>
+
+                    <!-- Giá Bán -->
+                    <div class="form-group">
+                        <label asp-for="GiaBan" class="control-label font-weight-bold text-primary">Giá Bán</label>
+                        <input asp-for="GiaBan" class="form-control custom-input" placeholder="Nhập Giá Bán" />
+                        <span asp-validation-for="GiaBan" class="text-danger"></span>
+                    </div>
+
+                    <!-- Trạng Thái -->
+                    <div class="form-group">
+                        <label asp-for="TrangThai" class="control-label font-weight-bold text-primary">Trạng Thái</label>
+                        <input asp-for="TrangThai" class="form-control custom-input" placeholder="Nhập Trạng Thái" />
+                        <span asp-validation-for="TrangThai" class="text-danger"></span>
+                    </div>
+
+                    <!-- Mô Tả -->
+                    <div class="form-group">
+                        <label asp-for="MoTa" class="control-label font-weight-bold text-primary">Mô Tả</label>
+                        <textarea asp-for="MoTa" class="form-control custom-input" rows="3" placeholder="Nhập Mô Tả"></textarea>
+                        <span asp-validation-for="MoTa" class="text-danger"></span>
+                    </div>
+
+                    <!-- Hàng Tồn Kho -->
+                    <div class="form-group">
+                        <label asp-for="HangTonKho" class="control-label font-weight-bold text-primary">Hàng Tồn Kho</label>
+                        <input asp-for="HangTonKho" class="form-control custom-input" placeholder="Nhập Hàng Tồn Kho" />
+                        <span asp-validation-for="HangTonKho" class="text-danger"></span>
+                    </div>
+
+                    <!-- Kích Cỡ -->
+                    <div class="form-group">
+                        <label asp-for="KichCo" class="control-label font-weight-bold text-primary">Kích Cỡ</label>
+                        <input asp-for="KichCo" class="form-control custom-input" placeholder="Nhập Kích Cỡ" />
+                        <span asp-validation-for="KichCo" class="text-danger"></span>
+                    </div>
+
+                    <!-- Loại Sản Phẩm -->
+                    <div class="form-group">
+                        <label class="control-label font-weight-bold text-primary">Tên Loại Sản Phẩm</label>
+                        <select asp-for="MaLoai" class="form-control custom-input" id="loaiSanPhamDropdown">
+                            <option value="">Chọn loại sản phẩm</option>
+                            @foreach (var group in (dynamic)ViewBag.GroupedLoaiSanPham)
+                            {
+                                <optgroup label="@group.TenLoai">
+                                    @foreach (var item in group.MaLoaiList)
+                                    {
+                                        <option value="@item.MaLoai">
+                                            @group.TenLoai - Thương hiệu: @item.TenTh
+                                        </option>
+                                    }
+                                </optgroup>
+                            }
+                        </select>
+                        <span asp-validation-for="MaLoai" class="text-danger"></span>
+                    </div>
+                    <!-- Quản Trị Viên -->
+                   
+
+                    <!-- Nút Submit -->
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-lg btn-block shadow-sm">
+                            <i class="fas fa-save"></i> Lưu
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="mt-3 text-center">
+    <a asp-action="Index" class="btn btn-outline-info btn-lg">
+        <i class="fas fa-arrow-left"></i> Trở Về
+    </a>
+</div>
+
+<style>
+    /* Điều chỉnh chiều dài của các input */
+    .custom-input {
+        max-width: 60%; /* Giảm chiều rộng của các input */
+        font-size: 1.1rem; /* Tăng font size cho ô nhập liệu */
+        padding: 0.75rem; /* Điều chỉnh padding để ô nhập liệu rộng hơn */
+        margin-bottom: 1rem; /* Tăng khoảng cách giữa các input */
+    }
+
+    /* Tăng kích thước của button */
+    .btn-primary {
+        font-size: 1.25rem; /* Tăng kích thước chữ của nút */
+        padding: 1rem; /* Tăng padding cho nút */
+    }
+
+    /* Đảm bảo input nằm dưới label */
+    .form-group label {
+        display: block;
+        margin-bottom: 0.5rem; /* Thêm khoảng cách giữa label và input */
+    }
+
+    .col-md-8 {
+        max-width: 90%; /* Điều chỉnh chiều rộng của cột */
+    }
+</style>

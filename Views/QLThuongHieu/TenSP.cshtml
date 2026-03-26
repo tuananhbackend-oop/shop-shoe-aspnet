@@ -1,0 +1,571 @@
+﻿@model IEnumerable<LVTNWEBGIAYDEP.Models.SanPham>
+
+@{
+	ViewData["Title"] = "SanPham";
+	Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+	<title></title>
+	<style>
+			* {
+				font-family: Roboto Condensed;
+			}
+
+			*, ::after, ::before {
+				box-sizing: border-box;
+			}
+
+			#ega-search {
+				padding-top: 48px;
+				padding-bottom: 40px;
+			}
+
+			body {
+				line-height: 1.5;
+				font-size: 1rem;
+				color: #333;
+				width: 100%;
+				min-height: 100%;
+				margin: 0;
+				scroll-behavior: smooth;
+			}
+
+			html, body {
+				font-size: 14px;
+			}
+
+			body {
+				background: #ffffff;
+				color: #000000;
+				overflow-x: hidden;
+			}
+
+			.ega-container {
+				margin: 0 auto;
+			}
+
+			.ega-container, .ega-container--fluid {
+				padding-left: 15px;
+				padding-right: 15px;
+				width: 100%;
+			}
+
+			.ega-container {
+				max-width: 540px;
+			}
+
+			.ega-container {
+				max-width: 720px;
+			}
+
+			.ega-container {
+				max-width: 960px;
+			}
+
+			.ega-container {
+				max-width: 1140px;
+			}
+
+			.ega-container {
+				max-width: 1140px;
+			}
+
+			#ega-search #sort-wrap {
+				margin-bottom: 40px;
+				display: flex;
+				flex-wrap: wrap;
+				justify-content: space-between;
+			}
+
+			.ega-text--center {
+				text-align: center !important;
+			}
+
+			#ega-search #pagination {
+				text-align: center;
+			}
+
+			.ega-d--i-block {
+				display: inline-block !important;
+			}
+
+			.ega-pagi {
+				display: flex;
+				flex-grow: 1;
+				flex-shrink: 1;
+			}
+
+			a {
+				color: #288ad6;
+			}
+
+			a {
+				text-decoration: none;
+			}
+
+			.ega-pagi__item {
+				display: inline-flex;
+				justify-content: center;
+				align-items: center;
+				padding-left: 0.5em;
+				padding-right: 0.5em;
+				margin: .25rem;
+				text-align: center;
+				min-width: 2.25rem;
+				border: 1px solid #dbdbdb;
+				font-size: 1rem;
+				height: 2.25rem;
+				border-radius: .25rem;
+				cursor: pointer;
+			}
+
+			.ega-pagi__item {
+				border: none;
+				font-size: 24px;
+				color: #0e1c22;
+				opacity: 0.3;
+				padding: 0;
+				margin: 0;
+			}
+
+				.ega-pagi__item.current {
+					background-color: #aab541;
+					border-color: #aab541;
+					color: #fff;
+				}
+
+				.ega-pagi__item.current {
+					background: none;
+					color: #0e1c22;
+					opacity: 1;
+				}
+
+				.ega-pagi__item + .ega-pagi__item {
+					margin-left: 24px;
+				}
+
+				.ega-pagi__item.ega-pagi__prev, .ega-pagi__item.ega-pagi__next {
+					opacity: 1;
+				}
+
+			[class*=' ega-ic-'], [class^=ega-ic-] {
+				display: inline-block;
+				width: 1em;
+				height: 1em;
+				stroke-width: 0;
+				stroke: currentColor;
+				fill: currentColor;
+				color: inherit;
+			}
+
+			.ega-row {
+				display: flex;
+				flex-wrap: wrap;
+				margin-left: -15px;
+				margin-right: -15px;
+			}
+
+			.ega-col, [class*=ega-col-] {
+				padding-left: 15px;
+				padding-right: 15px;
+			}
+
+			.ega-col-6 {
+				flex: 0 0 50%;
+				max-width: 50%;
+			}
+
+			.ega-col-lg-3 {
+				flex: 0 0 25%;
+				max-width: 25%;
+			}
+
+			.pd-item__wrapper {
+				padding-bottom: 36px;
+			}
+
+			.pd-item {
+				position: relative;
+				display: block;
+				overflow: hidden;
+			}
+
+			.pd-item__img {
+				position: relative;
+				overflow: hidden;
+				position: relative;
+				padding-top: 100%;
+				display: flex;
+				align-items: center;
+				margin-bottom: 15px;
+			}
+
+				.pd-item__img.img-featured {
+					display: block;
+				}
+
+			.ega-h1, .ega-h2, .ega-h3, .ega-h4, .ega-h5, .ega-h6, h1, h2, h3, h4, h5, h6 {
+				font-family: inherit;
+				font-weight: 600;
+				line-height: 1.2;
+				color: inherit;
+				margin: 1rem 0;
+			}
+
+			.ega-h2, h2 {
+				font-size: 2rem;
+			}
+
+			.pd-item h2 {
+				overflow: hidden !important;
+				line-height: 1.3em !important;
+				color: #333 !important;
+				clear: both;
+				display: -webkit-box !important;
+				-webkit-line-clamp: 3;
+				-webkit-box-orient: vertical;
+				white-space: initial;
+				min-height: 54px;
+				margin: 10px 0 !important;
+				font-size: 14px;
+				font-weight: 400;
+			}
+
+			.pd-item h2 {
+				font-size: 16px !important;
+				min-height: 62.5px;
+			}
+
+			.pd-item .price {
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				padding-bottom: 10px;
+			}
+
+			.ega-text--no-underline {
+				text-decoration: none !important;
+			}
+
+			.pd-item .price ins {
+				display: inline-block;
+				vertical-align: middle;
+				overflow: hidden;
+				font-size: 20px;
+				color: #c54934;
+				font-weight: bold;
+				line-height: 24px;
+			}
+
+			.pd-item .price del {
+				display: inline-block;
+				vertical-align: middle;
+				font-size: 14px;
+				text-decoration: line-through;
+				margin-left: 5px;
+				color: #0e1c22;
+				opacity: 0.4;
+			}
+
+			iframe, img {
+				max-width: 100%;
+				vertical-align: middle;
+			}
+
+			img {
+				max-width: 100%;
+				vertical-align: middle;
+				height: initial !important;
+			}
+
+			.pd-item__img img {
+				-webkit-transition: all 0.6s ease;
+				-moz-transition: all 0.6s ease;
+				transition: all 0.6s ease;
+				display: inline-block;
+				height: 100%;
+				object-fit: contain;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+			}
+
+			.pd-item img {
+				display: block;
+			}
+
+			.ega-hidden, [hidden] {
+				display: none !important;
+			}
+
+			.pd-item .label-sale {
+				position: absolute;
+				top: 5px;
+				left: 5px;
+				min-width: 56px;
+				text-align: center;
+				background: #fff;
+				color: #d9121f;
+				padding: 5px 10px;
+				border-radius: 0px;
+				font-size: 16px;
+				font-weight: bold;
+				line-height: 18px;
+			}
+
+			.tag_sale {
+				position: absolute;
+				top: 5px;
+				right: 5px;
+				padding: 5px 10px;
+				background: #d9121f;
+				color: #fff;
+				text-transform: uppercase;
+				line-height: 18px;
+				font-size: 16px;
+				font-weight: bold;
+			}
+
+				.tag_sale.last-price {
+					top: 40px;
+				}
+
+			#ega-search #sort-wrap .sort-left {
+				width: calc(100% - 321px);
+			}
+
+			.ega-h1, h1 {
+				font-size: 2.5rem;
+			}
+
+			#ega-search #ega-search-title {
+				font-weight: bold;
+				font-size: 28px;
+				color: #000;
+				margin: 0;
+				padding-bottom: 16px;
+				border-bottom: 2px solid rgba(238, 238, 238, 0.5);
+				margin-bottom: 24px;
+			}
+	</style>
+
+	<style>
+			/* CSS chỉnh sửa */
+			.product-wrapper {
+				display: flex;
+				flex-direction: column;
+				justify-content: space-between;
+				align-items: center; /* Đảm bảo mọi phần tử căn giữa */
+				padding: 10px; /* Giảm padding */
+				background-color: #ffffff;
+				border: 1px solid #ddd;
+				border-radius: 8px;
+				transition: all 0.3s ease;
+				text-align: center;
+				height: 100%;
+				box-sizing: border-box;
+				gap: 8px; /* Khoảng cách giữa các phần tử */
+			}
+
+			.product-image {
+				position: relative;
+				overflow: hidden;
+				border-radius: 8px;
+			}
+
+				.product-image img {
+					width: 100%;
+					height: auto;
+					object-fit: cover;
+					transition: transform 0.3s ease;
+				}
+
+			.product-wrapper:hover .product-image img {
+				transform: scale(1.05);
+			}
+
+			.product-title {
+				font-size: 18px; /* Tăng kích thước */
+				font-weight: bold; /* Đậm hơn */
+				color: #2c3e50; /* Màu chữ dễ nhìn */
+				margin: 0; /* Xóa margin mặc định */
+				line-height: 1.5;
+				text-align: center;
+				font-family: 'Arial', sans-serif; /* Font chữ phổ biến */
+			}
+
+			.product-price {
+				font-size: 16px; /* Giảm kích thước */
+				font-weight: 600;
+				color: #e74c3c;
+				margin: 0;
+			}
+
+			.fundiin-info {
+				font-size: 13px; /* Giảm font size */
+				color: #555; /* Màu chữ dễ nhìn hơn */
+				margin: 5px 0; /* Giảm khoảng cách */
+			}
+
+			.view-details-btn {
+				padding: 8px 16px; /* Giảm kích thước nút */
+				font-size: 14px;
+				font-weight: 600;
+				color: #fff;
+				background-color: #3498db;
+				border: none;
+				border-radius: 4px;
+				cursor: pointer;
+				transition: background-color 0.3s ease;
+				text-transform: uppercase;
+			}
+
+				.view-details-btn:hover {
+					background-color: #1d6fa5;
+				}
+
+			#ega-search-title {
+				font-size: 24px;
+				font-weight: bold;
+				display: flex;
+				align-items: center;
+				gap: 20px; /* Tạo khoảng cách giữa các phần tử con */
+			}
+
+				#ega-search-title .spacer {
+					margin: 0 15px; /* Tùy chỉnh khoảng cách giữa các phần cụ thể */
+					content: "|"; /* Ký tự phân cách (nếu cần) */
+				}
+
+			.product-type,
+			.brand {
+				font-weight: normal; /* Làm nổi bật nhãn so với nội dung */
+			}
+
+			.separator {
+				margin: 0 10px;
+				color: #888; /* Màu phân cách tinh tế */
+				font-size: 20px;
+			}
+
+	</style>
+
+
+</head>
+<body class="template_search" id="ega-fashion">
+
+
+	<div id="ega-search">
+		<div class="ega-container">
+			<div class="ega-row">
+			</div>
+		</div>
+		<div class="ega-container">
+			<div id="sort-wrap">
+				<div class="sort-left">
+					<div class="ega-hidden"></div>
+					<h1 id="ega-search-title">
+						
+						Thương Hiệu: <span class="brand">@ViewBag.Brand</span>
+					</h1>
+
+
+				</div>
+			</div>
+			<div class="fulldataa">
+				<div id="result">
+					<div class="ega-row">
+						@foreach (var item in Model.GroupBy(m => m.TenSp).Select(g => g.First()))
+						{
+							if (item.NgayThemSP != null)
+							{
+								var today = DateTime.Now;
+								var daysDifference = (today - item.NgayThemSP.Value).Days;
+								if (daysDifference <= 30)
+								{
+									<div class="ega-col-lg-3 ega-col-md-4 ega-col-6">
+										<div class="product-wrapper">
+											<!-- Hình ảnh sản phẩm -->
+
+											<div class="product-image">
+												<img width="480" height="100" class="lazyload" src="@Url.Content("/HinhAnh/" + item.HinhAnh)">
+												<span>MỚI RA MẮT</span>
+											</div>
+
+											<!-- Tiêu đề sản phẩm -->
+											<h2 class="product-title">
+												@item.MaLoaiNavigation.TenLoai @item.MaLoaiNavigation.MaThNavigation.TenTh @item.TenSp - @item.KichCo
+											</h2>
+
+											<!-- Size giày -->
+											<!-- Giá -->
+											<div class="product-price">
+												@(item.GiaBan.HasValue ? ((decimal)item.GiaBan.Value).ToString("N0") : "N/A") đ
+											</div>
+
+
+											<!-- Thông tin Fundiin -->
+											<!-- Nút xem chi tiết -->
+											<form asp-action="chiTietSP" method="post">
+												<input type="hidden" name="MaSp" value="@item.MaSp">
+												<button type="submit" class="view-details-btn">Xem Chi Tiết</button>
+											</form>
+										</div>
+
+									</div>
+								}
+							}
+
+						}
+						@* 	Sản phẩm cũ *@
+						@foreach (var item in Model.GroupBy(m => m.TenSp).Select(g => g.First()))
+						{
+							if (item.NgayThemSP != null)
+							{
+								var today = DateTime.Now;
+								var daysDifference = (today - item.NgayThemSP.Value).Days;
+								if (daysDifference > 30)
+								{
+									<div class="ega-col-lg-3 ega-col-md-4 ega-col-6">
+										<div class="product-wrapper">
+											<!-- Hình ảnh sản phẩm -->
+
+											<div class="product-image">
+												<img width="480" height="100" class="lazyload" src="@Url.Content("/HinhAnh/" + item.HinhAnh)">
+
+											</div>
+
+											<!-- Tiêu đề sản phẩm -->
+											<h2 class="product-title">
+												@item.MaLoaiNavigation.TenLoai @item.MaLoaiNavigation.MaThNavigation.TenTh @item.TenSp - @item.KichCo
+											</h2>
+
+											<!-- Size giày -->
+											<!-- Giá -->
+											<div class="product-price">
+												@(item.GiaBan.HasValue ? ((decimal)item.GiaBan.Value).ToString("N0") : "N/A") đ
+											</div>
+											<!-- Nút xem chi tiết -->
+											<form asp-action="chiTietSP" method="post">
+												<input type="hidden" name="MaSp" value="@item.MaSp">
+												<button type="submit" class="view-details-btn">Xem Chi Tiết</button>
+											</form>
+										</div>
+
+									</div>
+								}
+							}
+
+						}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>	

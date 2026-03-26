@@ -1,0 +1,354 @@
+﻿@model LVTNWEBGIAYDEP.Models.SanPham
+
+@{
+    ViewData["Title"] = "Form Thêm Sản Phẩm";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f6f9;
+        margin: 0;
+        padding: 0;
+    }
+
+    h4 {
+        font-size: 2rem;
+        color: #343a40;
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .form-container {
+        max-width: 1200px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-header {
+        background-color: #007bff;
+        color: #ffffff;
+        padding: 15px;
+        border-radius: 10px 10px 0 0;
+        text-align: center;
+        font-size: 1.5rem;
+        font-weight: bold;
+    }
+
+    .form-body {
+        padding: 20px;
+    }
+
+    .form-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+
+    .form-group {
+        flex: 1;
+        min-width: calc(50% - 20px);
+        margin-bottom: 20px;
+    }
+
+        .form-group.full-width {
+            min-width: 100%;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #495057;
+        }
+
+    .form-control {
+        width: 100%;
+        padding: 10px;
+        font-size: 1rem;
+        border: 1px solid #ced4da;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+
+        .form-control:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+            outline: none;
+        }
+
+    .btn {
+        font-size: 1rem;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.2s;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        color: #ffffff;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+    .btn-outline-info {
+        background-color: transparent;
+        border: 1px solid #007bff;
+        color: #007bff;
+        transition: all 0.3s ease;
+    }
+
+        .btn-outline-info:hover {
+            background-color: #007bff;
+            color: #ffffff;
+        }
+</style>
+
+
+<style>
+    textarea.form-control {
+        height: 350px; /* hoặc chiều cao mong muốn */
+    }
+</style>
+<h4>Thêm Sản Phẩm</h4>
+<hr />
+
+<div class="form-container">
+    <div class="form-header">Form Thêm Sản Phẩm</div>
+    <div class="form-body">
+        <form asp-action="themSanPham" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+            <div class="form-row">
+
+                <div class="form-group">
+                    <label for="TenSp">Tên Sản Phẩm</label>
+                    <input asp-for="TenSp" class="form-control" placeholder="Nhập tên sản phẩm" onblur="trimSpaces()" />
+                </div>
+            </div>
+
+            <div class="form-row">
+
+                <div class="form-group">
+                    <label for="TrangThai">Trạng Thái</label>
+                    <select asp-for="TrangThai" class="form-control">
+                        <option value="Còn">Còn sản phẩm</option>
+                       
+                    </select>
+                </div>
+            </div>
+
+            <!-- Nút Button để hiển thị các size và ô checkbox -->
+            <button type="button" id="sizeButton" class="btn btn-primary">Chọn Size</button>
+
+            <!-- Phần hiển thị các kích cỡ và ô checkbox -->
+            <div class="form-row" id="sizeOptions" style="display: none;">
+                <div class="form-group col">
+                    <label><input type="checkbox" class="size-checkbox" data-size="39" name="size39" value="39" /> Size 39</label>
+                    <div id="size-39" class="size-details" style="display: none;">
+                        <input type="number" class="form-control" name="HangTonKho39" placeholder="Hàng tồn kho cho Size 39" />
+                        <input type="number" class="form-control" name="GiaBan39" placeholder="Giá bán cho Size 39" />
+                    </div>
+                </div>
+                <div class="form-group col">
+                    <label><input type="checkbox" class="size-checkbox" data-size="40" name="size40" value="40" /> Size 40</label>
+                    <div id="size-40" class="size-details" style="display: none;">
+                        <input type="number" class="form-control" name="HangTonKho40" placeholder="Hàng tồn kho cho Size 40" />
+                        <input type="number" class="form-control" name="GiaBan40" placeholder="Giá bán cho Size 40" />
+                    </div>
+                </div>
+                <div class="form-group col">
+                    <label><input type="checkbox" class="size-checkbox" data-size="41" name="size41" value="41" /> Size 41</label>
+                    <div id="size-41" class="size-details" style="display: none;">
+                        <input type="number" class="form-control" name="HangTonKho41" placeholder="Hàng tồn kho cho Size 41" />
+                        <input type="number" class="form-control" name="GiaBan41" placeholder="Giá bán cho Size 41" />
+                    </div>
+                </div>
+                <div class="form-group col">
+                    <label><input type="checkbox" class="size-checkbox" data-size="42" name="size42" value="42" /> Size 42</label>
+                    <div id="size-42" class="size-details" style="display: none;">
+                        <input type="number" class="form-control" name="HangTonKho42" placeholder="Hàng tồn kho cho Size 42" />
+                        <input type="number" class="form-control" name="GiaBan42" placeholder="Giá bán cho Size 42" />
+                    </div>
+                </div>
+                <div class="form-group col">
+                    <label><input type="checkbox" class="size-checkbox" data-size="43" name="size43" value="43" /> Size 43</label>
+                    <div id="size-43" class="size-details" style="display: none;">
+                        <input type="number" class="form-control" name="HangTonKho43" placeholder="Hàng tồn kho cho Size 43" />
+                        <input type="number" class="form-control" name="GiaBan43" placeholder="Giá bán cho Size 43" />
+                    </div>
+                </div>
+                <div class="form-group col">
+                    <label><input type="checkbox" class="size-checkbox" data-size="44" name="size44" value="44" /> Size 44</label>
+                    <div id="size-44" class="size-details" style="display: none;">
+                        <input type="number" class="form-control" name="HangTonKho44" placeholder="Hàng tồn kho cho Size 44" />
+                        <input type="number" class="form-control" name="GiaBan44" placeholder="Giá bán cho Size 44" />
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-row">
+                <div class="form-group full-width">
+                    <label for="MoTa">Mô Tả</label>
+                    <textarea asp-for="MoTa" class="form-control" rows="3" placeholder="Nhập mô tả sản phẩm">@Html.Raw(Model.MoTa.Replace("\r\n", "<br>").Replace("\n", "<br>"))</textarea>
+                </div>
+            </div>
+
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="NgayThemSP">Ngày Lập</label>
+                    <input asp-for="NgayThemSP" type="date" class="form-control" placeholder="Chọn ngày lập sản phẩm" />
+                    <span asp-validation-for="NgayThemSP" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="fileImg">Hình Ảnh</label>
+                    <input type="file" name="fileImg" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label for="MaLoai">Loại Sản Phẩm</label>
+                    <select asp-for="MaLoai" id="loaiSanPhamDropdown" class="form-control">
+                        <option value="">Chọn loại sản phẩm</option>
+                        @foreach (var group in (dynamic)ViewBag.GroupedLoaiSanPham)
+                        {
+                            <optgroup label="@group.TenLoai">
+                                @foreach (var item in group.MaLoaiList)
+                                {
+                                    <option value="@item.MaLoai">
+                                        @group.TenLoai - Thương hiệu: @item.TenTh
+                                    </option>
+                                }
+                            </optgroup>
+                        }
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group text-center">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save"></i> Thêm Sản Phẩm
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="mt-3 text-center">
+    <a asp-action="SanPham" class="btn btn-outline-info">
+        <i class="fas fa-arrow-left"></i> Trở về
+    </a>
+</div>
+@section Scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var inputDate = document.getElementById('NgayThemSP');
+            var today = new Date();
+            today.setMinutes(today.getMinutes() - today.getTimezoneOffset()); // Loại bỏ múi giờ
+            var formattedToday = today.toISOString().split('T')[0]; // Lấy định dạng YYYY-MM-DD
+
+            console.log("Ngày hôm nay:", formattedToday); // Kiểm tra giá trị
+
+            inputDate.setAttribute('max', formattedToday); // Đặt giá trị 'max' là ngày hôm nay
+
+            // Kiểm tra sự kiện blur (khi người dùng rời chuột khỏi trường nhập liệu)
+            inputDate.addEventListener('blur', function () {
+                var minDate = new Date(1755, 0, 1); // Tháng bắt đầu từ 0, vì vậy 0 là tháng 1
+                minDate.setMinutes(minDate.getMinutes() - minDate.getTimezoneOffset()); // Loại bỏ múi giờ
+                var formattedMinDate = minDate.toISOString().split('T')[0]; // Lấy định dạng YYYY-MM-DD
+
+                // Kiểm tra nếu giá trị không rỗng và ngày nhập bé hơn 01/01/1755
+                if (inputDate.value) {
+                    var selectedDate = new Date(inputDate.value);
+                    if (selectedDate < minDate) {
+                        alert("Ngày không hợp lệ. Ngày nhập phải sau 01/01/1755.");
+                        inputDate.value = ''; // Xóa giá trị không hợp lệ
+                    }
+                }
+            });
+        });
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    </script>
+
+}
+
+<script>
+    function trimSpaces() {
+        var inputElement = document.getElementById('TenSp');
+        var value = inputElement.value;
+        // Loại bỏ khoảng trắng thừa và đầu
+        value = value.replace(/^\s+|\s+$/g, ''); // Xóa khoảng trắng ở đầu và cuối
+        value = value.replace(/\s+/g, ' '); // Chỉ để lại một khoảng trắng giữa các từ
+        inputElement.value = value; // Cập nhật giá trị lại vào ô input
+    }
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var sizeButton = document.getElementById('sizeButton');
+        var sizeOptions = document.getElementById('sizeOptions');
+
+        // Hiển thị/hide các checkbox khi nhấn nút "Chọn Size"
+        sizeButton.addEventListener('click', function () {
+            sizeOptions.style.display = sizeOptions.style.display === 'none' ? 'block' : 'none';
+        });
+
+        // Thêm sự kiện cho các checkbox để hiển thị các trường nhập liệu
+        var sizeCheckboxes = document.querySelectorAll('.size-checkbox');
+        sizeCheckboxes.forEach(function (checkbox) {
+            checkbox.addEventListener('change', function () {
+                var size = checkbox.getAttribute('data-size');
+                var sizeDetails = document.getElementById('size-' + size);
+                sizeDetails.style.display = checkbox.checked ? 'block' : 'none';
+            });
+        });
+
+        // Kiểm tra khi người dùng rời chuột khỏi ô nhập liệu "Hàng tồn kho" và "Giá bán"
+        var hangTonKhoInputs = document.querySelectorAll('input[name^="HangTonKho"]');
+        var giaBanInputs = document.querySelectorAll('input[name^="GiaBan"]');
+
+        hangTonKhoInputs.forEach(function (input) {
+            input.addEventListener('blur', function () {
+                var value = parseInt(input.value);
+                if (value <= 0) {
+                    input.setCustomValidity('Hàng tồn kho không hợp lệ');
+                    input.reportValidity();
+                    input.focus(); // Focus vào ô nhập liệu để người dùng nhập lại
+                } else {
+                    input.setCustomValidity('');
+                }
+            });
+        });
+
+        giaBanInputs.forEach(function (input) {
+            input.addEventListener('blur', function () {
+                var value = parseInt(input.value);
+                if (value <= 0) {
+                    input.setCustomValidity('Giá bán không hợp lệ');
+                    input.reportValidity();
+                    input.focus(); // Focus vào ô nhập liệu để người dùng nhập lại
+                } else {
+                    input.setCustomValidity('');
+                }
+            });
+        });
+    });
+
+
+
+</script>
+
+
+   
+ 

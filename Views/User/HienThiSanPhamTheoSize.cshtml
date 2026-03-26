@@ -1,0 +1,1339 @@
+﻿@model IEnumerable<LVTNWEBGIAYDEP.Models.SanPham>
+
+@{
+	ViewData["Title"] = "SanPham";
+	Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+	<title></title>
+	<style>
+
+
+		/* Tổng quan về giao diện */
+		.ega-filter__item {
+			background-color: #fff;
+			padding: 20px;
+			margin-bottom: 15px;
+			border-radius: 8px;
+			box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+			border: 1px solid #e0e0e0;
+		}
+
+		/* Tiêu đề "GIÁ" */
+		.ega-filter__title {
+			font-size: 18px;
+			font-weight: 600;
+			color: #333;
+			margin-bottom: 10px;
+		}
+
+		/* Danh sách giá */
+		.ega-filter__price ul {
+			list-style: none;
+			padding: 0;
+			margin: 0;
+		}
+
+		/* Mỗi item trong danh sách */
+		.ega-filter__price li {
+			margin: 10px 0;
+		}
+
+		/* Liên kết (các lựa chọn giá) */
+		.ega-filter__price a {
+			text-decoration: none;
+			color: #007bff;
+			font-size: 16px;
+			display: block;
+			padding: 8px;
+			border-radius: 4px;
+			transition: background-color 0.3s, color 0.3s;
+		}
+
+			/* Khi di chuột vào các liên kết */
+			.ega-filter__price a:hover {
+				background-color: #007bff;
+				color: #fff;
+			}
+
+			/* Cải tiến kiểu hiển thị khi lựa chọn một giá */
+			.ega-filter__price a.active {
+				background-color: #007bff;
+				color: #fff;
+			}
+
+		/* Tạo khoảng cách giữa các item */
+		.ega-filter__price li:not(:last-child) {
+			border-bottom: 1px solid #f0f0f0;
+			padding-bottom: 10px;
+		}
+
+		.ega-filter__sizes {
+			margin-top: 10px;
+		}
+
+		.ega-size-list {
+			list-style: none;
+			padding: 0;
+			display: flex;
+			gap: 10px;
+		}
+
+			.ega-size-list li {
+				border: 1px solid #ccc;
+				padding: 5px 10px;
+				border-radius: 5px;
+				cursor: pointer;
+				transition: background-color 0.3s, color 0.3s;
+			}
+
+				.ega-size-list li:hover {
+					background-color: #000;
+					color: #fff;
+				}
+
+		* {
+			font-family: Roboto Condensed;
+		}
+
+		*, ::after, ::before {
+			box-sizing: border-box;
+		}
+
+		#ega-collection {
+			padding-top: 48px;
+		}
+
+		body {
+			line-height: 1.5;
+			font-size: 1rem;
+			color: #333;
+			width: 100%;
+			min-height: 100%;
+			margin: 0;
+			scroll-behavior: smooth;
+		}
+
+		html, body {
+			font-size: 14px;
+		}
+
+		body {
+			background: #ffffff;
+			color: #000000;
+			overflow-x: hidden;
+		}
+
+		.ega-container {
+			margin: 0 auto;
+		}
+
+		.ega-container, .ega-container--fluid {
+			padding-left: 15px;
+			padding-right: 15px;
+			width: 100%;
+		}
+
+		.ega-container {
+			max-width: 540px;
+		}
+
+		.ega-container {
+			max-width: 720px;
+		}
+
+		.ega-container {
+			max-width: 960px;
+		}
+
+		.ega-container {
+			max-width: 1140px;
+		}
+
+		.ega-container {
+			max-width: 1140px;
+		}
+
+		input, select, textarea {
+			margin: 0;
+			font-family: inherit;
+			font-size: inherit;
+			line-height: inherit;
+		}
+
+		.ega-row {
+			display: flex;
+			flex-wrap: wrap;
+			margin-left: -15px;
+			margin-right: -15px;
+		}
+
+		#ega-collection .ega-row {
+			margin-left: -12px;
+			margin-right: -12px;
+		}
+
+		.ega-col, [class*=ega-col-] {
+			padding-left: 15px;
+			padding-right: 15px;
+		}
+
+		.ega-col-12 {
+			flex: 0 0 100%;
+			max-width: 100%;
+		}
+
+		.ega-col-lg-12 {
+			flex: 0 0 100%;
+			max-width: 100%;
+		}
+
+		.ega-col-xl-3 {
+			flex: 0 0 25%;
+			max-width: 25%;
+		}
+
+		.ega-col-xl-9 {
+			flex: 0 0 75%;
+			max-width: 75%;
+		}
+
+		.ega-col-6 {
+			flex: 0 0 50%;
+			max-width: 50%;
+		}
+
+		.ega-col-md-4 {
+			flex: 0 0 33.33333%;
+			max-width: 33.33%;
+		}
+
+		.ega-col-lg-3 {
+			flex: 0 0 25%;
+			max-width: 25%;
+		}
+
+		#ega-collection .ega-row [class*=ega-col-] {
+			padding-left: 12px;
+			padding-right: 12px;
+		}
+
+		.ega-m-b--4 {
+			margin-bottom: 1.5rem !important;
+		}
+
+		.hover-zoom {
+			position: relative;
+			display: block;
+			overflow: hidden;
+		}
+
+			.hover-zoom::before {
+				position: absolute;
+				z-index: 1;
+				top: 0px;
+				left: -10%;
+				width: 120%;
+				height: 100%;
+				background: rgba(255, 255, 255, 0.2);
+				content: "";
+				-webkit-transition: -webkit-transform .6s;
+				transition: transform .8s;
+				-webkit-transform: scale3d(1.9, 1.4, 1) rotate3d(0, 0, 1, 45deg) translate3d(0, 100%, 0);
+				transform: scale3d(1.9, 1.4, 1) rotate3d(0, 0, 1, 135deg) translate3d(0px, 100%, 0px);
+				opacity: 0;
+				filter: alpha(opacity=0);
+				visibility: hidden;
+				-webkit-box-sizing: border-box;
+				-moz-box-sizing: border-box;
+				box-sizing: border-box;
+			}
+
+		.ega-h4, h4 {
+			font-size: 1.5rem;
+		}
+
+		.ega-h1, .ega-h2, .ega-h3, .ega-h4, .ega-h5, .ega-h6, h1, h2, h3, h4, h5, h6 {
+			font-family: inherit;
+			font-weight: 600;
+			line-height: 1.2;
+			color: inherit;
+			margin: 1rem 0;
+		}
+
+		.ega-h1, h1 {
+			font-size: 2.5rem;
+		}
+
+		#ega-collection #ega-coll-name {
+			font-weight: normal;
+			font-size: 48px;
+			color: #000;
+			margin: 0;
+		}
+
+		.des {
+			border-bottom: 1px solid #0E1C22;
+			margin-bottom: 20px;
+		}
+
+		.riccusedi #sort-wrap {
+			align-items: center;
+			gap: 15px;
+		}
+
+		#ega-collection #sort-wrap {
+			margin-bottom: 40px;
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: space-between;
+		}
+
+		.pd-item__wrapper {
+			padding-bottom: 36px;
+		}
+
+		a {
+			color: #288ad6;
+		}
+
+		a {
+			text-decoration: none;
+		}
+
+		.pd-item {
+			position: relative;
+			display: block;
+			overflow: hidden;
+		}
+
+		.pd-item__img {
+			position: relative;
+			overflow: hidden;
+			position: relative;
+			padding-top: 100%;
+			display: flex;
+			align-items: center;
+			margin-bottom: 15px;
+		}
+
+			.pd-item__img.img-featured {
+				display: block;
+			}
+
+		.ega-h2, h2 {
+			font-size: 2rem;
+		}
+
+		.pd-item h2 {
+			overflow: hidden !important;
+			line-height: 1.3em !important;
+			color: #333 !important;
+			clear: both;
+			display: -webkit-box !important;
+			-webkit-line-clamp: 3;
+			-webkit-box-orient: vertical;
+			white-space: initial;
+			margin: 10px 0 !important;
+			font-size: 14px;
+			font-weight: 400;
+		}
+
+		.pd-item h2 {
+			font-size: 16px !important;
+		}
+
+		.pd-item .price {
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			padding-bottom: 10px;
+		}
+
+		.ega-text--no-underline {
+			text-decoration: none !important;
+		}
+
+		.pd-item .price ins {
+			display: inline-block;
+			vertical-align: middle;
+			overflow: hidden;
+			font-size: 14px;
+			color: #c54934;
+			font-weight: bold;
+			line-height: 15px;
+		}
+
+		.pd-item .price del {
+			display: inline-block;
+			vertical-align: middle;
+			font-size: 14px;
+			text-decoration: line-through;
+			margin-left: 5px;
+			color: #0e1c22;
+			opacity: 0.4;
+		}
+
+		iframe, img {
+			max-width: 100%;
+			vertical-align: middle;
+		}
+
+		img {
+			max-width: 100%;
+			vertical-align: middle;
+			height: initial !important;
+		}
+
+		.pd-item__img img {
+			-webkit-transition: all 0.6s ease;
+			-moz-transition: all 0.6s ease;
+			transition: all 0.6s ease;
+			display: inline-block;
+			height: 100%;
+			object-fit: contain;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+		}
+
+		.pd-item img {
+			display: block;
+		}
+
+		.pd-item .label-sale {
+			position: absolute;
+			top: 5px;
+			left: 5px;
+			min-width: 56px;
+			text-align: center;
+			background: #fff;
+			color: #d9121f;
+			padding: 5px 10px;
+			border-radius: 0px;
+			font-size: 16px;
+			font-weight: bold;
+			line-height: 18px;
+		}
+
+		.tag_sale {
+			position: absolute;
+			top: 5px;
+			right: 5px;
+			padding: 5px 10px;
+			background: #d9121f;
+			color: #fff;
+			text-transform: uppercase;
+			line-height: 18px;
+			font-size: 16px;
+			font-weight: bold;
+		}
+
+		#ega-collection #sort-wrap .sort-left {
+			width: calc(100% - 321px);
+		}
+
+		.ega-text--right {
+			text-align: right !important;
+		}
+
+		#ega-collection #sort-wrap .sort-right {
+			width: 305px;
+			display: flex;
+			align-items: flex-end;
+			flex-direction: row-reverse;
+		}
+
+			#ega-collection #sort-wrap .sort-right .ega-sortby {
+				display: flex;
+				align-items: center;
+			}
+
+			#ega-collection #sort-wrap .sort-right .filter-on-mb {
+				display: none;
+				align-items: center;
+			}
+
+				#ega-collection #sort-wrap .sort-right .filter-on-mb .filter-open {
+					position: relative;
+					height: 100%;
+					margin-left: 16px;
+					border: 1px solid #0E1C22;
+					padding: 12px 16px;
+					color: #0e1c22;
+					font-size: 16px;
+					text-align: left;
+					line-height: 24px;
+				}
+
+					#ega-collection #sort-wrap .sort-right .filter-on-mb .filter-open span {
+						margin-right: 9px;
+					}
+
+		[class*=' ega-ic-'], [class^=ega-ic-] {
+			display: inline-block;
+			width: 1em;
+			height: 1em;
+			stroke-width: 0;
+			stroke: currentColor;
+			fill: currentColor;
+			color: inherit;
+		}
+
+		#ega-collection #sort-wrap .sort-right .filter-on-mb .filter-open svg {
+			position: absolute;
+			font-size: 14px;
+			top: 50%;
+			right: 16px;
+			-webkit-transform: translateY(-50%);
+			-ms-transform: translateY(-50%);
+			-o-transform: translateY(-50%);
+			transform: translateY(-50%);
+			font-weight: bold;
+			z-index: -1;
+		}
+
+		#ega-collection #sort-wrap .sort-right .ega-sortby .sortby__wrap {
+			position: relative;
+		}
+
+		#ega-collection #sort-wrap .sort-right .ega-sortby select {
+			width: 190px;
+			height: 100%;
+			margin-left: 16px;
+			border: 1px solid #0E1C22;
+			padding: 12px 16px;
+			color: #0e1c22;
+			font-size: 16px;
+			-webkit-appearance: none;
+			-moz-appearance: none;
+			background: none;
+			box-shadow: none;
+			border-radius: 0;
+		}
+
+		#ega-collection #sort-wrap .sort-right .ega-sortby .sortby__wrap svg {
+			position: absolute;
+			font-size: 14px;
+			top: 50%;
+			right: 16px;
+			-webkit-transform: translateY(-50%);
+			-ms-transform: translateY(-50%);
+			-o-transform: translateY(-50%);
+			transform: translateY(-50%);
+			font-weight: bold;
+			z-index: -1;
+		}
+
+		.riccusedi .tagsoredu {
+			display: flex;
+			flex-wrap: wrap;
+			align-items: center;
+			gap: 10px;
+		}
+
+		.ega-h6, h6, p {
+			font-size: 1rem;
+		}
+
+			p:first-child {
+				margin-top: 0px;
+			}
+
+		#ega-collection .ega-filter__heading {
+			display: none;
+			text-align: center;
+			margin-bottom: 22px;
+		}
+
+		.ega-ul {
+			padding-left: 0px;
+			list-style: none;
+		}
+
+		.ega-m--0 {
+			margin: 0 !important;
+		}
+
+		.riccusedi .ega-filter__title, .riccusedi .titledanhm {
+			background: #000;
+			color: #fff !important;
+			padding: 10px;
+			margin: 0;
+		}
+
+		.riccusedi .titledanhm {
+			font-size: 16px;
+		}
+
+		.riccusedi .menulinklis {
+			border: 1px solid #ccc;
+			padding: 15px;
+			display: flex;
+			flex-wrap: wrap;
+			gap: 10px;
+			margin-bottom: 15px;
+		}
+
+		.riccusedi .ega-filter__item {
+			border: 1px solid #ccc;
+		}
+
+			.riccusedi .ega-filter__item + .ega-filter__item {
+				margin-top: 15px !important;
+			}
+
+		#ega-collection .ega-filter__item + .ega-filter__item {
+			margin-top: 40px;
+		}
+
+		#ega-collection .ega-filter__title {
+			font-weight: bold;
+			font-size: 16px;
+			color: #0e1c22;
+			position: relative;
+			line-height: inherit;
+			cursor: pointer;
+		}
+
+		#ega-collection .ega-filter__title {
+			font-weight: bold;
+			font-size: 16px;
+			color: #0e1c22;
+			position: relative;
+			line-height: inherit;
+			cursor: pointer;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+		}
+
+		.riccusedi .ega-filter__item ul {
+			padding-top: 16px;
+			flex-wrap: wrap;
+			justify-content: space-between;
+			padding: 15px;
+			max-height: 270px;
+			overflow: auto;
+		}
+
+			.riccusedi .ega-filter__item ul.grssize {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 10px;
+			}
+
+		.is-show .ega-filter__title.ega-h6 + .ega-ul {
+			display: none !important;
+		}
+
+		#ega-collection .ega-filter__item ul {
+			padding-top: 16px;
+			flex-wrap: wrap;
+			justify-content: space-between;
+		}
+
+		.riccusedi .ega-filter__item ul.grssize li {
+			margin-bottom: 0px !important;
+			min-width: calc(50% - 7px);
+		}
+
+		#ega-collection .ega-filter__item ul li {
+			margin-bottom: 12px;
+			color: rgba(14, 28, 34, 0.7);
+			font-size: 16px;
+			line-height: 24px;
+		}
+
+		#ega-collection .ega-filter__price ul li {
+			width: 100%;
+		}
+
+		#ega-collection .ega-filter__item ul li:last-child {
+			margin-bottom: 0px;
+		}
+
+		.riccusedi .ega-filter__item ul.grssize li label input {
+			margin-right: 2px !important;
+		}
+
+		#ega-collection .ega-filter__item ul li label input {
+			position: relative;
+			display: inline-block;
+			margin-right: 8px;
+			width: 18px;
+			height: 18px;
+			border-radius: 2px;
+			-webkit-appearance: none;
+			border: 2px solid rgba(14, 28, 34, 0.4);
+			cursor: pointer;
+		}
+
+			#ega-collection .ega-filter__item ul li label input[type='checkbox']::before {
+				position: absolute;
+				display: none;
+				content: "";
+				width: 5px;
+				height: 10px;
+				background: transparent;
+				border: 2px solid;
+				border-top: none;
+				border-left: none;
+				left: 5px;
+				bottom: 3px;
+				-webkit-transform: rotate(45deg);
+				-o-transform: rotate(45deg);
+				transform: rotate(45deg);
+			}
+
+		#ega-collection .ega-filter__item ul li label span {
+			display: inline-block;
+			position: relative;
+			top: -3px;
+		}
+
+		.is-show h4 svg {
+			transform: rotate(180deg);
+		}
+
+		#ega-collection .ega-filter__title svg {
+			position: absolute;
+			right: 0px;
+			font-size: 24px;
+		}
+
+		#ega-collection .ega-filter__title svg {
+			right: 10px;
+			font-size: 24px;
+			fill: #fff;
+		}
+
+		#ega-collection .ega-filter__item.is-show .ega-filter__title svg.ega-ic-minus {
+			display: none;
+		}
+
+		#ega-collection .ega-filter__item .ega-filter__title svg.ega-ic-plus {
+			display: none;
+		}
+
+		#ega-collection .ega-filter__item.is-show .ega-filter__title svg.ega-ic-plus {
+			display: inline-block;
+		}
+
+		.riccusedi .menulinklis a {
+			color: #000;
+			border: 1px solid #ccc;
+			padding: 4px;
+		}
+
+		#ega-collection .ega-filter__heading .ega-filter__title {
+			font-size: 16px;
+		}
+
+			#ega-collection .ega-filter__heading .ega-filter__title svg {
+				font-size: 16px;
+				position: absolute;
+				left: 0px;
+				top: 4px;
+			}
+	</style>
+	<style>
+		/* CSS chỉnh sửa */
+		.product-wrapper {
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+			align-items: center; /* Đảm bảo mọi phần tử căn giữa */
+			padding: 10px; /* Giảm padding */
+			background-color: #ffffff;
+			border: 1px solid #ddd;
+			border-radius: 8px;
+			transition: all 0.3s ease;
+			text-align: center;
+			height: 100%;
+			box-sizing: border-box;
+			gap: 8px; /* Khoảng cách giữa các phần tử */
+		}
+
+		.product-image {
+			position: relative;
+			overflow: hidden;
+			border-radius: 8px;
+		}
+
+			.product-image img {
+				width: 100%;
+				height: auto;
+				object-fit: cover;
+				transition: transform 0.3s ease;
+			}
+
+		.product-wrapper:hover .product-image img {
+			transform: scale(1.05);
+		}
+
+		.product-title {
+			font-size: 18px; /* Tăng kích thước */
+			font-weight: bold; /* Đậm hơn */
+			color: #2c3e50; /* Màu chữ dễ nhìn */
+			margin: 0; /* Xóa margin mặc định */
+			line-height: 1.5;
+			text-align: center;
+			font-family: 'Arial', sans-serif; /* Font chữ phổ biến */
+		}
+
+		.product-price {
+			font-size: 16px; /* Giảm kích thước */
+			font-weight: 600;
+			color: #e74c3c;
+			margin: 0;
+		}
+
+		.fundiin-info {
+			font-size: 13px; /* Giảm font size */
+			color: #555; /* Màu chữ dễ nhìn hơn */
+			margin: 5px 0; /* Giảm khoảng cách */
+		}
+
+		.view-details-btn {
+			padding: 8px 16px; /* Giảm kích thước nút */
+			font-size: 14px;
+			font-weight: 600;
+			color: #fff;
+			background-color: #3498db;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+			transition: background-color 0.3s ease;
+			text-transform: uppercase;
+		}
+
+			.view-details-btn:hover {
+				background-color: #1d6fa5;
+			}
+	</style>
+	<style>
+		.product-size {
+			margin: 8px 0;
+			font-size: 14px;
+			color: #333;
+		}
+
+		.size-option {
+			margin-right: 5px;
+			display: inline-block;
+			padding: 2px 6px;
+			border: 1px solid #ddd;
+			border-radius: 3px;
+			background-color: #f8f8f8;
+		}
+
+			.size-option:hover {
+				background-color: #e0e0e0;
+				cursor: pointer;
+			}
+
+		#price-options li a {
+			color: #000; /* Màu đen */
+			font-weight: bold; /* Chữ đậm */
+			text-decoration: none; /* Loại bỏ gạch chân */
+			font-size: 16px; /* Tăng kích thước chữ (nếu cần) */
+		}
+
+			#price-options li a:hover {
+				color: #333; /* Màu đen nhạt hơn một chút khi hover */
+				text-decoration: underline; /* Gạch chân khi hover */
+			}
+
+		#price-options li {
+			font-weight: bold; /* Làm chữ đậm */
+			font-size: 16px; /* Tăng kích thước chữ */
+			padding: 5px 0; /* Tạo khoảng cách giữa các dòng */
+			cursor: pointer; /* Hiển thị con trỏ chuột dạng tay khi hover */
+		}
+
+			#price-options li:hover {
+				color: #007bff; /* Đổi màu chữ khi hover */
+				background-color: #f8f9fa; /* Tô nền nhạt khi hover */
+			}
+
+	</style>
+	<style>
+		/* Giữ lại các class gốc */
+		.ega-filter__title {
+			font-size: 18px;
+			font-weight: bold;
+			color: #333;
+			margin-bottom: 15px;
+		}
+
+		.ega-h6 {
+			font-size: 1.2rem;
+		}
+
+		.ega-m--0 {
+			margin: 0;
+		}
+
+		/* Tùy chỉnh phần danh sách giá */
+		.ega-price-list {
+			list-style-type: none;
+			padding: 0;
+			margin: 0;
+		}
+
+		.ega-price-item {
+			display: block;
+			padding: 12px 16px; /* Padding phải */
+			color: #666; /* Màu chữ đen nhạt */
+			text-decoration: none;
+			border: 2px solid #ccc; /* Màu khung xám nhạt */
+			border-radius: 5px;
+			margin-bottom: 10px;
+			transition: all 0.3s ease;
+			font-size: 16px;
+		}
+
+			.ega-price-item:hover {
+				background-color: #f0f0f0; /* Màu nền sáng khi hover */
+				color: #333; /* Màu chữ đậm khi hover */
+			}
+
+			.ega-price-item:active {
+				background-color: #e0e0e0; /* Màu nền sáng hơn khi nhấn */
+			}
+
+			.ega-price-item:last-child {
+				margin-bottom: 0;
+			}
+
+	</style>
+	<style>
+		#ega-collection .ega-filter__title {
+			font-weight: bold;
+			font-size: 16px;
+			color: #0E1C22;
+			position: relative;
+			line-height: inherit;
+			cursor: pointer;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+		}
+
+			#ega-collection .ega-filter__title svg path {
+				fill: #fff;
+			}
+
+			#ega-collection .ega-filter__title svg {
+				right: 10px;
+				font-size: 24px;
+				fill: #fff;
+			}
+
+		.is-show h4 svg {
+			transform: rotate(180deg);
+		}
+	</style>
+	<style>
+		.product-image {
+			position: relative;
+			width: 100%; /* Chiếm toàn bộ chiều rộng phần tử cha */
+			height: 167px; /* Chiều cao cố định cho container */
+		}
+
+			.product-image img {
+				width: 100%; /* Hình ảnh chiếm toàn bộ chiều rộng */
+				height: 100%; /* Chiều cao bằng với container */
+				object-fit: cover; /* Đảm bảo hình ảnh không bị méo */
+			}
+
+			.product-image span {
+				position: absolute;
+				top: 0;
+				right: 0;
+				background-color: red; /* Nền đỏ cho dòng chữ */
+				color: white; /* Màu chữ trắng */
+				padding: 5px 10px;
+				font-size: 14px;
+				font-weight: bold;
+				border-radius: 5px;
+			}
+
+	</style>
+
+</head>
+<body class="template_collection" id="ega-fashion">
+	<div class="riccusedi" id="ega-collection">
+		<div class="ega-container">
+			<input id="collection_id" type="hidden" value="=1004240769">
+			<div class="collection-wrapper">
+				<div class="ega-row">
+					<div class="ega-col-xl-3 ega-col-lg-12 ega-col-12 ">
+						<div id="collection_sidebar">
+							<div class="sidebar-widgets-wrap">
+								<div class="ega-filter" data-style="ega-filter">
+									<div class="ega-filter__heading">
+										<h4 class="ega-filter__title ega-h6 ega-m--0">BỘ LỌC<svg xmlns="http://www.w3.org/2000/svg" class="ega-ic-close"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#ega-ic-close" /></svg></h4>
+									</div>
+
+									<div class="ega-filter__body">
+										=
+
+
+										<br />
+										<br />
+										<br />
+										<br />
+										<br />
+										<br />
+										<br />
+										<br />
+										<br />
+										<br />
+										<br />
+										<br />
+										<br />
+										<br />
+										<br />
+
+										<div class="new">
+											<h4 class="ega-filter__title ega-h6 ega-m--0" id="price-title">GIÁ</h4>
+											<ul class="ega-price-list">
+												@foreach (var gia in new List<string> { "Dưới 1.000.000đ", "1.000.000đ - 2.000.000đ", "2.000.000đ - 3.000.000đ", "3.000.000đ - 4.000.000đ", "Trên 4.000.000đ" })
+												{
+													<li>
+														<a class="ega-price-item" href="@Url.Action("hienThiSanPhamTheoGia", "User", new { gia = gia })">
+															@gia
+														</a>
+													</li>
+
+												}
+											</ul>
+										</div>
+
+
+										<div>
+											<br />
+										</div>
+
+										<div class="ega-filter__item is-show">
+											<h4 class="ega-filter__title ega-h6 ega-m--0">SIZE</h4>
+											<div class="ega-filter__sizes">
+												<ul class="ega-size-list">
+													@foreach (var size in new List<string> { "39", "40", "41", "42", "43", "44" })
+													{
+														<li>
+															<a href="@Url.Action("HienThiSanPhamTheoSize", "User", new { size = size })">
+																@size
+															</a>
+														</li>
+													}
+												</ul>
+											</div>
+										</div>
+
+
+
+
+
+										<!-- BEGIN: Tag_Custom_1 filter -->
+										<!-- END: Tag_Custom_7 filter -->
+
+
+									</div>
+								</div>
+
+
+
+
+
+
+
+
+
+							</div>
+						</div>
+
+					</div>
+					<div class="ega-col-xl-9 ega-col-lg-12 ega-col-12">
+						<div class="collection_banner ega-m-b--4 hover-zoom">
+						</div>
+
+
+
+						<h1 id="ega-coll-name">DANH MỤC SẢN PHẨM</h1>
+
+						<div class="des"><p style="text-align: justify;"><span style="font-size: 16px;">Chọn một đôi giày đá bóng thích hợp sẽ giúp bạn tự tin thể hiện hết khả năng mỗi khi ra sân. Và để xác định đúng “chân ái” dành riêng cho bạn, có 3 yếu tố tiên quyết bạn nên cân nhắc: mặt sân thi đấu (sân sàn hay sân cỏ nhân tạo), form chân (chân thon hay bè) và mức giá mong muốn.</span></p><p><p style="text-align: justify;"><span style="font-size: 16px;">Tại Thanh Hùng Futsal, chúng mình đang có sẵn những mẫu Giày Đá Bóng Cỏ Nhân Tạo và Giày Futsal mới và hot nhất đến từ 10 thương hiệu thể thao hàng đầu trong nước và quốc tế, bao gồm các thương hiệu hàng đầu hiện nay như Nike, adidas, PUMA, Mizuno, Joma, Asics...Cùng với đó là các Phụ Kiện Ra Sân tiện lợi như vớ, túi đựng giày, trái bóng,...</span></p><p></p></div>
+						<div id="sort-wrap">
+							<div class="sort-left count-products">
+
+
+								<div class="tagsoredu">
+								</div>
+							</div>
+
+
+							<div class="sort-right ega-text--right">
+								<div class="ega-sortby">
+
+									<div class="sortby__wrap">
+										<select data-role="sortby" onchange="window.location.href=this.value;">
+											<option value="@Url.Action("SanPham", "User", new { sortOrder = "manual" })"> Tất cả sản phẩm </option>
+											<option value="@Url.Action("sanPhamMoi", "User", new { sortOrder = "manual" })"> Sản phẩm mới </option>
+											<option value="@Url.Action("sapXepSanPham", "User", new { sortOrder = "price_asc" })">Giá: tăng dần</option>
+											<option value="@Url.Action("sapXepSanPham", "User", new { sortOrder = "price_desc" })">Giá: giảm dần</option>
+										</select>
+
+
+									</div>
+								</div>
+
+								<div class="filter-on-mb">
+									<div class="filter-open">
+										<span>Lọc sản phẩm</span><svg xmlns="http://www.w3.org/2000/svg" class="ega-ic-angle-down"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#ega-ic-angle-down" /></svg>
+									</div>
+								</div>
+							</div>
+						</div>
+
+
+						<div class="fulldataa">
+							<div id="result">
+								<div class="ega-row">
+									@foreach (var item in Model.GroupBy(m => m.TenSp).Select(g => g.First()))
+									{
+										if (item.NgayThemSP != null)
+										{
+											var today = DateTime.Now;
+											var daysDifference = (today - item.NgayThemSP.Value).Days;
+											if (daysDifference <= 30)
+											{
+												<div class="ega-col-lg-3 ega-col-md-4 ega-col-6">
+													<div class="product-wrapper">
+														<!-- Hình ảnh sản phẩm -->
+
+														<div class="product-image">
+															<img width="480" height="100" class="lazyload" src="@Url.Content("/HinhAnh/" + item.HinhAnh)">
+															<span>MỚI RA MẮT</span>
+														</div>
+
+														<!-- Tiêu đề sản phẩm -->
+														<h2 class="product-title">
+															@item.MaLoaiNavigation.TenLoai @item.MaLoaiNavigation.MaThNavigation.TenTh @item.TenSp - @item.KichCo
+														</h2>
+
+														<!-- Size giày -->
+														<!-- Giá -->
+														<div class="product-price">
+															@(item.GiaBan.HasValue ? ((decimal)item.GiaBan.Value).ToString("N0") : "N/A") đ
+														</div>
+
+
+														<!-- Thông tin Fundiin -->
+														<!-- Nút xem chi tiết -->
+														<form asp-action="chiTietSP" method="post">
+															<input type="hidden" name="MaSp" value="@item.MaSp">
+															<button type="submit" class="view-details-btn">Xem Chi Tiết</button>
+														</form>
+													</div>
+
+												</div>
+											}
+										}
+
+									}
+									@* 	Sản phẩm cũ *@
+									@foreach (var item in Model.GroupBy(m => m.TenSp).Select(g => g.First()))
+									{
+										if (item.NgayThemSP != null)
+										{
+											var today = DateTime.Now;
+											var daysDifference = (today - item.NgayThemSP.Value).Days;
+											if (daysDifference > 30)
+											{
+												<div class="ega-col-lg-3 ega-col-md-4 ega-col-6">
+													<div class="product-wrapper">
+														<!-- Hình ảnh sản phẩm -->
+
+														<div class="product-image">
+															<img width="480" height="100" class="lazyload" src="@Url.Content("/HinhAnh/" + item.HinhAnh)">
+
+														</div>
+
+														<!-- Tiêu đề sản phẩm -->
+														<h2 class="product-title">
+															@item.MaLoaiNavigation.TenLoai @item.MaLoaiNavigation.MaThNavigation.TenTh @item.TenSp - @item.KichCo
+														</h2>
+
+														<!-- Size giày -->
+														<!-- Giá -->
+														<div class="product-price">
+															@(item.GiaBan.HasValue ? ((decimal)item.GiaBan.Value).ToString("N0") : "N/A") đ
+														</div>
+														<!-- Nút xem chi tiết -->
+														<form asp-action="chiTietSP" method="post">
+															<input type="hidden" name="MaSp" value="@item.MaSp">
+															<button type="submit" class="view-details-btn">Xem Chi Tiết</button>
+														</form>
+													</div>
+
+												</div>
+											}
+										}
+
+									}
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<style>
+		/* Điều chỉnh width cho các cột */
+		.ega-col-xl-9, .ega-col-lg-12, .ega-col-12 {
+			width: 300%; /* Hoặc bạn có thể dùng một phần trăm lớn hơn để mở rộng */
+		}
+
+		/* Cập nhật để sử dụng flex */
+		/* Đảm bảo các cột được sắp xếp linh hoạt và có thể xuống dòng */
+		.ega-row {
+			width: 100%; /* Đảm bảo container bao quanh chiếm toàn bộ chiều rộng */
+			display: flex !important;
+			flex-wrap: wrap !important;
+			gap: 0px !important;
+		}
+
+		.ega-col-lg-3, .ega-col-md-4, .ega-col-6 {
+			padding: 2px !important; /* Thêm padding nhẹ bên trong mỗi cột */
+			margin: 0 !important;
+			width: auto !important;
+			flex: 1 0 auto !important;
+			box-sizing: border-box; /* Đảm bảo padding không làm tăng kích thước cột */
+		}
+
+
+			/* Đảm bảo cột đầu tiên không có margin trái */
+			.ega-col-lg-3:first-child, .ega-col-md-4:first-child, .ega-col-6:first-child {
+				margin-left: 0;
+			}
+
+			/* Đảm bảo cột cuối cùng không có margin phải */
+			.ega-col-lg-3:last-child, .ega-col-md-4:last-child, .ega-col-6:last-child {
+				margin-right: 0;
+			}
+
+
+		/* Điều chỉnh padding để các cột hẹp nhất có thể */
+
+		.product-wrapper {
+			display: flex; /* Đảm bảo nội dung bên trong sắp xếp linh hoạt */
+			flex-direction: column; /* Xếp chồng các phần tử con theo chiều dọc */
+			align-items: center; /* Căn giữa các phần tử theo trục ngang */
+			justify-content: space-between; /* Khoảng cách đều giữa các phần tử */
+			padding: 1px; /* Tăng khoảng cách bên trong một chút */
+			margin: 1px; /* Tạo khoảng cách nhỏ giữa các sản phẩm */
+			box-sizing: border-box; /* Đảm bảo padding không làm thay đổi kích thước */
+			overflow: hidden; /* Ẩn phần nội dung tràn ra ngoài */
+			background-color: #fff; /* Đặt nền trắng hoặc màu khác tùy ý */
+			border: 1px solid #ddd; /* Tạo viền nhẹ cho sản phẩm */
+			border-radius: 5px; /* Làm mềm góc các sản phẩm */
+		}
+
+			.product-wrapper img {
+				max-width: 100%; /* Hình ảnh không vượt quá kích thước của container */
+				height: auto; /* Đảm bảo tỉ lệ hình ảnh */
+				object-fit: cover; /* Làm đầy khung mà không méo ảnh */
+			}
+
+		.product-title {
+			font-size: 14px; /* Giảm kích thước chữ để vừa với container */
+
+			overflow: hidden; /* Ẩn phần chữ thừa */
+			text-overflow: ellipsis; /* Thêm dấu '...' nếu chữ quá dài */
+			text-align: center; /* Căn giữa tiêu đề */
+		}
+
+		.product-price {
+			font-size: 16px;
+			font-weight: bold;
+			color: #333;
+			margin: 5px 0; /* Tạo khoảng cách trên dưới */
+		}
+
+		.fundiin-info {
+			font-size: 12px;
+			text-align: center;
+			color: #24c3fd;
+		}
+
+		.ega-col-lg-3 .product-wrapper,
+		.ega-col-md-4 .product-wrapper,
+		.ega-col-6 .product-wrapper {
+			height: 100%; /* Đảm bảo chiều cao của mỗi cột đồng nhất */
+		}
+	</style>
+	<script>
+		$(function () {
+			setTimeout(function () {
+				$("select[data-role='sortby']").val('manual');
+			})
+		})
+	</script>
+
+	<script>
+		$('#collection_sidebar_trigger').click(function (e) {
+			e.preventDefault();
+			$(this).toggleClass('ega-show');
+			$('#collection_sidebar').toggleClass('ega-show');
+		})
+	</script>
+	<script>
+		/*$('.ega-filter__heading').click(function(){
+			$(this).siblings().toggle();
+		})*/
+
+		$('.ega-filter__title').click(function () {
+			//$(this).find(".close-icon").html('<svg class="ega-ic-user"><use xlink:href="#ega-ic-user"></use></svg>');
+
+			$(this).siblings().slideToggle("fast");
+			$(this).parent().toggleClass("is-show");
+		})
+
+		$(document).ready(function () {
+
+			/*$(".tagsoredu a").click(function(e){
+				e.preventDefault();
+				$(this).toggleClass("active");
+				var text = $(this).attr("href");
+				$(`[dataval="${text}"]`).trigger("click")
+
+			})*/
+
+			$('.ega-filter__color').click(function () {
+				$(this).toggleClass('ega-filter__color--checked');
+			})
+
+			$('.filter_not_found').each(function () {
+				$(this).parent().hide();
+			})
+		})
+	</script>
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+			const SuccessMessagehetSP = '@Html.Raw(ViewData["SuccessMessagehetSP"])';
+			if (SuccessMessagehetSP) {
+				alert(SuccessMessagehetSP);
+			}
+		});
+	</script>
+
+</body>
+</html>

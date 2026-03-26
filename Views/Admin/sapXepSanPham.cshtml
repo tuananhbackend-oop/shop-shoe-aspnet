@@ -1,0 +1,1355 @@
+﻿@model IEnumerable<LVTNWEBGIAYDEP.Models.SanPham>
+
+@{
+	ViewData["Title"] = "SanPham";
+	Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+	<title></title>
+	<style>
+		* {
+			font-family: Roboto Condensed;
+		}
+
+		*, ::after, ::before {
+			box-sizing: border-box;
+		}
+
+		#ega-collection {
+			padding-top: 48px;
+		}
+
+		body {
+			line-height: 1.5;
+			font-size: 1rem;
+			color: #333;
+			width: 100%;
+			min-height: 100%;
+			margin: 0;
+			scroll-behavior: smooth;
+		}
+
+		html, body {
+			font-size: 14px;
+		}
+
+		body {
+			background: #ffffff;
+			color: #000000;
+			overflow-x: hidden;
+		}
+
+		.ega-container {
+			margin: 0 auto;
+		}
+
+		.ega-container, .ega-container--fluid {
+			padding-left: 15px;
+			padding-right: 15px;
+			width: 100%;
+		}
+
+		.ega-container {
+			max-width: 540px;
+		}
+
+		.ega-container {
+			max-width: 720px;
+		}
+
+		.ega-container {
+			max-width: 960px;
+		}
+
+		.ega-container {
+			max-width: 1140px;
+		}
+
+		.ega-container {
+			max-width: 1140px;
+		}
+
+		input, select, textarea {
+			margin: 0;
+			font-family: inherit;
+			font-size: inherit;
+			line-height: inherit;
+		}
+
+		.ega-row {
+			display: flex;
+			flex-wrap: wrap;
+			margin-left: -15px;
+			margin-right: -15px;
+		}
+
+		#ega-collection .ega-row {
+			margin-left: -12px;
+			margin-right: -12px;
+		}
+
+		.ega-col, [class*=ega-col-] {
+			padding-left: 15px;
+			padding-right: 15px;
+		}
+
+		.ega-col-12 {
+			flex: 0 0 100%;
+			max-width: 100%;
+		}
+
+		.ega-col-lg-12 {
+			flex: 0 0 100%;
+			max-width: 100%;
+		}
+
+		.ega-col-xl-3 {
+			flex: 0 0 25%;
+			max-width: 25%;
+		}
+
+		.ega-col-xl-9 {
+			flex: 0 0 75%;
+			max-width: 75%;
+		}
+
+		.ega-col-6 {
+			flex: 0 0 50%;
+			max-width: 50%;
+		}
+
+		.ega-col-md-4 {
+			flex: 0 0 33.33333%;
+			max-width: 33.33%;
+		}
+
+		.ega-col-lg-3 {
+			flex: 0 0 25%;
+			max-width: 25%;
+		}
+
+		#ega-collection .ega-row [class*=ega-col-] {
+			padding-left: 12px;
+			padding-right: 12px;
+		}
+
+		.ega-m-b--4 {
+			margin-bottom: 1.5rem !important;
+		}
+
+		.hover-zoom {
+			position: relative;
+			display: block;
+			overflow: hidden;
+		}
+
+			.hover-zoom::before {
+				position: absolute;
+				z-index: 1;
+				top: 0px;
+				left: -10%;
+				width: 120%;
+				height: 100%;
+				background: rgba(255, 255, 255, 0.2);
+				content: "";
+				-webkit-transition: -webkit-transform .6s;
+				transition: transform .8s;
+				-webkit-transform: scale3d(1.9, 1.4, 1) rotate3d(0, 0, 1, 45deg) translate3d(0, 100%, 0);
+				transform: scale3d(1.9, 1.4, 1) rotate3d(0, 0, 1, 135deg) translate3d(0px, 100%, 0px);
+				opacity: 0;
+				filter: alpha(opacity=0);
+				visibility: hidden;
+				-webkit-box-sizing: border-box;
+				-moz-box-sizing: border-box;
+				box-sizing: border-box;
+			}
+
+		.ega-h4, h4 {
+			font-size: 1.5rem;
+		}
+
+		.ega-h1, .ega-h2, .ega-h3, .ega-h4, .ega-h5, .ega-h6, h1, h2, h3, h4, h5, h6 {
+			font-family: inherit;
+			font-weight: 600;
+			line-height: 1.2;
+			color: inherit;
+			margin: 1rem 0;
+		}
+
+		.ega-h1, h1 {
+			font-size: 2.5rem;
+		}
+
+		#ega-collection #ega-coll-name {
+			font-weight: normal;
+			font-size: 48px;
+			color: #000;
+			margin: 0;
+		}
+
+		.des {
+			border-bottom: 1px solid #0E1C22;
+			margin-bottom: 20px;
+		}
+
+		.riccusedi #sort-wrap {
+			align-items: center;
+			gap: 15px;
+		}
+
+		#ega-collection #sort-wrap {
+			margin-bottom: 40px;
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: space-between;
+		}
+
+		.pd-item__wrapper {
+			padding-bottom: 36px;
+		}
+
+		a {
+			color: #288ad6;
+		}
+
+		a {
+			text-decoration: none;
+		}
+
+		.pd-item {
+			position: relative;
+			display: block;
+			overflow: hidden;
+		}
+
+		.pd-item__img {
+			position: relative;
+			overflow: hidden;
+			position: relative;
+			padding-top: 100%;
+			display: flex;
+			align-items: center;
+			margin-bottom: 15px;
+		}
+
+			.pd-item__img.img-featured {
+				display: block;
+			}
+
+		.ega-h2, h2 {
+			font-size: 2rem;
+		}
+
+		.pd-item h2 {
+			overflow: hidden !important;
+			line-height: 1.3em !important;
+			color: #333 !important;
+			clear: both;
+			display: -webkit-box !important;
+			-webkit-line-clamp: 3;
+			-webkit-box-orient: vertical;
+			white-space: initial;
+			margin: 10px 0 !important;
+			font-size: 14px;
+			font-weight: 400;
+		}
+
+		.pd-item h2 {
+			font-size: 16px !important;
+		}
+
+		.pd-item .price {
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			padding-bottom: 10px;
+		}
+
+		.ega-text--no-underline {
+			text-decoration: none !important;
+		}
+
+		.pd-item .price ins {
+			display: inline-block;
+			vertical-align: middle;
+			overflow: hidden;
+			font-size: 14px;
+			color: #c54934;
+			font-weight: bold;
+			line-height: 15px;
+		}
+
+		.pd-item .price del {
+			display: inline-block;
+			vertical-align: middle;
+			font-size: 14px;
+			text-decoration: line-through;
+			margin-left: 5px;
+			color: #0e1c22;
+			opacity: 0.4;
+		}
+
+		iframe, img {
+			max-width: 100%;
+			vertical-align: middle;
+		}
+
+		img {
+			max-width: 100%;
+			vertical-align: middle;
+			height: initial !important;
+		}
+
+		.pd-item__img img {
+			-webkit-transition: all 0.6s ease;
+			-moz-transition: all 0.6s ease;
+			transition: all 0.6s ease;
+			display: inline-block;
+			height: 100%;
+			object-fit: contain;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+		}
+
+		.pd-item img {
+			display: block;
+		}
+
+		.pd-item .label-sale {
+			position: absolute;
+			top: 5px;
+			left: 5px;
+			min-width: 56px;
+			text-align: center;
+			background: #fff;
+			color: #d9121f;
+			padding: 5px 10px;
+			border-radius: 0px;
+			font-size: 16px;
+			font-weight: bold;
+			line-height: 18px;
+		}
+
+		.tag_sale {
+			position: absolute;
+			top: 5px;
+			right: 5px;
+			padding: 5px 10px;
+			background: #d9121f;
+			color: #fff;
+			text-transform: uppercase;
+			line-height: 18px;
+			font-size: 16px;
+			font-weight: bold;
+		}
+
+		#ega-collection #sort-wrap .sort-left {
+			width: calc(100% - 321px);
+		}
+
+		.ega-text--right {
+			text-align: right !important;
+		}
+
+		#ega-collection #sort-wrap .sort-right {
+			width: 305px;
+			display: flex;
+			align-items: flex-end;
+			flex-direction: row-reverse;
+		}
+
+			#ega-collection #sort-wrap .sort-right .ega-sortby {
+				display: flex;
+				align-items: center;
+			}
+
+			#ega-collection #sort-wrap .sort-right .filter-on-mb {
+				display: none;
+				align-items: center;
+			}
+
+				#ega-collection #sort-wrap .sort-right .filter-on-mb .filter-open {
+					position: relative;
+					height: 100%;
+					margin-left: 16px;
+					border: 1px solid #0E1C22;
+					padding: 12px 16px;
+					color: #0e1c22;
+					font-size: 16px;
+					text-align: left;
+					line-height: 24px;
+				}
+
+					#ega-collection #sort-wrap .sort-right .filter-on-mb .filter-open span {
+						margin-right: 9px;
+					}
+
+		[class*=' ega-ic-'], [class^=ega-ic-] {
+			display: inline-block;
+			width: 1em;
+			height: 1em;
+			stroke-width: 0;
+			stroke: currentColor;
+			fill: currentColor;
+			color: inherit;
+		}
+
+		#ega-collection #sort-wrap .sort-right .filter-on-mb .filter-open svg {
+			position: absolute;
+			font-size: 14px;
+			top: 50%;
+			right: 16px;
+			-webkit-transform: translateY(-50%);
+			-ms-transform: translateY(-50%);
+			-o-transform: translateY(-50%);
+			transform: translateY(-50%);
+			font-weight: bold;
+			z-index: -1;
+		}
+
+		#ega-collection #sort-wrap .sort-right .ega-sortby .sortby__wrap {
+			position: relative;
+		}
+
+		#ega-collection #sort-wrap .sort-right .ega-sortby select {
+			width: 190px;
+			height: 100%;
+			margin-left: 16px;
+			border: 1px solid #0E1C22;
+			padding: 12px 16px;
+			color: #0e1c22;
+			font-size: 16px;
+			-webkit-appearance: none;
+			-moz-appearance: none;
+			background: none;
+			box-shadow: none;
+			border-radius: 0;
+		}
+
+		#ega-collection #sort-wrap .sort-right .ega-sortby .sortby__wrap svg {
+			position: absolute;
+			font-size: 14px;
+			top: 50%;
+			right: 16px;
+			-webkit-transform: translateY(-50%);
+			-ms-transform: translateY(-50%);
+			-o-transform: translateY(-50%);
+			transform: translateY(-50%);
+			font-weight: bold;
+			z-index: -1;
+		}
+
+		.riccusedi .tagsoredu {
+			display: flex;
+			flex-wrap: wrap;
+			align-items: center;
+			gap: 10px;
+		}
+
+		.ega-h6, h6, p {
+			font-size: 1rem;
+		}
+
+			p:first-child {
+				margin-top: 0px;
+			}
+
+		#ega-collection .ega-filter__heading {
+			display: none;
+			text-align: center;
+			margin-bottom: 22px;
+		}
+
+		.ega-ul {
+			padding-left: 0px;
+			list-style: none;
+		}
+
+		.ega-m--0 {
+			margin: 0 !important;
+		}
+
+		.riccusedi .ega-filter__title, .riccusedi .titledanhm {
+			background: #000;
+			color: #fff !important;
+			padding: 10px;
+			margin: 0;
+		}
+
+		.riccusedi .titledanhm {
+			font-size: 16px;
+		}
+
+		.riccusedi .menulinklis {
+			border: 1px solid #ccc;
+			padding: 15px;
+			display: flex;
+			flex-wrap: wrap;
+			gap: 10px;
+			margin-bottom: 15px;
+		}
+
+		.riccusedi .ega-filter__item {
+			border: 1px solid #ccc;
+		}
+
+			.riccusedi .ega-filter__item + .ega-filter__item {
+				margin-top: 15px !important;
+			}
+
+		#ega-collection .ega-filter__item + .ega-filter__item {
+			margin-top: 40px;
+		}
+
+		#ega-collection .ega-filter__title {
+			font-weight: bold;
+			font-size: 16px;
+			color: #0e1c22;
+			position: relative;
+			line-height: inherit;
+			cursor: pointer;
+		}
+
+		#ega-collection .ega-filter__title {
+			font-weight: bold;
+			font-size: 16px;
+			color: #0e1c22;
+			position: relative;
+			line-height: inherit;
+			cursor: pointer;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+		}
+
+		.riccusedi .ega-filter__item ul {
+			padding-top: 16px;
+			flex-wrap: wrap;
+			justify-content: space-between;
+			padding: 15px;
+			max-height: 270px;
+			overflow: auto;
+		}
+
+			.riccusedi .ega-filter__item ul.grssize {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 10px;
+			}
+
+		.is-show .ega-filter__title.ega-h6 + .ega-ul {
+			display: none !important;
+		}
+
+		#ega-collection .ega-filter__item ul {
+			padding-top: 16px;
+			flex-wrap: wrap;
+			justify-content: space-between;
+		}
+
+		.riccusedi .ega-filter__item ul.grssize li {
+			margin-bottom: 0px !important;
+			min-width: calc(50% - 7px);
+		}
+
+		#ega-collection .ega-filter__item ul li {
+			margin-bottom: 12px;
+			color: rgba(14, 28, 34, 0.7);
+			font-size: 16px;
+			line-height: 24px;
+		}
+
+		#ega-collection .ega-filter__price ul li {
+			width: 100%;
+		}
+
+		#ega-collection .ega-filter__item ul li:last-child {
+			margin-bottom: 0px;
+		}
+
+		.riccusedi .ega-filter__item ul.grssize li label input {
+			margin-right: 2px !important;
+		}
+
+		#ega-collection .ega-filter__item ul li label input {
+			position: relative;
+			display: inline-block;
+			margin-right: 8px;
+			width: 18px;
+			height: 18px;
+			border-radius: 2px;
+			-webkit-appearance: none;
+			border: 2px solid rgba(14, 28, 34, 0.4);
+			cursor: pointer;
+		}
+
+			#ega-collection .ega-filter__item ul li label input[type='checkbox']::before {
+				position: absolute;
+				display: none;
+				content: "";
+				width: 5px;
+				height: 10px;
+				background: transparent;
+				border: 2px solid;
+				border-top: none;
+				border-left: none;
+				left: 5px;
+				bottom: 3px;
+				-webkit-transform: rotate(45deg);
+				-o-transform: rotate(45deg);
+				transform: rotate(45deg);
+			}
+
+		#ega-collection .ega-filter__item ul li label span {
+			display: inline-block;
+			position: relative;
+			top: -3px;
+		}
+
+		.is-show h4 svg {
+			transform: rotate(180deg);
+		}
+
+		#ega-collection .ega-filter__title svg {
+			position: absolute;
+			right: 0px;
+			font-size: 24px;
+		}
+
+		#ega-collection .ega-filter__title svg {
+			right: 10px;
+			font-size: 24px;
+			fill: #fff;
+		}
+
+		#ega-collection .ega-filter__item.is-show .ega-filter__title svg.ega-ic-minus {
+			display: none;
+		}
+
+		#ega-collection .ega-filter__item .ega-filter__title svg.ega-ic-plus {
+			display: none;
+		}
+
+		#ega-collection .ega-filter__item.is-show .ega-filter__title svg.ega-ic-plus {
+			display: inline-block;
+		}
+
+		.riccusedi .menulinklis a {
+			color: #000;
+			border: 1px solid #ccc;
+			padding: 4px;
+		}
+
+		#ega-collection .ega-filter__heading .ega-filter__title {
+			font-size: 16px;
+		}
+
+			#ega-collection .ega-filter__heading .ega-filter__title svg {
+				font-size: 16px;
+				position: absolute;
+				left: 0px;
+				top: 4px;
+			}
+	</style>
+	<style>
+		/* CSS chỉnh sửa */
+		.product-wrapper {
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+			align-items: center; /* Đảm bảo mọi phần tử căn giữa */
+			padding: 10px; /* Giảm padding */
+			background-color: #ffffff;
+			border: 1px solid #ddd;
+			border-radius: 8px;
+			transition: all 0.3s ease;
+			text-align: center;
+			height: 100%;
+			box-sizing: border-box;
+			gap: 8px; /* Khoảng cách giữa các phần tử */
+		}
+
+		.product-image {
+			position: relative;
+			overflow: hidden;
+			border-radius: 8px;
+		}
+
+			.product-image img {
+				width: 100%;
+				height: auto;
+				object-fit: cover;
+				transition: transform 0.3s ease;
+			}
+
+		.product-wrapper:hover .product-image img {
+			transform: scale(1.05);
+		}
+
+		.product-title {
+			font-size: 18px; /* Tăng kích thước */
+			font-weight: bold; /* Đậm hơn */
+			color: #2c3e50; /* Màu chữ dễ nhìn */
+			margin: 0; /* Xóa margin mặc định */
+			line-height: 1.5;
+			text-align: center;
+			font-family: 'Arial', sans-serif; /* Font chữ phổ biến */
+		}
+
+		.product-price {
+			font-size: 16px; /* Giảm kích thước */
+			font-weight: 600;
+			color: #e74c3c;
+			margin: 0;
+		}
+
+		.fundiin-info {
+			font-size: 13px; /* Giảm font size */
+			color: #555; /* Màu chữ dễ nhìn hơn */
+			margin: 5px 0; /* Giảm khoảng cách */
+		}
+
+		.view-details-btn {
+			padding: 8px 16px; /* Giảm kích thước nút */
+			font-size: 14px;
+			font-weight: 600;
+			color: #fff;
+			background-color: #3498db;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+			transition: background-color 0.3s ease;
+			text-transform: uppercase;
+		}
+
+			.view-details-btn:hover {
+				background-color: #1d6fa5;
+			}
+	</style>
+	<style>
+		#price-options li a {
+			color: #000; /* Màu đen */
+			font-weight: bold; /* Chữ đậm */
+			text-decoration: none; /* Loại bỏ gạch chân */
+			font-size: 16px; /* Tăng kích thước chữ (nếu cần) */
+		}
+
+			#price-options li a:hover {
+				color: #333; /* Màu đen nhạt hơn một chút khi hover */
+				text-decoration: underline; /* Gạch chân khi hover */
+			}
+
+		#price-options li {
+			font-weight: bold; /* Làm chữ đậm */
+			font-size: 16px; /* Tăng kích thước chữ */
+			padding: 5px 0; /* Tạo khoảng cách giữa các dòng */
+			cursor: pointer; /* Hiển thị con trỏ chuột dạng tay khi hover */
+		}
+
+			#price-options li:hover {
+				color: #007bff; /* Đổi màu chữ khi hover */
+				background-color: #f8f9fa; /* Tô nền nhạt khi hover */
+			}
+
+	</style>
+
+</head>
+<body class="template_collection" id="ega-fashion">
+	<div class="riccusedi" id="ega-collection">
+		<div class="ega-container">
+			<input id="collection_id" type="hidden" value="=1004240769">
+			<div class="collection-wrapper">
+				<div class="ega-row">
+					<div class="ega-col-xl-3 ega-col-lg-12 ega-col-12 ">
+						<div id="collection_sidebar">
+							<div class="sidebar-widgets-wrap">
+								<div class="ega-filter" data-style="ega-filter">
+									<div class="ega-filter__heading">
+										<h4 class="ega-filter__title ega-h6 ega-m--0">BỘ LỌC<svg xmlns="http://www.w3.org/2000/svg" class="ega-ic-close"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#ega-ic-close" /></svg></h4>
+									</div>
+
+									<div class="ega-filter__body">
+
+										<h4 class="titledanhm">
+											DANH MỤC
+
+										</h4>
+										<div class="menulinklis">
+
+											<div class="menulinklisitem">
+												<a href="/collections/black-frideal-2024">
+													BLACK FRI-DEAL 2024
+												</a>
+											</div>
+											<div class="menulinklisitem">
+												<a href="/collections/giay-da-banh-nike-mad-voltage-pack">
+													Nike Mad Voltage Pack
+												</a>
+											</div>
+
+											<div class="menulinklisitem">
+												<a href="/collections/giay-da-banh-adidas-vivid-horizon-pack">
+													adidas Vivid Horizon Pack
+												</a>
+											</div>
+
+											<div class="menulinklisitem">
+												<a href="/collections/giay-da-banh-adidas-f50">
+													adidas F50
+												</a>
+
+											</div>
+
+											<div class="menulinklisitem">
+												<a href="/collections/giay-da-banh-nike-mercurial">
+													Nike Mercurial
+												</a>
+
+											</div>
+
+											<div class="menulinklisitem">
+												<a href="/collections/hot-sale">
+													Sản phẩm Hot Deals
+												</a>
+
+											</div>
+
+											<div class="menulinklisitem">
+												<a href="/collections/giay-co-nhan-tao">
+													Giày sân Cỏ Nhân Tạo
+												</a>
+
+											</div>
+
+											<div class="menulinklisitem">
+												<a href="/collections/giay-futsal">
+													Giày sân Futsal
+												</a>
+
+											</div>
+
+											<div class="menulinklisitem">
+												<a href="/collections/dep-unbox">
+													Dép Unbox
+												</a>
+
+											</div>
+
+										</div>
+
+
+
+										<div>
+										</div>
+
+
+
+										<div class="ega-filter__item ega-filter__price is-show">
+											<h4 class="ega-filter__title ega-h6 ega-m--0" id="price-title">
+												GIÁ
+											</h4>
+											<ul class="ega-filter__item ega-filter__price is-show" id="price-options">
+												<li><a href="@Url.Action("sapXepSanPham", "Admin", new { sortOrder = "price_asc" })">Giá: tăng dần</a></li>
+
+												<li><a href="@Url.Action("sapXepSanPham", "Admin", new { sortOrder = "price_desc" })">Giá: giảm dần</a></li>
+											</ul>
+										</div>
+
+
+
+										<div class="ega-filter__item is-show">
+											<h4 class="ega-filter__title ega-h6 ega-m--0">
+												SIZE
+												<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 13 8" width="13" height="8"><path fill="#212121" d="M 6.5 2.84124e-007 L -3.49691e-007 8 L 1.39286 8 L 6.5 2 L 11.6071 8 L 13 8 L 6.5 2.84124e-007 Z" /></svg>
+
+											</h4>
+											<ul class="ega-ul ega-m--0 grssize">
+
+
+
+												<li>
+													<label>
+														<input type="checkbox" autocomplete="off" data-filter-type="type" data-filter-query="(variantonhand:product=37)" data-role="filter">
+														<span>37</span>
+													</label>
+												</li>
+
+												<li>
+													<label>
+														<input type="checkbox" autocomplete="off" data-filter-type="type" data-filter-query="(variantonhand:product= 37.5)" data-role="filter">
+														<span> 37.5</span>
+													</label>
+												</li>
+
+												<li>
+													<label>
+														<input type="checkbox" autocomplete="off" data-filter-type="type" data-filter-query="(variantonhand:product= 38)" data-role="filter">
+														<span> 38</span>
+													</label>
+												</li>
+
+												<li>
+													<label>
+														<input type="checkbox" autocomplete="off" data-filter-type="type" data-filter-query="(variantonhand:product= 38 2/3)" data-role="filter">
+														<span> 38 2/3</span>
+													</label>
+												</li>
+
+												<li>
+													<label>
+														<input type="checkbox" autocomplete="off" data-filter-type="type" data-filter-query="(variantonhand:product= 38.5)" data-role="filter">
+														<span> 38.5</span>
+													</label>
+												</li>
+
+												<li>
+													<label>
+														<input type="checkbox" autocomplete="off" data-filter-type="type" data-filter-query="(variantonhand:product=39)" data-role="filter">
+														<span>39</span>
+													</label>
+												</li>
+
+												<li>
+													<label>
+														<input type="checkbox" autocomplete="off" data-filter-type="type" data-filter-query="(variantonhand:product= 39 1/3)" data-role="filter">
+														<span> 39 1/3</span>
+													</label>
+												</li>
+
+												<li>
+													<label>
+														<input type="checkbox" autocomplete="off" data-filter-type="type" data-filter-query="(variantonhand:product= 39.5)" data-role="filter">
+														<span> 39.5</span>
+													</label>
+												</li>
+
+												<li>
+													<label>
+														<input type="checkbox" autocomplete="off" data-filter-type="type" data-filter-query="(variantonhand:product= 40)" data-role="filter">
+														<span> 40</span>
+													</label>
+												</li>
+
+												<li>
+													<label>
+														<input type="checkbox" autocomplete="off" data-filter-type="type" data-filter-query="(variantonhand:product= 40.5)" data-role="filter">
+														<span> 40.5</span>
+													</label>
+												</li>
+
+												<li>
+													<label>
+														<input type="checkbox" autocomplete="off" data-filter-type="type" data-filter-query="(variantonhand:product= 40 2/3)" data-role="filter">
+														<span> 40 2/3</span>
+													</label>
+												</li>
+
+												<li>
+													<label>
+														<input type="checkbox" autocomplete="off" data-filter-type="type" data-filter-query="(variantonhand:product= 41)" data-role="filter">
+														<span> 41</span>
+													</label>
+												</li>
+
+												<li>
+													<label>
+														<input type="checkbox" autocomplete="off" data-filter-type="type" data-filter-query="(variantonhand:product= 41 1/3)" data-role="filter">
+														<span> 41 1/3</span>
+													</label>
+												</li>
+
+												<li>
+													<label>
+														<input type="checkbox" autocomplete="off" data-filter-type="type" data-filter-query="(variantonhand:product= 41.5)" data-role="filter">
+														<span> 41.5</span>
+													</label>
+												</li>
+
+												<li>
+													<label>
+														<input type="checkbox" autocomplete="off" data-filter-type="type" data-filter-query="(variantonhand:product= 42)" data-role="filter">
+														<span> 42</span>
+													</label>
+												</li>
+
+												<li>
+													<label>
+														<input type="checkbox" autocomplete="off" data-filter-type="type" data-filter-query="(variantonhand:product= 42 2/3)" data-role="filter">
+														<span> 42 2/3</span>
+													</label>
+												</li>
+
+												<li>
+													<label>
+														<input type="checkbox" autocomplete="off" data-filter-type="type" data-filter-query="(variantonhand:product= 42.5)" data-role="filter">
+														<span> 42.5</span>
+													</label>
+												</li>
+
+												<li>
+													<label>
+														<input type="checkbox" autocomplete="off" data-filter-type="type" data-filter-query="(variantonhand:product= 43)" data-role="filter">
+														<span> 43</span>
+													</label>
+												</li>
+
+												<li>
+													<label>
+														<input type="checkbox" autocomplete="off" data-filter-type="type" data-filter-query="(variantonhand:product= 43 1/3)" data-role="filter">
+														<span> 43 1/3</span>
+													</label>
+												</li>
+
+												<li>
+													<label>
+														<input type="checkbox" autocomplete="off" data-filter-type="type" data-filter-query="(variantonhand:product= 43.5)" data-role="filter">
+														<span> 43.5</span>
+													</label>
+												</li>
+
+												<li>
+													<label>
+														<input type="checkbox" autocomplete="off" data-filter-type="type" data-filter-query="(variantonhand:product= 44)" data-role="filter">
+														<span> 44</span>
+													</label>
+												</li>
+
+												<li>
+													<label>
+														<input type="checkbox" autocomplete="off" data-filter-type="type" data-filter-query="(variantonhand:product= 44.5)" data-role="filter">
+														<span> 44.5</span>
+													</label>
+												</li>
+
+												<li>
+													<label>
+														<input type="checkbox" autocomplete="off" data-filter-type="type" data-filter-query="(variantonhand:product= 44 2/3)" data-role="filter">
+														<span> 44 2/3</span>
+													</label>
+												</li>
+
+												<li>
+													<label>
+														<input type="checkbox" autocomplete="off" data-filter-type="type" data-filter-query="(variantonhand:product= 45)" data-role="filter">
+														<span> 45</span>
+													</label>
+												</li>
+
+												<li>
+													<label>
+														<input type="checkbox" autocomplete="off" data-filter-type="type" data-filter-query="(variantonhand:product= 45 1/3)" data-role="filter">
+														<span> 45 1/3</span>
+													</label>
+												</li>
+
+												<li>
+													<label>
+														<input type="checkbox" autocomplete="off" data-filter-type="type" data-filter-query="(variantonhand:product= 45.5)" data-role="filter">
+														<span> 45.5</span>
+													</label>
+												</li>
+
+												<li>
+													<label>
+														<input type="checkbox" autocomplete="off" data-filter-type="type" data-filter-query="(variantonhand:product= 46)" data-role="filter">
+														<span> 46</span>
+													</label>
+												</li>
+
+												<li>
+													<label>
+														<input type="checkbox" autocomplete="off" data-filter-type="type" data-filter-query="(variantonhand:product=S)" data-role="filter">
+														<span>S</span>
+													</label>
+												</li>
+
+												<li>
+													<label>
+														<input type="checkbox" autocomplete="off" data-filter-type="type" data-filter-query="(variantonhand:product=M)" data-role="filter">
+														<span>M</span>
+													</label>
+												</li>
+
+												<li>
+													<label>
+														<input type="checkbox" autocomplete="off" data-filter-type="type" data-filter-query="(variantonhand:product=L)" data-role="filter">
+														<span>L</span>
+													</label>
+												</li>
+
+												<li>
+													<label>
+														<input type="checkbox" autocomplete="off" data-filter-type="type" data-filter-query="(variantonhand:product=XL)" data-role="filter">
+														<span>XL</span>
+													</label>
+												</li>
+
+												<li>
+													<label>
+														<input type="checkbox" autocomplete="off" data-filter-type="type" data-filter-query="(variantonhand:product=XXL)" data-role="filter">
+														<span>XXL</span>
+													</label>
+												</li>
+
+												<li>
+													<label>
+														<input type="checkbox" autocomplete="off" data-filter-type="type" data-filter-query="(variantonhand:product= L-LL [26.0cm-29.0cm])" data-role="filter">
+														<span> L-LL [26.0cm-29.0cm]</span>
+													</label>
+												</li>
+
+												<li>
+													<label>
+														<input type="checkbox" autocomplete="off" data-filter-type="type" data-filter-query="(variantonhand:product= S-M [22.5cm-25. 5cm])" data-role="filter">
+														<span> S-M [22.5cm-25. 5cm]</span>
+													</label>
+												</li>
+
+												<li>
+													<label>
+														<input type="checkbox" autocomplete="off" data-filter-type="type" data-filter-query="(variantonhand:product= S [23cm-25cm])" data-role="filter">
+														<span> S [23cm-25cm]</span>
+													</label>
+												</li>
+
+												<li>
+													<label>
+														<input type="checkbox" autocomplete="off" data-filter-type="type" data-filter-query="(variantonhand:product= M [25cm-27cm])" data-role="filter">
+														<span> M [25cm-27cm]</span>
+													</label>
+												</li>
+
+												<li>
+													<label>
+														<input type="checkbox" autocomplete="off" data-filter-type="type" data-filter-query="(variantonhand:product= L [27CM-29cm])" data-role="filter">
+														<span> L [27CM-29cm]</span>
+													</label>
+												</li>
+
+												<li>
+													<label>
+														<input type="checkbox" autocomplete="off" data-filter-type="type" data-filter-query="(variantonhand:product= 39 (23-24cm))" data-role="filter">
+														<span> 39 (23-24cm)</span>
+													</label>
+												</li>
+
+												<li>
+													<label>
+														<input type="checkbox" autocomplete="off" data-filter-type="type" data-filter-query="(variantonhand:product= 40 1/2 (24-25cm))" data-role="filter">
+														<span> 40 1/2 (24-25cm)</span>
+													</label>
+												</li>
+
+												<li>
+													<label>
+														<input type="checkbox" autocomplete="off" data-filter-type="type" data-filter-query="(variantonhand:product= 42 (25-26cm))" data-role="filter">
+														<span> 42 (25-26cm)</span>
+													</label>
+												</li>
+
+												<li>
+													<label>
+														<input type="checkbox" autocomplete="off" data-filter-type="type" data-filter-query="(variantonhand:product= 44 1/2 (27-28cm))" data-role="filter">
+														<span> 44 1/2 (27-28cm)</span>
+													</label>
+												</li>
+											</ul>
+										</div>
+
+
+
+
+										<!-- BEGIN: Tag_Custom_1 filter -->
+										<!-- END: Tag_Custom_7 filter -->
+
+
+									</div>
+								</div>
+
+								<script>
+									/*$('.ega-filter__heading').click(function(){
+										$(this).siblings().toggle();
+									})*/
+
+									$('.ega-filter__title').click(function () {
+										//$(this).find(".close-icon").html('<svg class="ega-ic-user"><use xlink:href="#ega-ic-user"></use></svg>');
+
+										$(this).siblings().slideToggle("fast");
+										$(this).parent().toggleClass("is-show");
+									})
+
+									$(document).ready(function () {
+
+										/*$(".tagsoredu a").click(function(e){
+											e.preventDefault();
+											$(this).toggleClass("active");
+											var text = $(this).attr("href");
+											$(`[dataval="${text}"]`).trigger("click")
+
+										})*/
+
+										$('.ega-filter__color').click(function () {
+											$(this).toggleClass('ega-filter__color--checked');
+										})
+
+										$('.filter_not_found').each(function () {
+											$(this).parent().hide();
+										})
+									})
+								</script>
+
+								<style>
+									#ega-collection .ega-filter__title {
+										font-weight: bold;
+										font-size: 16px;
+										color: #0E1C22;
+										position: relative;
+										line-height: inherit;
+										cursor: pointer;
+										display: flex;
+										align-items: center;
+										justify-content: space-between;
+									}
+
+										#ega-collection .ega-filter__title svg path {
+											fill: #fff;
+										}
+
+										#ega-collection .ega-filter__title svg {
+											right: 10px;
+											font-size: 24px;
+											fill: #fff;
+										}
+
+									.is-show h4 svg {
+										transform: rotate(180deg);
+									}
+								</style>
+
+
+
+
+
+							</div>
+						</div>
+
+						<script>
+							$('#collection_sidebar_trigger').click(function (e) {
+								e.preventDefault();
+								$(this).toggleClass('ega-show');
+								$('#collection_sidebar').toggleClass('ega-show');
+							})
+						</script>
+					</div>
+					<div class="ega-col-xl-9 ega-col-lg-12 ega-col-12">
+						<div class="collection_banner ega-m-b--4 hover-zoom">
+						</div>
+
+
+
+						<h1 id="ega-coll-name">GIÀY ĐÁ BANH NIKE MAD VOLTAGE PACK</h1>
+
+						<div class="des"><p style="text-align: justify;"><span style="font-size: 16px;">Tự tin chiếm trọn spotlight trên sân cỏ cùng bộ sưu tập giày đá bóng&nbsp;<strong>NIKE</strong>&nbsp;<strong>"MAD VOLTAGE PACK" </strong>mới nhất từ nhà Swoosh.</span></p><p><p style="text-align: justify;"><span style="font-size: 16px;">Đây là pack giày đá banh&nbsp;sẽ mang đến những&nbsp;Air Zoom Mercurial Vapor 16 và&nbsp;Superfly 10, Phantom GX 2 và&nbsp;Luna 2, cùng&nbsp;Tiempo Legend 10&nbsp;trong phối màu xám/xanh volt đầy cuốn hút.&nbsp;Sự kết hợp màu sắc độc đáo này hứa hẹn sẽ khuấy đảo các sân cỏ trong thời gian tới đây!</span></p><p></p></div>
+						<div id="sort-wrap">
+							<div class="sort-left count-products">
+
+
+								<div class="tagsoredu">
+								</div>
+							</div>
+
+
+							<div class="sort-right ega-text--right">
+								<div class="ega-sortby">
+									<label>Sắp xếp theo:</label>
+									<div class="sortby__wrap">
+										<select data-role="sortby">
+											<option value="manual">Sản phẩm nổi bật</option>
+											<option value="price-ascending" data-filter="&amp;sortby=(price:product=asc)">Giá: Tăng dần</option>
+											<option value="price-descending" data-filter="&amp;sortby=(price:product=desc)">Giá: Giảm dần</option>
+											<option value="title-ascending" data-filter="&amp;sortby=(title:product=asc)">Tên: A-Z</option>
+											<option value="title-descending" data-filter="&amp;sortby=(price:product=desc)">Tên: Z-A</option>
+											<option value="created-ascending" data-filter="&amp;sortby=(updated_at:product=desc)">Cũ nhất</option>
+											<option value="created-descending" data-filter="&amp;sortby=(updated_at:product=asc)">Mới nhất</option>
+											<option value="best-selling" data-filter="&amp;sortby=(sold_quantity:product=desc)">Bán chạy nhất</option>
+										</select>
+										<svg xmlns="http://www.w3.org/2000/svg" class="ega-ic-angle-down"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#ega-ic-angle-down" /></svg>
+									</div>
+								</div>
+								<script>
+									$(function () {
+										setTimeout(function () {
+											$("select[data-role='sortby']").val('manual');
+										})
+									})
+								</script>
+								<div class="filter-on-mb">
+									<div class="filter-open">
+										<span>Lọc sản phẩm</span><svg xmlns="http://www.w3.org/2000/svg" class="ega-ic-angle-down"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#ega-ic-angle-down" /></svg>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="fulldataa">
+							<div id="result">
+								<div class="ega-row">
+									@foreach (var item in Model)
+									{
+
+
+
+										<div class="ega-col-lg-3 ega-col-md-4 ega-col-6">
+											<div class="product-wrapper">
+												<!-- Hình ảnh sản phẩm -->
+												<div class="product-image">
+													<img width="480" height="100" class="lazyload" src="@Url.Content("/HinhAnh/" + item.HinhAnh)" alt="@item.TenSp">
+												</div>
+
+												<!-- Tiêu đề sản phẩm -->
+												<h2 class="product-title">@item.MaLoaiNavigation.TenLoai - @item.MaLoaiNavigation.MaThNavigation.TenTh - @item.TenSp</h2>
+
+												<!-- Giá -->
+												<div class="product-price">
+													@(item.GiaBan.HasValue ? ((decimal)item.GiaBan.Value).ToString("N0") : "N/A") đ
+
+												</div>
+
+												<!-- Thông tin Fundiin -->
+												<div class="fundiin-info">Hoặc <strong>663,000₫</strong> x3 kỳ với <span style="color: #24c3fd; font-weight: 700;">Fundiin</span></div>
+
+												<!-- Nút xem chi tiết -->
+												<form asp-action="chiTietSP"  method="post">
+													<input type="hidden" name="MaSp" value="@item.MaSp">
+													<button type="submit" class="view-details-btn">Xem Chi Tiết</button>
+												</form>
+											</div>
+										</div>
+
+
+									}
+
+
+
+
+
+
+
+
+
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

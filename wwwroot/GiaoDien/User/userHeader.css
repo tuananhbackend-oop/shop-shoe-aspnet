@@ -1,0 +1,991 @@
+﻿
+* {
+    font-family: Roboto Condensed;
+}
+
+*, ::after, ::before {
+    box-sizing: border-box;
+}
+
+header {
+    background: #fff;
+    color: #333;
+    height: auto;
+}
+
+.ega-pos--relative {
+    position: relative;
+}
+
+body {
+    line-height: 1.5;
+    font-size: 1rem;
+    color: #333;
+    width: 100%;
+    min-height: 100%;
+    margin: 0;
+    scroll-behavior: smooth;
+}
+
+html, body {
+    font-size: 14px;
+}
+
+body {
+    background: #ffffff;
+    color: #000000;
+    overflow-x: hidden;
+}
+
+.header-wrap {
+    position: relative;
+}
+
+header .header-wrap {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: auto;
+}
+
+header .header-wrap {
+    padding: 10px 48px 10px 40px;
+}
+
+.ega-text--left {
+    text-align: left !important;
+}
+
+#ega-menu--mb {
+    display: none;
+    position: fixed;
+    width: 100%;
+    height: calc(100% - 96px);
+    left: 0px;
+    overflow: auto;
+    top: 90px;
+    z-index: 9999;
+}
+
+.ega-ul {
+    padding-left: 0px;
+    list-style: none;
+}
+
+.ega-p-l--2 {
+    padding-left: 0.5rem !important;
+}
+
+.ega-menu--tree__item.has-child ul {
+    display: none;
+}
+
+#ega-menu--mb .ega-menu--tree {
+    overflow: auto;
+    background: #fff;
+    margin: 0;
+}
+
+.ega-menu--tree__item {
+    position: relative;
+    padding: 5px 0;
+}
+
+#ega-menu--mb .ega-menu--tree__item {
+    padding: 10px 15px;
+}
+
+    #ega-menu--mb .ega-menu--tree__item + .ega-menu--tree__item {
+        border-top: 1px solid #f4f4f4;
+    }
+
+a {
+    color: #288ad6;
+}
+
+a {
+    text-decoration: none;
+}
+
+.ega-menu--tree__item a {
+    color: #333;
+}
+
+#ega-menu--mb .ega-menu--tree__item a span {
+    text-align: center;
+    width: 50px;
+    font-size: 1.1em;
+    position: absolute;
+    right: 0px;
+}
+
+#ega-menu--mb .ega-menu--tree__item.current a {
+    color: #d9121f;
+}
+
+#primary-menu {
+    flex: 0 0 auto;
+}
+
+.ega-btn {
+    -webkit-appearance: none;
+    border: 1px solid transparent;
+    position: relative;
+    line-height: 1.25;
+    padding: .62rem 1.5rem;
+    font-size: 0.9rem;
+    overflow: hidden;
+    will-change: box-shadow;
+    outline: 0;
+    text-decoration: none;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    margin: .5rem;
+    background: #aab541;
+    color: #fff;
+    border-radius: .25rem;
+    transition: all .2s ease-in-out;
+}
+
+.ega-h5, h5 {
+    font-size: 1.25rem;
+}
+
+.ega-m--0 {
+    margin: 0 !important;
+}
+
+.ega-menu {
+    display: flex;
+    z-index: 10;
+    flex-direction: row;
+}
+
+.ega-menu, .ega-menu__item {
+    position: relative;
+}
+
+.ega-menu--vertical {
+    flex-direction: column;
+}
+
+.ega-menu__item.has-child > .ega-menu {
+    opacity: 0;
+    visibility: hidden;
+    margin-top: 10px;
+    transition-duration: 200ms;
+    transition-timing-function: ease-in;
+    transition-property: opacity, margin-top, visibility;
+    min-width: 200px;
+    background: #fff;
+    border: 1px solid #eee;
+    position: absolute;
+}
+
+li.ega-menu__item.has-mega-child > ul.ega-menu.ega-ul.ega-menu--vertical {
+    position: absolute;
+    background: #FFF;
+    left: 100%;
+    min-width: 250px;
+    border: 1px solid #DDD;
+    display: none;
+    margin-top: -34px;
+}
+
+#primary-menu .ega-menu {
+    align-items: center;
+}
+
+#primary-menu .ega-menu {
+    height: inherit;
+}
+
+.header-wrap #primary-menu > .ega-menu, .header-wrap #primary-menu > .ega-menu > .ega-menu__item {
+    position: static;
+}
+
+.ega-text--center {
+    text-align: center !important;
+}
+
+.ega-menu__link {
+    text-decoration: none;
+    padding: .5rem 1rem;
+    display: block;
+    color: #333;
+}
+
+.abc {
+    font-size: 32px;
+    font-weight: 400;
+}
+
+.ega-menu__item.has-child .ega-ul .ega-menu__link {
+    padding: 10px;
+    font-weight: 400;
+}
+
+#primary-menu .ega-menu__link {
+    font-size: 12px;
+    color: #0e1c22;
+}
+
+#primary-menu .ega-menu__item .ega-menu__link {
+    padding: 7px 10px;
+}
+
+a[href='/collections/hot-sale'].ega-menu__link.ega-text--center span {
+    color: red;
+}
+
+#primary-menu .ega-menu__item .ega-menu__link span {
+    font-size: 14px;
+}
+
+#primary-menu .ega-menu__item .ega-menu__link span {
+    font-weight: bold;
+}
+
+#primary-menu .normal-menu {
+    text-align: left;
+    align-items: baseline;
+}
+
+    #primary-menu .normal-menu li {
+        width: 100%;
+    }
+
+[class*=' ega-ic-'], [class^=ega-ic-] {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    stroke-width: 0;
+    stroke: currentColor;
+    fill: currentColor;
+    color: inherit;
+}
+
+.ega-menu__item.has-child svg {
+    position: absolute;
+    top: 50%;
+    right: 0px;
+    transform: translateY(-50%);
+    font-size: 12px;
+}
+
+.ega-menu__item.has-child svg {
+    right: auto;
+}
+
+ul.ega-menu.ega-ul.ega-menu--vertical.normal-menu li a.ega-menu__link.sub-menu svg {
+    position: absolute;
+    right: 3px;
+    transform: rotate(-90deg);
+    top: 11px;
+}
+
+#primary-menu .ega-menu__item.has-child svg {
+    font-size: 9px;
+}
+
+li.ega-menu__item.has-mega-child > ul.ega-menu.ega-ul.ega-menu--vertical li a.ega-menu__link.sub-menu div {
+    font-size: 14px;
+    color: #0e1c22;
+    font-weight: bold;
+}
+
+#primary-menu .ega-menu .current > .ega-menu__link {
+    color: #d9121f;
+}
+
+header #menu-toggle {
+    width: 45px;
+    height: 100%;
+    text-align: center;
+    float: left;
+    line-height: 1;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    flex-flow: column;
+}
+
+header #menu-toggle {
+    display: none;
+}
+
+.ega-pos--absolute {
+    position: absolute;
+}
+
+header .icon-action__search {
+    cursor: pointer;
+}
+
+header .icon-action__search {
+    display: none;
+}
+
+header .icon-action__search--mb {
+    position: absolute;
+    top: 50%;
+    left: 45px;
+    transform: translate(0px, -50%);
+}
+
+header .icon-action__search--mb {
+    display: none;
+}
+
+#logo {
+    width: auto;
+    float: left;
+    box-sizing: content-box;
+}
+
+#logo {
+    width: 20%;
+}
+
+header .ega-form--mb {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    margin: 0;
+    z-index: 10;
+    visibility: hidden;
+    overflow: hidden;
+    transition: all .3s ease-in-out;
+}
+
+header .ega-form--mb {
+    position: static;
+    width: 60%;
+    height: 50px;
+    max-height: 50px;
+    visibility: visible;
+}
+
+.ega-d--flex {
+    display: flex !important;
+}
+
+header .header-right {
+    width: 10%;
+    justify-content: flex-end !important;
+}
+
+header .icon-action {
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 12px;
+}
+
+header .icon-action {
+    justify-content: space-between;
+}
+
+.laco {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+}
+
+.lang__en {
+    margin-left: 4px;
+    cursor: pointer;
+}
+
+.ega-color--inherit {
+    color: inherit !important;
+}
+
+header .icon-action > * {
+    margin-left: 0px;
+}
+
+header .icon-action .icon-account {
+    position: relative;
+}
+
+header .icon-action .cart-count {
+    position: relative;
+}
+
+header .icon-action .header-icon + .header-icon {
+    margin-left: 12px;
+}
+
+header .icon-action .header-icon + .header-icon {
+    margin-left: 24px;
+}
+
+iframe, img {
+    max-width: 100%;
+    vertical-align: middle;
+}
+
+img {
+    max-width: 100%;
+    vertical-align: middle;
+    height: initial !important;
+}
+
+header .icon-action .header-icon img {
+    max-width: 26px;
+}
+
+header .icon-action .header-icon img {
+    max-width: 26px;
+}
+
+header .icon-action .cart-count span {
+    position: absolute;
+    top: -2px;
+    right: -3px;
+    font-size: 10px;
+    text-align: center;
+    width: 15px;
+    height: 15px;
+    line-height: 15px;
+    background: #C54934;
+    color: #fff;
+    border-radius: 50%;
+}
+
+header .icon-action .icon-account .user-action {
+    display: none;
+    position: absolute;
+    top: 100%;
+    width: 150px;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    -o-transform: translateX(-50%);
+    transform: translateX(-50%);
+    padding: 5px 15px;
+    background: #fff;
+    box-shadow: 0px 20px 50px 10px rgba(0,0,0,0.05);
+    border: 1px solid #EEE;
+    border-top: 2px solid #eeeeee;
+    z-index: 99;
+}
+
+    header .icon-action .icon-account .user-action a {
+        display: block;
+        line-height: 32px;
+        font-size: 16px;
+        color: initial;
+    }
+
+.ega-form {
+    position: relative;
+}
+
+.ega-form__control {
+    width: 100%;
+    border: 1px solid #eee;
+    vertical-align: top;
+    font-size: 1rem;
+    padding: .375rem .75rem;
+    border-radius: .25rem;
+    height: calc(1.5em + .75rem + 2px);
+}
+
+header .ega-form--mb .ega-form, header .ega-form--mb .ega-form--group, header .ega-form--mb .ega-form__control {
+    height: 100%;
+}
+
+    header .ega-form--mb .ega-form--group.ega-form__group-btn-in--right {
+        border: 1px solid #eee;
+        background: #fff;
+        padding-right: 2.5rem;
+    }
+
+header .icon-action__search--close {
+    width: 20px;
+    height: 20px;
+    left: 7px;
+    top: 50%;
+    transform: translate(0px, -50%);
+}
+
+input, select, textarea {
+    margin: 0;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+}
+
+header .ega-form--mb .ega-form__control {
+    padding: .375rem 2.5rem;
+    border-left: 0;
+    border-right: 0;
+    border-radius: 0;
+}
+
+header .ega-form--mb .ega-form__control {
+    padding: 1rem;
+}
+
+button {
+    cursor: pointer;
+}
+
+.ega-btn, .ega-item-ic {
+    display: inline-block;
+}
+
+.ega-border--0 {
+    border: 0 !important;
+}
+
+.ega-radius-t-l--0 {
+    border-top-left-radius: 0px !important;
+}
+
+.ega-radius-b-l--0 {
+    border-bottom-left-radius: 0px !important;
+}
+
+.ega-bg--transparent {
+    background-color: transparent;
+}
+
+header .ega-form--mb button {
+    width: 60px;
+    height: 100%;
+    top: 0px;
+    transition: all .3s ease-in-out;
+}
+
+.ega-form__group-btn-in--left .ega-btn, .ega-form__group-btn-in--right .ega-btn {
+    position: absolute;
+    top: 0px;
+}
+
+.ega-form__group-btn-in--right .ega-btn {
+    right: 0px;
+}
+
+.ega-btn.ega-bg--transparent, .ega-btn.ega-bg--transparent:hover {
+    background-color: transparent;
+    border-color: transparent;
+}
+
+.ega-color--black {
+    color: #000;
+}
+
+header .ega-form--mb button svg {
+    width: 30px;
+    height: 30px;
+}
+
+.ega-h1, h1 {
+    font-size: 2.5rem;
+}
+
+.ega-h1, .ega-h2, .ega-h3, .ega-h4, .ega-h5, .ega-h6, h1, h2, h3, h4, h5, h6 {
+    font-family: inherit;
+    font-weight: 600;
+    line-height: 1.2;
+    color: inherit;
+    margin: 1rem 0;
+}
+
+.ega-p--0 {
+    padding: 0 !important;
+}
+
+#logo img {
+    padding-bottom: 0px;
+    height: auto;
+    margin-bottom: 5px;
+}
+
+#logo img {
+    height: auto;
+}
+
+header .icon-action__search--mb img {
+    max-width: 30px;
+}
+
+header #menu-toggle .menu-wrap {
+    position: relative;
+    width: 20px;
+    height: 15px;
+    display: inline-block;
+}
+
+header #menu-toggle i {
+    position: absolute;
+    height: 2px;
+    width: 100%;
+    background: #333;
+    border-radius: 9px;
+    left: 0px;
+    transform-origin: left center;
+    transition: .25s ease-out;
+}
+
+    header #menu-toggle i:nth-child(1) {
+        top: 0px;
+    }
+
+    header #menu-toggle i:nth-child(2) {
+        top: 6px;
+    }
+
+    header #menu-toggle i:nth-child(3) {
+        top: 12px;
+    }
+
+.menu-item {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+    .menu-item span {
+        font-weight: bold; /* Làm đậm chữ */
+    }
+
+    .menu-item .submenu {
+        display: none; /* Ẩn submenu mặc định */
+        position: absolute;
+        top: 100%; /* Hiển thị bên dưới */
+        left: 0;
+        background-color: white;
+        box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
+        min-width: 150px; /* Chiều rộng tối thiểu */
+        z-index: 1000; /* Đảm bảo hiển thị trên cùng */
+    }
+
+        .menu-item .submenu a {
+            display: block;
+            padding: 10px;
+            text-decoration: none;
+            color: black;
+        }
+
+            .menu-item .submenu a:hover {
+                background-color: #f0f0f0; /* Hiệu ứng khi di chuột vào mục con */
+            }
+
+    /* Hiển thị submenu khi di chuột vào menu-item */
+    .menu-item:hover .submenu {
+        display: block;
+    }
+
+.logo a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 27px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: color 0.3s ease;
+}
+
+    .logo a:hover {
+        color: #ff6347;
+    }
+* {
+    font-family: Roboto Condensed;
+}
+
+*, ::after, ::before {
+    box-sizing: border-box;
+}
+
+footer {
+    background: #fff;
+}
+
+body {
+    line-height: 1.5;
+    font-size: 1rem;
+    color: #333;
+    width: 100%;
+    min-height: 100%;
+    margin: 0;
+    scroll-behavior: smooth;
+}
+
+html, body {
+    font-size: 14px;
+}
+
+body {
+    background: #ffffff;
+    color: #000000;
+    overflow-x: hidden;
+}
+
+.ega-container {
+    margin: 0 auto;
+}
+
+.ega-container, .ega-container--fluid {
+    padding-left: 15px;
+    padding-right: 15px;
+    width: 100%;
+}
+
+.ega-container {
+    max-width: 540px;
+}
+
+.ega-container {
+    max-width: 720px;
+}
+
+.ega-container {
+    max-width: 960px;
+}
+
+.ega-container {
+    max-width: 1140px;
+}
+
+.ega-container {
+    max-width: 1140px;
+}
+
+footer .ega-footer {
+    padding-top: 42px;
+}
+
+footer .ega-footer {
+    padding-top: 56px;
+    padding-bottom: 40px;
+}
+
+a {
+    color: #288ad6;
+}
+
+a {
+    text-decoration: none;
+}
+
+.bct__mobile {
+    display: none;
+}
+
+.ega-copyright {
+    font-size: 12px;
+    padding: 10px 0;
+    line-height: 1.8;
+}
+
+#scroll-top {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    line-height: 1;
+    opacity: 0;
+    visibility: hidden;
+    z-index: -1;
+    background: rgba(183, 211, 232, 0.2);
+    border-radius: 50%;
+    text-align: center;
+    cursor: pointer;
+    margin-bottom: 8px;
+    position: fixed;
+    right: 23px;
+    bottom: 17px;
+    -webkit-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+[class*=' ega-ic-'], [class^=ega-ic-] {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    stroke-width: 0;
+    stroke: currentColor;
+    fill: currentColor;
+    color: inherit;
+}
+
+#scroll-top svg {
+    color: #333;
+    vertical-align: middle;
+    font-size: 18px;
+}
+
+.ega-copyright .copyright-rows {
+    margin-bottom: 5px;
+}
+
+.ega-ul {
+    padding-left: 0px;
+    list-style: none;
+}
+
+.ega-copyright .copyright-rows ul {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0;
+}
+
+.ega-color--initial * {
+    color: initial !important;
+}
+
+footer .ega-ul li {
+    margin-bottom: 16px;
+}
+
+.ega-copyright .copyright-rows ul li {
+    display: block;
+}
+
+    .ega-copyright .copyright-rows ul li + li {
+        position: relative;
+        padding-left: 12px;
+        margin-left: 12px;
+    }
+
+        .ega-copyright .copyright-rows ul li + li::before {
+            position: absolute;
+            content: "";
+            width: 1px;
+            height: 15px;
+            background: #333;
+            left: 0px;
+            top: 6px;
+        }
+
+iframe, img {
+    max-width: 100%;
+    vertical-align: middle;
+}
+
+img {
+    max-width: 100%;
+    vertical-align: middle;
+    height: initial !important;
+}
+
+.dt-width-auto {
+    width: auto;
+    height: auto;
+}
+
+.ega-row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: -15px;
+    margin-right: -15px;
+}
+
+footer .ega-row {
+    margin-left: -12px;
+    margin-right: -12px;
+}
+
+.ega-col, [class*=ega-col-] {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.ega-col-12 {
+    flex: 0 0 100%;
+    max-width: 100%;
+}
+
+.ega-col-sm-6 {
+    flex: 0 0 50%;
+    max-width: 50%;
+}
+
+.ega-col-lg-2 {
+    flex: 0 0 16.66667%;
+    max-width: 16.66%;
+}
+
+.ega-col-lg-4 {
+    flex: 0 0 33.33333%;
+    max-width: 33.33%;
+}
+
+footer .ega-row [class*=ega-col-] {
+    padding-left: 12px;
+    padding-right: 12px;
+}
+
+.ega-h1, .ega-h2, .ega-h3, .ega-h4, .ega-h5, .ega-h6, h1, h2, h3, h4, h5, h6 {
+    font-family: inherit;
+    font-weight: 600;
+    line-height: 1.2;
+    color: inherit;
+    margin: 1rem 0;
+}
+
+.ega-h2, h2 {
+    font-size: 2rem;
+}
+
+footer .footer-title {
+    font-size: 16px;
+    position: relative;
+    padding-bottom: 20px;
+}
+
+    footer .footer-title::before {
+        position: absolute;
+        content: "";
+        width: 50px;
+        height: 1px;
+        background: #0E1C22;
+        opacity: 0.2;
+        left: 0px;
+        bottom: 0px;
+    }
+
+.list-instagram {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+    .list-instagram .item-instagram {
+        width: calc(100% /3 - 7px);
+        margin: 5px;
+    }
+
+    .list-instagram :nth-of-type(3n+1).item-instagram {
+        margin-left: 0px;
+    }
+
+    .list-instagram :nth-of-type(3n).item-instagram {
+        margin-right: 0px;
+    }
+
+.dt-width-100 {
+    width: 100%;
+    height: auto;
+}
+
+.ega-color--initial {
+    color: initial !important;
+}
+
+.ega-hidden--xl {
+    display: none !important;
+}

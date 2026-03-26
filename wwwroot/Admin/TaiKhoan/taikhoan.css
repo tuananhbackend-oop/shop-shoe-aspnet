@@ -1,0 +1,97 @@
+﻿/* Định dạng chung */
+.action-cell {
+    text-align: center;
+    vertical-align: middle;
+}
+
+    .action-cell button {
+        margin: 5px;
+        padding: 10px 15px;
+        font-size: 14px;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s ease-in-out;
+    }
+
+/* Màu sắc cho các nút */
+.btn-warning {
+    background-color: #f0ad4e;
+    color: white;
+}
+
+    .btn-warning:hover {
+        background-color: #ec971f;
+    }
+
+.btn-primary {
+    background-color: #0275d8;
+    color: white;
+}
+
+    .btn-primary:hover {
+        background-color: #025aa5;
+    }
+
+.btn-danger {
+    background-color: #d9534f;
+    color: white;
+}
+
+    .btn-danger:hover {
+        background-color: #c9302c;
+    }
+
+/* Modal cải thiện */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1050;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 600px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.modal-content {
+    padding: 20px;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+}
+
+.modal-body {
+    margin: 20px 0;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.close {
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/* Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}

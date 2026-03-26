@@ -1,0 +1,305 @@
+﻿@model IEnumerable<LVTNWEBGIAYDEP.Models.DonHang>
+
+@{
+    ViewData["Title"] = "xemDanhSachHoaDon";
+    Layout = "~/Views/Shared/_LayoutNVBH.cshtml";
+}
+<head>
+    <!-- Thêm Google Fonts -->
+	<style>
+
+
+		.table-header {
+			display: flex; /* Đảm bảo các phần tử con xếp ngang nhau */
+			justify-content: space-between; /* Giãn đều các phần tử */
+			padding: 10px; /* Tạo khoảng cách bên trong */
+			background-color: #2c3e50; /* Màu nền tiêu đề */
+			color: white; /* Màu chữ */
+			font-weight: bold; /* Chữ đậm */
+			border-radius: 8px 8px 0 0; /* Bo tròn góc trên của bảng */
+		}
+
+			.table-header .table-cell {
+				flex: 1; /* Mỗi ô có độ rộng bằng nhau */
+				text-align: center; /* Căn giữa chữ */
+				padding: 8px; /* Tạo khoảng cách trong ô */
+				font-size: 14px; /* Kích thước chữ */
+			}
+
+		.table-row {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			padding: 10px;
+			border-bottom: 1px solid #e1e1e1;
+			background-color: #fff;
+		}
+
+		.table-cell {
+			flex: 1;
+			padding: 8px;
+			text-align: center;
+			font-size: 14px;
+			word-break: break-word; /* Ngăn tràn nội dung */
+		}
+
+		.header-cell {
+			font-weight: bold;
+			background-color: #2c3e50;
+			color: white;
+		}
+		/* General container style */
+		#ega-account {
+			font-family: Arial, sans-serif;
+			background-color: #f7f7f7;
+			padding: 20px;
+		}
+
+		.ega-container {
+			max-width: 1200px;
+			margin: 0 auto;
+		}
+
+
+
+
+
+		.table-body {
+			background-color: white;
+			border-radius: 8px;
+			box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+			overflow: hidden;
+		}
+
+		.actions {
+			display: flex;
+			gap: 8px; /* Khoảng cách giữa các nút */
+			justify-content: center; /* Căn giữa trong ô */
+			align-items: center; /* Căn giữa theo chiều dọc */
+		}
+
+		.inline-form {
+			display: inline-block; /* Đảm bảo form và nút không bị xuống dòng */
+			margin: 0; /* Loại bỏ khoảng cách mặc định của form */
+		}
+
+		.btn {
+			padding: 8px 15px;
+			border-radius: 4px;
+			border: none;
+			cursor: pointer;
+			font-size: 14px;
+			transition: background-color 0.3s ease;
+		}
+
+		.btn-primary {
+			background-color: #3498db;
+			color: white;
+		}
+
+		.btn-danger {
+			background-color: #e74c3c;
+			color: white;
+		}
+
+		.btn:hover {
+			opacity: 0.8;
+		}
+
+		.page-title {
+			text-align: center;
+			margin-bottom: 20px;
+			color: #2c3e50;
+		}
+
+		.separator {
+			margin-top: 15px;
+			border: 0;
+			border-top: 1px solid #e1e1e1;
+		}
+
+		.user_box_title {
+			font-size: 18px;
+			font-weight: bold;
+			margin-bottom: 10px;
+		}
+
+		.user_box_content {
+			padding: 15px;
+			background-color: white;
+			box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+			border-radius: 8px;
+		}
+
+		.detail-item {
+			margin-bottom: 10px;
+		}
+
+		.detail-key {
+			font-weight: bold;
+		}
+
+		.detail-value {
+			margin-left: 5px;
+		}
+
+		.detail__wrap {
+			margin-top: 20px;
+		}
+
+		.delete-form {
+			margin-left: 10px;
+		}
+
+		.btn-logout {
+			display: inline-block;
+			padding: 8px 15px;
+			background-color: #f39c12;
+			color: white;
+			border-radius: 4px;
+			text-decoration: none;
+		}
+
+			.btn-logout:hover {
+				opacity: 0.8;
+			}
+	</style>
+	<style>
+		/* Tùy chỉnh chiều rộng từng cột */
+		.table-cell {
+			flex: 1;
+			padding: 8px;
+			text-align: center;
+			font-size: 14px;
+			word-break: break-word;
+		}
+
+			/* Giới hạn chiều rộng cho từng cột */
+			.table-cell:nth-child(1) { /* Họ tên */
+				flex-basis: 20%; /* Chiếm 20% chiều rộng */
+				max-width: 200px; /* Giới hạn chiều rộng tối đa */
+			}
+
+			.table-cell:nth-child(2) { /* Tài khoản */
+				flex-basis: 20%;
+				max-width: 150px;
+			}
+
+			.table-cell:nth-child(3) { /* Số điện thoại */
+				flex-basis: 15%;
+				max-width: 120px;
+			}
+
+			.table-cell:nth-child(4) { /* Địa chỉ */
+				flex-basis: 25%;
+				max-width: 250px;
+			}
+
+			.table-cell:nth-child(5) { /* Thanh toán */
+				flex-basis: 10%;
+				max-width: 100px;
+			}
+
+			.table-cell:nth-child(6) { /* Hành động */
+				flex-basis: 25%; /* Chiếm rộng hơn để đủ không gian */
+				text-align: center; /* Căn giữa nút */
+			}
+
+		/* Nút trong hành động: căn chỉnh hợp lý */
+		.actions {
+			display: flex;
+			gap: 10px; /* Khoảng cách giữa các nút */
+			justify-content: center;
+			align-items: center;
+			flex-wrap: nowrap; /* Ngăn các nút bị xuống dòng */
+		}
+
+
+	</style>
+   
+</head>
+
+
+<body class="template_customers" id="ega-fashion">
+
+
+	<h1 class="page-title">Danh Sách Đơn Hàng</h1>
+
+	<div class="table-header">
+		<div class="table-cell header-cell">Họ tên</div>
+		<div class="table-cell header-cell">Tài khoản</div>
+		<div class="table-cell header-cell">Số điện thoại</div>
+		<div class="table-cell header-cell">Địa chỉ</div>
+	
+		<div class="table-cell header-cell">Thanh Toán</div>
+		<div class="table-cell header-cell">Hành động</div>
+	</div>
+
+	<div class="table-body">
+		@foreach (var item in Model)
+		{
+			<div>
+				@if (@item.trangThai != "Đã Huỷ" && @item.trangThai != "Hoàn Tất" && @item.trangThai != "Không Nhận")
+				{
+			string idDiv = "div" + item.SoDienThoai;
+			string idInput = "input" + item.SoDienThoai;
+			<div class="table-row">
+
+				<div class="table-cell">@item.TaiKhoanNavigation.HoTen</div>
+				<div class="table-cell">@item.TaiKhoan</div>
+				<div class="table-cell">@item.SoDienThoai</div>
+				<div class="table-cell">@item.DiaChi</div>
+				<div class="table-cell">@item.thanhToan</div>
+
+				<div class="table-cell actions">
+					<input type="button" id="@idInput" class="btn btn-primary" onclick="xemChiTietHD('@item.SoDienThoai')" value="Xem chi tiết"></input>
+
+					<form asp-action="xacNhanDonHang" method="post" class="inline-form">
+						<input type="hidden" id="iddh" name="iddh" value="@item.SoDienThoai" />
+						<button type="submit" class="btn btn-success">@item.trangThai</button>
+					</form>
+
+					<form id="deleteForm" asp-action="xoaDonHang" method="post" class="inline-form">
+						<input type="hidden" id="idhd" name="idhd" value="@item.SoDienThoai" />
+						<button type="button" class="btn btn-danger" onclick="confirmDelete('@item.SoDienThoai')">Huỷ đơn</button>
+					</form>
+				</div>
+			</div>
+			<div id="@idDiv" class="details-container"></div>
+			<hr class="separator" />
+				}
+			</div>
+		}
+	</div>
+
+	<script>
+		function confirmDelete(SoDienThoai) {
+			if (window.confirm("Bạn có thực sự muốn xoá đơn hàng này không?")) {
+				document.getElementById("idhd").value = SoDienThoai;
+				document.getElementById("deleteForm").submit();
+			}
+		}
+
+		function xemChiTietHD(id) {
+			const xhttp = new XMLHttpRequest();
+			xhttp.onload = function () {
+				// Kiểm tra nếu giá trị của nút là "Xem chi tiết"
+				if (document.getElementById("input" + id).value == "Xem chi tiết") {
+					document.getElementById("div" + id).innerHTML = xhttp.responseText;
+					// Thay đổi giá trị của nút thành "Đóng chi tiết"
+					document.getElementById("input" + id).value = "Đóng chi tiết";
+				} else {
+					// Nếu giá trị của nút là "Đóng chi tiết", thay đổi lại về "Xem chi tiết"
+					document.getElementById("input" + id).value = "Xem chi tiết";
+					// Xóa nội dung hiển thị chi tiết
+					document.getElementById("div" + id).innerHTML = "";
+				}
+			}
+			const url = "/NhanVienBanHang/hienThiChiTietHD/" + id;
+			xhttp.open("GET", url);
+			xhttp.send();
+		}
+	</script>
+
+
+</body>

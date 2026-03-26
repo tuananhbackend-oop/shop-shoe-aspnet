@@ -1,0 +1,95 @@
+﻿@model LVTNWEBGIAYDEP.Models.ThuongHieu
+
+@{
+    ViewData["Title"] = "Sửa Thương Hiệu";
+    Layout = "~/Views/Shared/_LayoutNVQLSP.cshtml";
+}
+
+<!-- Tiêu đề trang -->
+<h2 style="font-size: 2rem; text-align: center; color: #007bff;">Sửa Thương Hiệu</h2>
+<hr />
+
+<!-- Form sửa thương hiệu -->
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <!-- Tăng chiều rộng của cột -->
+        <div class="card shadow-lg border-light">
+            <div class="card-header bg-info text-white text-center">
+            </div>
+            <div class="card-body">
+                <form asp-action="suaTH" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                    <!-- Mã Thương Hiệu -->
+                    <div class="form-group">
+                        <label asp-for="MaTh" class="control-label font-weight-bold text-primary">Mã Thương Hiệu</label>
+                        <input asp-for="MaTh" class="form-control form-control-lg" />
+                        <span asp-validation-for="MaTh" class="text-danger"></span>
+                    </div>
+
+                    <!-- Tên Thương Hiệu -->
+                    <div class="form-group">
+                        <label asp-for="TenTh" class="control-label font-weight-bold text-primary">Tên Thương Hiệu</label>
+                        <input asp-for="TenTh" class="form-control form-control-lg" />
+                        <span asp-validation-for="TenTh" class="text-danger"></span>
+                    </div>
+
+                    <!-- Nút Submit -->
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-lg btn-block shadow-sm" style="font-size: 1.5rem; padding: 1.2rem;">
+                            <i class="fas fa-save"></i> Lưu
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Include Font Awesome for Icons -->
+<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+
+<!-- Add Custom CSS for better design -->
+<style>
+    /* Tăng kích thước form */
+    .col-md-8 {
+        max-width: 90%; /* Tăng chiều rộng của cột */
+    }
+
+    /* Tăng kích thước chữ của tiêu đề */
+    .card-header h4 {
+        font-size: 2rem; /* Tăng kích thước chữ */
+    }
+
+    /* Tạo hiệu ứng cho nút khi hover */
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+        transition: all 0.3s ease;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #004085;
+            transform: scale(1.05); /* Phóng to nút khi hover */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Tạo bóng đổ khi hover */
+        }
+
+        .btn-primary:focus {
+            outline: none;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.6); /* Thêm bóng đổ khi focus */
+        }
+
+    /* Tăng độ rộng của các ô nhập liệu */
+    .form-control-lg {
+        font-size: 1.1rem; /* Tăng font size cho ô nhập liệu */
+        padding: 1rem 1.5rem; /* Điều chỉnh padding để ô nhập liệu rộng hơn */
+    }
+
+    /* Giới hạn chiều rộng của form */
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+</style>

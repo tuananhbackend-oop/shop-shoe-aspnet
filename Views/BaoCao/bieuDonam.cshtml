@@ -1,0 +1,101 @@
+﻿@using Microsoft.EntityFrameworkCore
+@using LVTNWEBGIAYDEP.Models
+@inject DBGiayDepContext db
+@{
+    ViewData["Title"] = "bieuDo";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+@{
+
+    var ngayHienTai = DateTime.Now;
+
+    // Lấy dữ liệu trong 12 tháng qua, chỉ chọn đơn hàng có trạng thái "Hoàn Tất"
+    var donHangTheoThang = db.DonHangs
+        .Where(dh => dh.ngayLapDon.HasValue && dh.ngayLapDon.Value >= ngayHienTai.AddYears(-1))
+        .Where(dh => dh.trangThai == "Hoàn Tất")
+        .GroupBy(dh => new { dh.ngayLapDon.Value.Year, dh.ngayLapDon.Value.Month })
+        .Select(g => new
+        {
+            Nam = g.Key.Year,
+            Thang = g.Key.Month,
+            TongTien = g.SelectMany(dh => dh.ChiTietDonHangs)
+                        .Where(ctdh => ctdh.MaSpNavigation.GiaBan.HasValue)
+                        .Sum(ctdh => ctdh.MaSpNavigation.GiaBan.Value * ctdh.SoLuong),
+            SoLuongDonHang = g.SelectMany(dh => dh.ChiTietDonHangs)
+                              .Sum(ctdh => ctdh.SoLuong) // Tổng số lượng đơn hàng trong tháng
+        })
+        .OrderBy(g => g.Nam).ThenBy(g => g.Thang)
+        .ToList();
+
+    var danhSachThang = Enumerable.Range(0, 12)
+        .Select(offset => new DateTime(ngayHienTai.Year, ngayHienTai.Month, 1).AddMonths(-11 + offset))
+        .ToList();
+
+    // Tính tổng tiền và số lượng đơn hàng cho từng tháng
+    var soTienDonHangTheoThang = danhSachThang.Select(thang =>
+    {
+        var donHangTrongThang = donHangTheoThang.FirstOrDefault(dh => dh.Nam == thang.Year && dh.Thang == thang.Month);
+        return donHangTrongThang?.TongTien ?? 0;
+    }).ToList();
+
+    var soLuongDonHangTheoThang = danhSachThang.Select(thang =>
+    {
+        var donHangTrongThang = donHangTheoThang.FirstOrDefault(dh => dh.Nam == thang.Year && dh.Thang == thang.Month);
+        return donHangTrongThang?.SoLuongDonHang ?? 0;
+    }).ToList();
+}
+
+<canvas id="chart12Months"></canvas>
+
+<script>
+    // Chuẩn bị dữ liệu cho 12 tháng
+    var labels12Months = @Html.Raw(Json.Serialize(danhSachThang.Select(x => x.ToString("MM/yyyy"))));
+    var data12Months = @Html.Raw(Json.Serialize(soTienDonHangTheoThang)); // Tổng tiền theo tháng
+    var soLuongDonHangTheoThang = @Html.Raw(Json.Serialize(soLuongDonHangTheoThang)); // Số lượng đơn hàng theo tháng
+
+    new Chart(document.getElementById('chart12Months'), {
+        type: 'line', // Dùng line chart cho dữ liệu 1 năm (có thể đổi sang bar chart nếu thích)
+        data: {
+            labels: labels12Months,
+            datasets: [{
+                label: 'Tổng tiền đơn hàng',
+                data: data12Months,
+                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1,
+                fill: true
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Tổng tiền (VND)'
+                    }
+                },
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Tháng'
+                    }
+                }
+            },
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        afterLabel: function (tooltipItem) {
+                            var index = tooltipItem.dataIndex;
+                            var soLuong = soLuongDonHangTheoThang[index];
+                            return 'Số lượng đơn hàng: ' + soLuong;
+                        }
+                    }
+                }
+            }
+        }
+    });
+</script>
