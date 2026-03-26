@@ -11,7 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<DBGiayDepContext>(options =>
-    options.UseSqlite("Data Source=app.db"));
+    options.UseSqlite("Data Source=" + Path.Combine(Directory.GetCurrentDirectory(), "app.db")));
 builder.Services.AddDistributedMemoryCache();
 
 builder.Services.AddSession(options =>
