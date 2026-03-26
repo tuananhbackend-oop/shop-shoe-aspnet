@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("LVTNWEBGIAYDEP")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4de6de337e705fb5bd042de4e32e504b3218769f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a61e3f7d849a13697196b54e9fdbc49742b5a220")]
 [assembly: System.Reflection.AssemblyProductAttribute("LVTNWEBGIAYDEP")]
 [assembly: System.Reflection.AssemblyTitleAttribute("LVTNWEBGIAYDEP")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
