@@ -1323,5 +1323,4 @@ C:\Users\Tuan Anh\Desktop\LVTNWEBGIAYDEP\LVTNWEBGIAYDEP\obj\Debug\net6.0\refint\
 C:\Users\Tuan Anh\Desktop\LVTNWEBGIAYDEP\LVTNWEBGIAYDEP\obj\Debug\net6.0\LVTNWEBGIAYDEP.pdb
 C:\Users\Tuan Anh\Desktop\LVTNWEBGIAYDEP\LVTNWEBGIAYDEP\obj\Debug\net6.0\LVTNWEBGIAYDEP.genruntimeconfig.cache
 C:\Users\Tuan Anh\Desktop\LVTNWEBGIAYDEP\LVTNWEBGIAYDEP\obj\Debug\net6.0\ref\LVTNWEBGIAYDEP.dll
-C:\Users\Tuan Anh\Desktop\LVTNWEBGIAYDEP\LVTNWEBGIAYDEP\bin\Debug\net6.0\app.db
 C:\Users\Tuan Anh\Desktop\LVTNWEBGIAYDEP\LVTNWEBGIAYDEP\obj\Debug\net6.0\LVTNWEBGIAYDEP.sourcelink.json
