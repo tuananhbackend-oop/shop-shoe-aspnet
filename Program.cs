@@ -51,6 +51,10 @@ app.UseSession();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=User}/{action=Index}/{id?}");
-
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<DBGiayDepContext>();
+    db.Database.Migrate();
+}
 app.Run();
 
